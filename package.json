@@ -1,0 +1,19 @@
+{
+  "name": "briefjesspel",
+  "version": "0.0.1",
+  "description": "Mobiele ondersteuning om via Skype het Briefjesspel te kunnen spelen",
+  "main": "index.js",
+  "keywords": ["briefjesspel", "briefjes", "spel", "charades"],
+  "authors": [
+    {
+      "name": "Luuk Linders",
+      "email": "lunkkun@gmail.com"
+    }
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "ws": "^7.2.3"
+  }
+}
