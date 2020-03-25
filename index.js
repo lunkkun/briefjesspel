@@ -38,6 +38,11 @@ const wss = new WebSocket.Server({ clientTracking: false, noServer: true, path: 
 
 server.on('upgrade', function(req, socket, head) {
   sessionParser(req, {}, () => {
+    if (!req.session.userId) {
+      socket.destroy();
+      return;
+    }
+
     wss.handleUpgrade(req, socket, head, function(ws) {
       wss.emit('connection', ws, req)
     })
@@ -49,10 +54,6 @@ const wsMap = new Map()
 wss.on('connection', function(ws, req) {
   const userId = req.session.userId
   const gameId = req.session.gameId
-
-  if (!userId) {
-    ws.close()
-  }
 
   wsMap.set(userId, ws)
 
