@@ -25,7 +25,9 @@ app.get('/:gameId?', function (req, res) {
   if (!req.session.userId) {
     req.session.userId = crypto.randomBytes(16).toString('hex')
   }
-  req.session.gameId = req.params.gameId
+  if (!req.session.gameId) {
+    req.session.gameId = req.params.gameId
+  }
 
   res.sendFile('index.html', {root: __dirname + '/client/dist/'}, () => {
     res.end()
