@@ -13,45 +13,39 @@ const app = express()
 const wsMap = new Map()
 
 const sessionParser = session({
-  saveUninitialized: false,
+  saveUninitialized: true,
   secret: appKey,
   resave: false,
 })
 
-app.use(express.static('client/dist'))
 app.use(sessionParser)
+app.use(express.static('client/dist', { index: '_' }))
 
-function createUserId() {
-  return crypto.randomBytes(20).toString('hex')
-}
+app.get('/:gameId?', function (req, res) {
+  if (!req.session.userId) {
+    req.session.userId = crypto.randomBytes(16).toString('hex')
+  }
+  req.session.gameId = req.params.gameId
 
-app.get('/:gameId', function (request, response) {
-  request.session.userId = createUserId()
-  request.session.gameId = request.params.gameId
-
-  response.sendFile('index.html', {root: __dirname + '/client/dist/'}, () => {
-    response.end()
+  res.sendFile('index.html', {root: __dirname + '/client/dist/'}, () => {
+    res.end()
   })
 })
 
 const server = http.createServer(app)
 const wss = new WebSocket.Server({ clientTracking: false, noServer: true, path: '/ws/' })
 
-server.on('upgrade', function(request, socket, head) {
-  sessionParser(request, {}, () => {
-    if (!request.session.userId) {
-      request.session.userId = createUserId()
-    }
-
-    wss.handleUpgrade(request, socket, head, function(ws) {
-      wss.emit('connection', ws, request)
+server.on('upgrade', function(req, socket, head) {
+  sessionParser(req, {}, () => {
+    wss.handleUpgrade(req, socket, head, function(ws) {
+      wss.emit('connection', ws, req)
     })
   })
 })
 
-wss.on('connection', function(ws, request) {
-  const userId = request.session.userId
-  const gameId = request.session.gameId || null
+wss.on('connection', function(ws, req) {
+  const userId = req.session.userId
+  const gameId = req.session.gameId
 
   wsMap.set(userId, ws)
 
