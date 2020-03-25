@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     socket: {
-      firstOpened: false,
       isConnected: false,
       reconnectError: false,
     },
@@ -14,7 +13,6 @@ export default new Vuex.Store({
   mutations:{
     SOCKET_ONOPEN (state, event)  {
       Vue.prototype.$socket = event.currentTarget
-      state.socket.firstOpened = true
       state.socket.isConnected = true
     },
     SOCKET_ONCLOSE (state, event)  {

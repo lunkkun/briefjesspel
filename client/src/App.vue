@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Game v-if="connected"></Game>
+    <Game></Game>
   </div>
 </template>
 
@@ -11,11 +11,6 @@ export default {
   name: 'App',
   components: {
     Game,
-  },
-  computed: {
-    connected: function () {
-      return this.$store.state.socket.firstOpened
-    },
   },
 }
 </script>
