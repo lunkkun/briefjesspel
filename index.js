@@ -1,13 +1,17 @@
 'use strict'
 
-const crypto = require("crypto")
+// load environment
+const port = process.env.PORT || 4000
+const appKey = process.env.APP_KEY || '$eCuRiTy'
+
+// load external dependencies
 const express = require('express')
 const http = require('http')
 const session = require('express-session')
-const WebSocket = require('ws')
 
-const port = process.env.PORT || 4000
-const appKey = process.env.APP_KEY || '$eCuRiTy'
+// load internal dependencies
+const routes = require('./routes/index')
+const wss = require('./lib/websocket-server')
 
 const sessionParser = session({
   saveUninitialized: true,
@@ -19,24 +23,11 @@ const app = express()
 
 app.use(sessionParser)
 app.use(express.static('client/dist', { index: '_' }))
-
-app.get('/:gameId?', function (req, res) {
-  if (!req.session.userId) {
-    req.session.userId = crypto.randomBytes(16).toString('hex')
-  }
-  if (!req.session.gameId) {
-    req.session.gameId = req.params.gameId // TODO: validate gameId
-  }
-
-  res.sendFile('index.html', {root: __dirname + '/client/dist/'}, () => {
-    res.end()
-  })
-})
+app.use('/', routes)
 
 const server = http.createServer(app)
-const wss = new WebSocket.Server({ clientTracking: false, noServer: true, path: '/ws/' })
 
-server.on('upgrade', function(req, socket, head) {
+server.on('upgrade', (req, socket, head) => {
   sessionParser(req, {}, () => {
     if (!req.session.userId) {
       socket.destroy();
@@ -46,26 +37,6 @@ server.on('upgrade', function(req, socket, head) {
     wss.handleUpgrade(req, socket, head, function(ws) {
       wss.emit('connection', ws, req)
     })
-  })
-})
-
-const wsMap = new Map()
-
-wss.on('connection', function(ws, req) {
-  const userId = req.session.userId
-  const gameId = req.session.gameId
-
-  wsMap.set(userId, ws)
-
-  console.debug(`Connected user ${userId} in game ${gameId}`)
-
-  ws.on('message', function(message) {
-    // TODO
-    console.info(`Received message ${message} from user ${userId} in game ${gameId}`)
-  })
-
-  ws.on('close', function() {
-    wsMap.delete(userId)
   })
 })
 
