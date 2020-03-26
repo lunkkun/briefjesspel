@@ -1,13 +1,24 @@
 const express = require('express');
-const router = express.Router();
-const crypto = require("crypto")
+const gameStore = require('../lib/game-store')
+const User = require('../models/user')
 
-router.get('/:gameId?', function (req, res) {
+const router = express.Router();
+
+router.get('/:gameUri?', (req, res) => {
+  const gameUri = req.params.gameUri
+
   if (!req.session.userId) {
-    req.session.userId = crypto.randomBytes(16).toString('hex')
+    const user = new User()
+    req.session.userId = user.id
   }
-  if (!req.session.gameId) {
-    req.session.gameId = req.params.gameId // TODO: validate gameId
+
+  if (gameUri && !req.session.gameId) {
+    if (gameStore.gamesByUri.has(gameUri)) {
+      const game = gameStore.gamesByUri.get(gameUri)
+      req.session.gameId = game.id
+    } else {
+      console.error(`Invalid game uri ${gameUri} for user ${req.session.userId}`)
+    }
   }
 
   res.sendFile('index.html', { root: __dirname + '/../client/dist'})

@@ -10,9 +10,10 @@ const http = require('http')
 const session = require('express-session')
 
 // load internal dependencies
-const routes = require('./routes/index')
 const wss = require('./lib/websocket-server')
+const routes = require('./routes/index')
 
+// create shared sessionParser for http & ws
 const sessionParser = session({
   saveUninitialized: true,
   secret: appKey,
