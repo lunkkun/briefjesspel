@@ -1,8 +1,13 @@
-const crypto = require('crypto')
+const uuid = require('uuid')
 
 class User {
-  id = crypto.randomBytes(16).toString('hex')
-  name = ''
+  id
+  name
+
+  constructor(data = {}) {
+    this.id = data.id || uuid.v4()
+    this.name = data.name || ''
+  }
 
   get data() {
     return {

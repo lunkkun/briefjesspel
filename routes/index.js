@@ -4,20 +4,22 @@ const User = require('../models/user')
 
 const router = express.Router();
 
-router.get('/:gameUri?', (req, res) => {
-  const gameUri = req.params.gameUri
+router.get('/:gamePath?', (req, res) => {
+  const gamePath = req.params.gamePath
 
   if (!req.session.userId) {
     const user = new User()
     req.session.userId = user.id
   }
 
-  if (gameUri && !req.session.gameId) {
-    if (gameStore.gamesByUri.has(gameUri)) {
-      const game = gameStore.gamesByUri.get(gameUri)
+  if (gamePath && !req.session.gameId) {
+    if (gameStore.byPath.has(gamePath)) {
+      const game = gameStore.byPath.get(gamePath)
+      game.addPlayer(req.session.userId)
+
       req.session.gameId = game.id
     } else {
-      console.error(`Invalid game uri ${gameUri} for user ${req.session.userId}`)
+      console.error(`Invalid game path ${gamePath} for user ${req.session.userId}`)
     }
   }
 
