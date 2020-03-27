@@ -1,7 +1,11 @@
+function msg(action, data) {
+  return {action, data, type: 'sendMessage'}
+}
+
 export default {
   state: {
     isLoaded: false, // whether we've received the first response from the server
-    isInitialized: false, // whether the're actually a game
+    isActive: false, // whether there's actually an active game
     path: '',
 
     players: [],
@@ -18,7 +22,7 @@ export default {
     activePlayer: null,
     turnStarted: false,
     turnTimeLeft: 60, // in seconds
-    entry: '',
+    activeEntry: '',
   },
   mutations: {
     load(state, data) {
@@ -40,12 +44,17 @@ export default {
         state.turnStarted = data.turnStarted
         state.turnTimeLeft = data.turnTimeLeft
 
-        state.isInitialized = true
+        state.isActive = true
       }
       state.isLoaded = true
     },
   },
   actions: {
-
+    async newGame({state, dispatch}) {
+      await dispatch(msg('newGame', {
+        entriesPerPlayer: state.entriesPerPlayer,
+      }))
+      state.isActive = true
+    },
   },
 }

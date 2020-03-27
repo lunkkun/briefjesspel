@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <Game></Game>
+    <div v-if="isLoaded">
+      <Game></Game>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex"
 import Game from './components/Game.vue'
 
 export default {
@@ -12,6 +15,9 @@ export default {
   components: {
     Game,
   },
+  computed: mapState({
+    isLoaded: state => state.game.isLoaded,
+  }),
 }
 </script>
 
