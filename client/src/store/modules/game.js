@@ -50,10 +50,9 @@ export default {
     },
   },
   actions: {
-    async newGame({state, dispatch}) {
-      await dispatch(msg('newGame', {
-        entriesPerPlayer: state.entriesPerPlayer,
-      }))
+    async newGame({state, dispatch}, settings) {
+      await dispatch(msg('newGame', settings))
+      state.entriesPerPlayer = settings.entriesPerPlayer
       state.isActive = true
     },
   },
