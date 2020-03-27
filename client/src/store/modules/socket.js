@@ -28,11 +28,12 @@ export default {
     },
   },
   actions: {
-    async sendMessage({state}, message) {
+    async sendMessage({state}, {action, data}) {
       if (!state.isConnected) {
-        throw new Error('Not connected; could not send message ' + message.action)
+        throw new Error('Not connected; could not send message ' + action)
       }
-      Vue.prototype.$socket.send(JSON.stringify(message))
+      console.log(data)
+      Vue.prototype.$socket.send(JSON.stringify({action, data}))
     },
   },
 }
