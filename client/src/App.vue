@@ -2,7 +2,7 @@
   <div id="app">
     <div v-if="isLoaded">
       <Game v-if="gameActive"></Game>
-      <Setup v-else></Setup>
+      <Home v-else></Home>
     </div>
     <SpinnerLoader v-else color="#54f1d2" />
   </div>
@@ -11,15 +11,15 @@
 <script>
 import {mapState} from "vuex"
 import SpinnerLoader from '@bit/joshk.vue-spinners-css.spinner-loader'
-import Setup from './components/Setup'
+import Home from './components/Home'
 import Game from './components/Game'
 
 export default {
   name: 'App',
   components: {
     Game,
+    Home,
     SpinnerLoader,
-    Setup,
   },
   computed: mapState({
     isLoaded: state => state.game.isLoaded,
