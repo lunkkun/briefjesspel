@@ -4,32 +4,41 @@ const User = require('../models/user')
 const randomString = require('../lib/random-string')
 
 class Game extends EventEmitter {
+  // identifiers
   id
   path
+
+  // timestamps
+  createdAt = new Date()
+  updatedAt = new Date()
+
+  // settings for game
   players = new Map()
   teams = new Map()
-
   master
-  notesPerPlayer
+  entriesPerPlayer
+  entries = []
 
-  isActive = true
+  // state of game
   isStarted = false
   isFinished = false
 
+  // state of round
+  entriesForRound = []
   turnOrder = []
   turnTime // in seconds
+  roundStarted = false
+
+  // state of turn
   activePlayer
   turnStarted = false
   turnTimeLeft // in seconds
-
-  createdAt = new Date()
-  updatedAt = new Date()
 
   constructor(data = {}) {
     super()
     this.id = data.id || uuid.v4()
     this.path = data.path || randomString(10)
-    this.notesPerPlayer = data.notesPerPlayer || 4
+    this.entriesPerPlayer = data.entriesPerPlayer || 4
   }
 
   hasPlayer(userId) {
@@ -90,9 +99,21 @@ class Game extends EventEmitter {
   }
 
   get playerData() {
-    const players = this.players.map((user) => {
-      const data = user.data
-      data.isMaster = user.id === this.master
+    return this.players
+      .map((user) => {
+        const data = user.data
+        data.isMaster = user.id === this.master
+        return data
+      })
+      .filter(user => user.name)
+  }
+
+  get teamData() {
+    return this.turnOrder.map((teamId) => {
+      const data = this.teams.get(teamId).data
+      data.players = data.players
+        .map(userId => this.players.get(userId).data)
+        .filter(user => user.name)
       return data
     })
   }
@@ -100,11 +121,17 @@ class Game extends EventEmitter {
   get data() {
     return {
       path: this.path,
-      players: this.playerData.filter(user => user.name),
-      teams: this.turnOrder.map(teamId => this.teams.get(teamId).data),
+
+      players: this.playerData,
+      teams: this.teamData,
+      entriesPerPlayer: this.entriesPerPlayer,
+
       isStarted: this.isStarted,
       isFinished: this.isFinished,
+
       turnTime: this.turnTime,
+      roundStarted: this.roundStarted,
+
       activePlayer: this.activePlayer,
       turnStarted: this.turnStarted,
       turnTimeLeft: this.turnTimeLeft,
