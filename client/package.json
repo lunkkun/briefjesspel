@@ -7,14 +7,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@bit/joshk.vue-spinners-css.spinner-loader": "^1.1.3",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-native-websocket": "^2.0.14",
-    "vuex": "^3.1.2"
-  },
-  "devDependencies": {
+    "vuex": "^3.1.2",
     "@vue/cli-plugin-babel": "^4.2.0",
     "@vue/cli-plugin-vuex": "^4.2.0",
     "@vue/cli-service": "^4.2.0",
