@@ -12,6 +12,7 @@ const session = require('express-session')
 // load internal dependencies
 const wss = require('./lib/websocket-server')
 const routes = require('./routes/index')
+const User = require('./models/user')
 
 // create shared sessionParser for http & ws
 const sessionParser = session({
@@ -31,8 +32,8 @@ const server = http.createServer(app)
 server.on('upgrade', (req, socket, head) => {
   sessionParser(req, {}, () => {
     if (!req.session.userId) {
-      socket.destroy();
-      return;
+      const user = new User()
+      req.session.userId = user.id
     }
 
     wss.handleUpgrade(req, socket, head, function(ws) {
