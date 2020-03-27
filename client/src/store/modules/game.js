@@ -25,7 +25,7 @@ export default {
     activeEntry: '',
   },
   mutations: {
-    load(state, data) {
+    load(state, {data}) {
       if (data) {
         state.path = data.path
 

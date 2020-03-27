@@ -1,22 +1,29 @@
 <template>
   <div id="app">
     <div v-if="isLoaded">
-      <Game></Game>
+      <Game v-if="gameActive"></Game>
+      <Setup v-else></Setup>
     </div>
+    <SpinnerLoader v-else color="#54f1d2" />
   </div>
 </template>
 
 <script>
 import {mapState} from "vuex"
-import Game from './components/Game.vue'
+import SpinnerLoader from '@bit/joshk.vue-spinners-css.spinner-loader'
+import Setup from './components/Setup'
+import Game from './components/Game'
 
 export default {
   name: 'App',
   components: {
     Game,
+    SpinnerLoader,
+    Setup,
   },
   computed: mapState({
     isLoaded: state => state.game.isLoaded,
+    gameActive: state => state.game.isActive,
   }),
 }
 </script>
