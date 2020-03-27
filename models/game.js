@@ -12,13 +12,15 @@ class Game extends EventEmitter {
   master
   notesPerPlayer
 
+  isActive = true
+  isStarted = false
+  isFinished = false
+
   turnOrder = []
   turnTime // in seconds
   activePlayer
-
-  active = true
-  started = false
-  finished = false
+  turnStarted = false
+  turnTimeLeft // in seconds
 
   createdAt = new Date()
   updatedAt = new Date()
@@ -35,7 +37,7 @@ class Game extends EventEmitter {
   }
 
   addPlayer(userId, isMaster = false) {
-    if (!this.started && !this.hasPlayer(userId)) {
+    if (!this.isStarted && !this.hasPlayer(userId)) {
       this.players.set(userId, new User({id: userId}))
 
       if (isMaster) {
@@ -72,16 +74,16 @@ class Game extends EventEmitter {
   }
 
   start() {
-    if (!this.started) {
-      this.started = true
+    if (!this.isStarted) {
+      this.isStarted = true
 
       this.emit('started')
     }
   }
 
   finish() {
-    if (!this.finished) {
-      this.finished = true
+    if (!this.isFinished) {
+      this.isFinished = true
 
       this.emit('finished')
     }
@@ -100,10 +102,12 @@ class Game extends EventEmitter {
       path: this.path,
       players: this.playerData.filter(user => user.name),
       teams: this.turnOrder.map(teamId => this.teams.get(teamId).data),
-      started: this.started,
-      finished: this.finished,
+      isStarted: this.isStarted,
+      isFinished: this.isFinished,
       turnTime: this.turnTime,
       activePlayer: this.activePlayer,
+      turnStarted: this.turnStarted,
+      turnTimeLeft: this.turnTimeLeft,
     }
   }
 
