@@ -99,7 +99,7 @@ class Game extends EventEmitter {
   }
 
   get playerData() {
-    return this.players
+    return Array.from(this.players.values())
       .map((user) => {
         const data = user.data
         data.isMaster = user.id === this.master
