@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button v-if="!showSettings" @click="showSettings = true">Start nieuw spel</button>
-    <Setup v-else></Setup>
+    <Setup v-if="showSetup"></Setup>
+    <button v-else @click="showSetup = true">Start nieuw spel</button>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      showSettings: false,
+      showSetup: false,
     }
   },
 }
