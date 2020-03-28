@@ -15,7 +15,7 @@ export default {
     return {
       settings: {
         entriesPerPlayer: 4,
-      }
+      },
     }
   },
   methods: mapActions([

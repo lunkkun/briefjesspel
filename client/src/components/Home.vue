@@ -11,7 +11,7 @@ import Setup from './Setup'
 export default {
   name: 'Home',
   components: {
-    Setup
+    Setup,
   },
   data() {
     return {
