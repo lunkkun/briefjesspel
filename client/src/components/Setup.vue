@@ -21,7 +21,7 @@
       <button @click="startGame">Start</button>
     </div>
     <div v-else>
-      Wachten tot het fisten kan beginnen...
+      Wachten tot het spel kan beginnen...
     </div>
   </div>
 </template>
