@@ -1,21 +1,21 @@
 <template>
   <div>
-    <Setup v-if="showSetup"></Setup>
-    <button v-else @click="showSetup = true">Start nieuw spel</button>
+    <Create v-if="creating"></Create>
+    <button v-else @click="creating = true">Start nieuw spel</button>
   </div>
 </template>
 
 <script>
-import Setup from './Setup'
+import Create from './Create'
 
 export default {
   name: 'Home',
   components: {
-    Setup,
+    Create,
   },
   data() {
     return {
-      showSetup: false,
+      creating: false,
     }
   },
 }

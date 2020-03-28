@@ -10,7 +10,7 @@
 import {mapActions} from "vuex"
 
 export default {
-  name: 'Setup',
+  name: 'Create',
   data() {
     return {
       settings: {
