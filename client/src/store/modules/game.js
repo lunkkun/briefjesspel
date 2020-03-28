@@ -44,7 +44,7 @@ export default {
       return state.players.find(user => user.id === state.master)
     },
     shareableLink: state => {
-      return `${window.location.protocol}://${window.location.host}/${state.path}`
+      return `${window.location.protocol}//${window.location.host}/${state.path}`
     },
   },
   mutations: {
