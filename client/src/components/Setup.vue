@@ -16,7 +16,7 @@
     </div>
     <!-- briefjes invullen -->
     <!-- teams samenstellen -->
-    <!-- ronde settings instellen -->
+    <!-- tijd per ronde instellen -->
     <div v-else-if="canStart && isMaster">
       <button @click="startGame">Start</button>
     </div>
