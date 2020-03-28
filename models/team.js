@@ -18,6 +18,7 @@ class Team {
 
   get data() {
     return {
+      id: this.id,
       name: this.name,
       score: this.score,
       players: this.players,

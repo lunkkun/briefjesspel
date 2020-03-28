@@ -4,56 +4,116 @@ function msg(action, data) {
 
 export default {
   state: {
-    isLoaded: false, // whether we've received the first response from the server
-    isActive: false, // whether there's actually an active game
-    path: '',
+    userId: null,
 
+    // game initialization
+    isLoaded: false, // whether we've received the first response from the server
+    isCreated: false, // whether there's actually a game on the server
+    path: null,
+
+    // settings for game
     players: [],
     teams: [],
-    isMaster: true,
-    entriesPerPlayer: 4,
+    master: null,
+    playerName: null,
+    teamId: null,
+    teamName: null,
+    entriesPerPlayer: null,
 
+    // state of game
+    canStart: false,
     isStarted: false,
     isFinished: false,
 
-    turnTime: 60, // in seconds
+    // settings for round
+    turnTime: null, // in seconds
+    scorePerEntry: 1, // for now hardcoded
     roundStarted: false,
 
+    // state of turn
     activePlayer: null,
     turnStarted: false,
-    turnTimeLeft: 60, // in seconds
-    activeEntry: '',
+    turnTimeLeft: null, // in seconds
+    activeEntry: null,
+  },
+  getters: {
+    isMaster: state => {
+      return state.master === state.userId
+    },
+    masterName: state => {
+      return state.players.find(user => user.id === state.master)
+    },
+    shareableLink: state => {
+      return `${window.location.protocol}://${window.location.host}/${state.path}`
+    },
   },
   mutations: {
-    load(state, {data}) {
-      if (data) {
-        state.path = data.path
+    load(state, {userId, game}) {
+      state.userId = userId
 
-        state.players = data.players
-        state.teams = data.teams
-        state.isMaster = data.isMaster
-        state.entriesPerPlayer = data.entriesPerPlayer
+      if (game) {
+        state.path = game.path
 
-        state.isStarted = data.isStarted
-        state.isFinished = data.isFinished
+        state.players = game.players
+        state.teams = game.teams
 
-        state.turnTime = data.turnTime
-        state.roundStarted = data.roundStarted
+        state.master = game.master
+        state.playerName = game.playerName
+        state.teamId = game.teamId
+        state.teamName = game.teamName
+        state.entriesPerPlayer = game.entriesPerPlayer
 
-        state.activePlayer = data.activePlayer
-        state.turnStarted = data.turnStarted
-        state.turnTimeLeft = data.turnTimeLeft
+        state.canStart = game.canStart
+        state.isStarted = game.isStarted
+        state.isFinished = game.isFinished
 
-        state.isActive = true
+        state.turnTime = game.turnTime
+        state.scorePerEntry = game.scorePerEntry
+        state.roundStarted = game.roundStarted
+
+        state.activePlayer = game.activePlayer
+        state.teamIsActive = game.teamIsActive
+        state.playerIsActive = game.playerIsActive
+        state.turnStarted = game.turnStarted
+        state.turnTimeLeft = game.turnTimeLeft
+
+        state.isCreated = true
       }
+
       state.isLoaded = true
+    },
+    setPath(state, path) {
+      state.path = path
+    },
+    addPlayer(state, data) {
+      state.players.push(data)
+    },
+    setPlayerName(state, name) {
+        state.playerName = name
+    },
+    setEntriesPerPlayer(state, entriesPerPlayer) {
+      state.entriesPerPlayer = entriesPerPlayer
+    },
+    setCanStart(state, canStart) {
+      state.canStart = canStart
     },
   },
   actions: {
-    async newGame({state, dispatch}, settings) {
-      await dispatch(msg('newGame', settings))
-      state.entriesPerPlayer = settings.entriesPerPlayer
-      state.isActive = true
+    async newGame({state, commit, dispatch}) {
+      await dispatch(msg('newGame'))
+      state.master = state.userId
+      state.isCreated = true
+    },
+    async setPlayerName({state, commit, dispatch}, name) {
+      await dispatch(msg('setPlayerName', name))
+      commit('setPlayerName', name)
+    },
+    async setEntriesPerPlayer({commit, dispatch}, entriesPerPlayer) {
+      await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
+      commit('setEntriesPerPlayer', entriesPerPlayer)
+    },
+    async startGame({dispatch}) {
+      dispatch(msg('startGame'))
     },
   },
 }

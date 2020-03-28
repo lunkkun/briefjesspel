@@ -32,7 +32,6 @@ export default {
       if (!state.isConnected) {
         throw new Error('Not connected; could not send message ' + action)
       }
-      console.log(data)
       Vue.prototype.$socket.send(JSON.stringify({action, data}))
     },
   },
