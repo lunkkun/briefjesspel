@@ -1,6 +1,8 @@
 # Briefjesspel
 
-Mobiele ondersteuning om via Skype het Briefjesspel te kunnen spelen!
+Mobiele ondersteuning om via videochat het Briefjesspel te kunnen spelen!
+
+Gemaakt met Node.js, websockets en Vue.
 
 ## Benodigdheden
 
