@@ -41,7 +41,7 @@ class Game extends EventEmitter {
   constructor(data = {}) {
     super()
     this.id = data.id || uuid.v4()
-    this.path = data.path || randomString(10)
+    this.path = data.path || randomString(10, true)
   }
 
   hasPlayer(userId) {
