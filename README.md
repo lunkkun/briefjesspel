@@ -28,14 +28,14 @@ npm install
 ### Server
 
 ``` bash
-node index.js
+npm start
 ```
 
 ### Client (met hot reloading)
 
 ``` bash
 cd client
-npm run serve
+npm start
 ```
 
 Ga vervolgens in je browser naar http://localhost:8080 

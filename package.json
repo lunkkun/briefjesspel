@@ -20,6 +20,9 @@
       "email": "polleaubert@gmail.com"
     }
   ],
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "express-session": "^1.17.0",
