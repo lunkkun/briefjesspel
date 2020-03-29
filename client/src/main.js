@@ -23,6 +23,12 @@ Vue.use(VueNativeSock, url, {
   }
 })
 
+Vue.directive('focus', {
+  inserted: function (el) {
+    el.focus()
+  }
+})
+
 Vue.config.productionTip = false
 
 new Vue({
