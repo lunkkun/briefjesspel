@@ -18,6 +18,7 @@ class Game extends EventEmitter {
   master
   entriesPerPlayer
   entries = []
+  turnOrder = []
 
   // state of game
   isStarted = false
@@ -28,8 +29,7 @@ class Game extends EventEmitter {
   scorePerEntry
 
   // state of round
-  entriesForRound = []
-  turnOrder = []
+  entriesRemaining = []
   roundStarted = false
 
   // state of turn
@@ -44,32 +44,26 @@ class Game extends EventEmitter {
     this.path = data.path || randomString(10, true)
   }
 
-  hasPlayer(userId) {
-    return this.players.has(userId)
-  }
-
-  isMaster(userId) {
-    return this.master === userId
-  }
-
-  teamForUser(userId) {
-    for (const team in this.teams.values()) {
-      if (team.players.includes(userId)) {
-        return team
-      }
-    }
-  }
-
-  addPlayer(userId, isMaster = false) {
-    if (!this.isStarted && !this.hasPlayer(userId)) {
-      const user = new User({id: userId})
-      this.players.set(userId, user)
+  addPlayer(user, isMaster = false) {
+    if (!this.players.has(user.id)) {
+      this.players.set(user.id, user)
 
       if (isMaster) {
-        this.master = userId
+        this.master = user.id
       }
 
       this.emit('playerAdded', user)
+    }
+  }
+
+  setPlayerName(userId, name) {
+    if (this.players.has(userId)) {
+      const user = this.players.get(userId)
+      user.name = name
+
+      this.emit('playerNameSet', user)
+
+      this.checkPlayerReady(user)
     }
   }
 
@@ -77,17 +71,11 @@ class Game extends EventEmitter {
     if (this.players.has(userId)) {
       this.players.delete(userId)
 
-      this.emit('playerRemoved')
-    }
-  }
+      this.turnOrder.forEach((team) => {
+        team.players = team.players.filter(id => id !== userId)
+      })
 
-  setPlayerName(userId, name) {
-    if (this.players.has(userId)) {
-      const user = this.players.get(userId)
-      const nameSet = !!user.name
-      user.name = name
-
-      this.emit(nameSet ? 'playerNameUpdated': 'playerNameSet', user)
+      this.emit('playerRemoved', userId)
     }
   }
 
@@ -97,21 +85,48 @@ class Game extends EventEmitter {
     this.emit('entriesPerPlayerUpdated')
   }
 
+  addEntry(userId, entry) {
+    if (this.players.has(userId)) {
+      const user = this.players.get(userId)
+      user.entries.push(entry)
+
+      this.checkPlayerReady(user)
+    }
+  }
+
   addTeam(team) {
     this.teams.set(team.id, team)
-    this.turnOrder.push(team.id)
 
-    this.emit('addedTeam', team)
+    this.emit('teamAdded', team)
+  }
+
+  removeTeam(teamId) {
+    if (this.teams.has(teamId)) {
+      this.teams.delete(teamId)
+
+      this.turnOrder = this.turnOrder.filter(id => id !== teamId)
+
+      this.emit('teamRemoved', teamId)
+    }
+  }
+
+  addPlayerToTeam(userId, teamId) {
+    if (this.players.has(userId) && this.teams.has(teamId)) {
+      const user = this.players.get(userId)
+      user.teamId = teamId
+
+      this.emit('playerAddedToTeam', user)
+    }
   }
 
   get canStart() {
-    // TODO: check if all players have entered all entries
-    // TODO: check if all players are in a team
-    return !this.isStarted
+    return this.players.every((user) => user.isReady && user.teamId)
   }
 
   start() {
-    if (this.canStart) {
+    if (!this.isStarted && this.canStart) {
+      // TODO
+
       this.isStarted = true
 
       this.emit('started')
@@ -119,26 +134,32 @@ class Game extends EventEmitter {
   }
 
   finish() {
-    if (!this.isFinished) {
-      this.isFinished = true
+    this.isFinished = true
 
-      this.emit('finished')
+    this.emit('finished')
+  }
+
+  playerIsReady(user) {
+    return user.name && this.entriesPerPlayer && user.entries.size === this.entriesPerPlayer
+  }
+
+  checkPlayerReady(user) {
+    if (!user.isReady) {
+      if (this.playerIsReady(user)) {
+        user.isReady = true
+        this.emit('playerReady', user)
+      }
     }
   }
 
   get playerData() {
     return Array.from(this.players.values())
       .map(user => user.data)
-      .filter(user => user.name)
   }
 
   get teamData() {
-    return this.turnOrder.map((teamId) => {
-      const data = this.teams.get(teamId).data
-      data.players = data.players
-        .map(userId => this.players.get(userId).data)
-      return data
-    })
+    return Array.from(this.teams.values())
+      .map(team => team.data)
   }
 
   get data() {
@@ -149,6 +170,7 @@ class Game extends EventEmitter {
       players: this.playerData,
       teams: this.teamData,
       entriesPerPlayer: this.entriesPerPlayer,
+      turnOrder: this.turnOrder,
 
       canStart: this.canStart,
       isStarted: this.isStarted,
@@ -167,12 +189,11 @@ class Game extends EventEmitter {
 
   dataForUser(userId) {
     const gameData = this.data
-    gameData.playerName = this.players.get(userId).name
 
-    const team = this.teamForUser(userId)
-    if (team) {
-      gameData.teamId = team.id
-      gameData.teamName = team.name
+    if (this.players.has(userId)) {
+      const user = this.players.get(userId)
+      gameData.font = user.font
+      gameData.entries = user.entries
     }
 
     return gameData
@@ -187,6 +208,7 @@ class Game extends EventEmitter {
 
   save() {
     this.updatedAt = new Date()
+
     // TODO
   }
 }

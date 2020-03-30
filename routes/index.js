@@ -7,19 +7,26 @@ const router = express.Router();
 router.get('/:gamePath?', (req, res) => {
   const gamePath = req.params.gamePath
 
-  if (!req.session.userId) {
+  let userId = req.session.userId
+  if (!userId) {
     const user = new User()
-    req.session.userId = user.id
+    req.session.userId = userId = user.id
   }
 
   if (gamePath && !req.session.gameId) {
-    if (gameStore.byPath.has(gamePath)) {
-      const game = gameStore.byPath.get(gamePath)
-      game.addPlayer(req.session.userId)
+    const game = gameStore.byPath.get(gamePath)
+    if (game) {
+      if (!game.isStarted) {
+        game.addPlayer(new User({id: userId}))
+      }
 
-      req.session.gameId = game.id
+      if (game.players.has(userId)) {
+        req.session.gameId = game.id
+      } else {
+        console.error(`Game ${game.id} already started; could not add user ${userId}`)
+      }
     } else {
-      console.error(`Invalid game path ${gamePath} for user ${req.session.userId}`)
+      console.error(`Invalid game path ${gamePath} for user ${userId}`)
     }
   }
 

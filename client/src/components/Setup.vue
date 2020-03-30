@@ -44,13 +44,13 @@ export default {
   },
   computed: {
     ...mapState({
-      canStart: state => state.game.canStart,
-      _playerName: state => state.game.playerName,
+      _playerName: state => state.game.player.name,
       _entriesPerPlayer: state => state.game.entriesPerPlayer,
     }),
     ...mapGetters([
       'isMaster',
       'shareableLink',
+      'canStart',
     ]),
   },
   methods: mapActions([
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    
+
 .linkPosition {
   display: block;
   background-color: #F8DC8D;
