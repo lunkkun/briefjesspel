@@ -120,7 +120,8 @@ class Game extends EventEmitter {
   }
 
   get canStart() {
-    return this.players.every((user) => user.isReady && user.teamId)
+    return Array.from(this.players.values())
+      .every((user) => user.isReady && user.teamId)
   }
 
   start() {
