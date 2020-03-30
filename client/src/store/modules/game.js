@@ -1,5 +1,5 @@
-function msg(action, data) {
-  return {action, data, type: 'sendMessage'}
+function msg(messageType, payload) {
+  return {messageType, payload, type: 'sendMessage'}
 }
 
 export default {

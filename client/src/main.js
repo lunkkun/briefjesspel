@@ -12,14 +12,14 @@ Vue.use(VueNativeSock, url, {
   passToStoreHandler: function (eventName, event) {
     if (!eventName.startsWith('SOCKET_')) return
 
-    let mutation = eventName.toUpperCase()
-    let data = event
+    let type = eventName.toUpperCase()
+    let payload = event
 
     if (event.data) {
-      ({mutation, data} = JSON.parse(event.data))
+      ({type, payload} = JSON.parse(event.data))
     }
 
-    this.store.commit(mutation, data)
+    this.store.commit(type, payload)
   }
 })
 
