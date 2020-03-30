@@ -30,7 +30,7 @@ export default {
     Setup,
   },
   computed: mapState({
-    isLoaded: state => state.game.isLoaded,
+    isLoaded: state => state.isLoaded,
     gameCreated: state => state.game.isCreated,
     gameStarted: state => state.game.isStarted,
   }),
@@ -120,13 +120,13 @@ export default {
   width: 0;
   height: 0;
   border-bottom: 6.6vmin solid #F6D370;;
-  border-right: 6.6vmin solid transparent;        
+  border-right: 6.6vmin solid transparent;
   z-index: 20;
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
   .infoCornerBottomLeft {
       border-bottom: 40px solid #F6D370;;
-      border-right: 40px solid transparent; 
+      border-right: 40px solid transparent;
   }
   .infoCorner {
       box-shadow: -2px 2px #344558;

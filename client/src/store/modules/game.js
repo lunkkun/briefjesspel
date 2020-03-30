@@ -66,45 +66,6 @@ export default {
   },
   mutations: {
     // Messages from server
-    load(state, {userId, game}) {
-      if (game) {
-        state.path = game.path
-
-        state.players = game.players
-        state.teams = game.teams
-
-        state.master = game.master
-        state.entriesPerPlayer = game.entriesPerPlayer
-        state.turnOrder = game.turnOrder
-
-        state.isStarted = game.isStarted
-        state.isFinished = game.isFinished
-
-        state.turnTime = game.turnTime
-        state.scorePerEntry = game.scorePerEntry
-        state.roundStarted = game.roundStarted
-
-        state.activePlayer = game.activePlayer
-        state.teamIsActive = game.teamIsActive
-        state.playerIsActive = game.playerIsActive
-        state.turnStarted = game.turnStarted
-        state.turnTimeLeft = game.turnTimeLeft
-
-        const player = game.players.find(player => player.id === userId)
-        if (player) {
-          state.player = player
-        }
-
-        state.font = game.font
-        state.entries = game.entries
-
-        state.isCreated = true
-      } else {
-        state.player.id = userId
-      }
-
-      state.isLoaded = true
-    },
     setPath(state, path) {
       state.path = path
     },
