@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <button class="transparentButton" @click="newGame"><p class="nieuwSpel">NIEUW SPEL</p></button>
+  <div class="centerHome">
+    <button class="generalFont nieuwSpel transparentButton" @click="newGame">NIEUW SPEL</button>
   </div>
 </template>
 
@@ -16,24 +16,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button.transparentButton {
+
+.centerHome {
   display: block;
-  background: transparent;
-  border: none;
-  margin: 0;
-  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
 }
-p.nieuwSpel {
-  font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.nieuwSpel {
   font-size: 12vmin;
   font-weight: bold;
   color: #344558;
+/*  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+/*  -moz-animation: fadein 1s; /* Firefox < 16 */
+/* -ms-animation: fadein 1s; /* Internet Explorer */
+/*  -o-animation: fadein 1s; /* Opera < 12.1 */
+/*  animation: fadein 1s; */
 }
+/*
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+} */
 @media screen and (min-width: 613px) and (min-height: 613px){
-  p.nieuwSpel {
-    font-size: 74px
+  .nieuwSpel {
+    font-size: 74px;
   }
 }
 </style>
