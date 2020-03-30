@@ -1,6 +1,5 @@
-function msg(messageType, payload) {
-  return {messageType, payload, type: 'sendMessage'}
-}
+import msg from '../../lib/msg'
+import randomFont from '../../lib/random-font'
 
 export default {
   state: {
@@ -138,7 +137,7 @@ export default {
       if (name) {
         await dispatch(msg('setPlayerName', name))
         commit('setName', name)
-        dispatch('setFont') // TODO: add option for user?
+        dispatch('setFont', randomFont()) // TODO: add option for user?
       }
     },
     async setFont({commit, dispatch}, font) {
