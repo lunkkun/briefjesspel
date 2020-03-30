@@ -10,7 +10,7 @@ const http = require('http')
 const session = require('express-session')
 
 // load internal dependencies
-const wss = require('./lib/websocket-server')
+const wsServer = require('./lib/websocket-server')
 const routes = require('./routes/index')
 const User = require('./models/user')
 
@@ -36,8 +36,8 @@ server.on('upgrade', (req, socket, head) => {
       req.session.userId = user.id
     }
 
-    wss.handleUpgrade(req, socket, head, function(ws) {
-      wss.emit('connection', ws, req)
+    wsServer.handleUpgrade(req, socket, head, function(ws) {
+      wsServer.emit('connection', ws, req)
     })
   })
 })
