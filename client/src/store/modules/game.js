@@ -120,9 +120,11 @@ export default {
     startGame(state) {
       state.isStarted = true
     },
-    startRound(state, {activeTeam, activePlayer}) {
+    startRound(state, {activeTeam, activePlayer, nextTeam, nextPlayer}) {
       state.activeTeam = activeTeam
       state.activePlayer = activePlayer
+      state.nextTeam = nextTeam
+      state.nextPlayer = nextPlayer
       state.roundStarted = true
     },
     finishGame(state) {
