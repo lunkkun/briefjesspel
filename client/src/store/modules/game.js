@@ -22,13 +22,20 @@ export default {
     // settings for round
     turnTime: null, // in seconds
     scorePerEntry: 1, // for now hardcoded
+
+    // state of round
     roundStarted: false,
+    roundFinished: false,
 
     // state of turn
+    activeTeam: null,
     activePlayer: null,
+    nextTeam: null,
+    nextPlayer: null,
     turnStarted: false,
+    turnFinished: false,
+    activeEntry: null, // only for active player
     turnTimeLeft: null, // in seconds
-    activeEntry: null,
 
     // public settings for player
     player: {
@@ -43,24 +50,26 @@ export default {
     entries: [],
   },
   getters: {
-    isMaster: state => {
+    isMaster: (state) => {
       return state.master === state.player.id
     },
-    masterName: state => {
-      const master = state.players.find(user => user.id === state.master)
-      return master ? master.name : null
+    master: (state) => {
+      return state.players.find(user => user.id === state.master)
     },
-    shareableLink: state => {
+    shareableLink: (state) => {
       return state.path ? `${window.location.protocol}//${window.location.host}/${state.path}` : null
     },
-    teamName: state => {
-      return state.teamId ? state.teams.find(team => team.id === state.teamId).name : null
+    team: (state) => {
+      return state.player.teamId ? state.teams.find(team => team.id === state.player.teamId) : null
     },
-    namedPlayers: state => {
+    visiblePlayers: (state) => {
       return state.players.filter(player => player.name)
     },
-    canStart: state => {
+    canStart: (state) => {
       return state.players.every(player => player.isReady && player.teamId)
+    },
+    myTurn: (state) => {
+      return state.activePlayer === state.player.id
     },
   },
   mutations: {
@@ -105,8 +114,16 @@ export default {
         player.isReady = true
       }
     },
+    setTurnTime(state, turnTime) {
+      state.turnTime = turnTime
+    },
     startGame(state) {
       state.isStarted = true
+    },
+    startRound(state, {activeTeam, activePlayer}) {
+      state.activeTeam = activeTeam
+      state.activePlayer = activePlayer
+      state.roundStarted = true
     },
     finishGame(state) {
       state.isFinished = true
@@ -167,6 +184,12 @@ export default {
       if (id && teamId) {
         await dispatch(msg('addPlayerToTeam', {id, teamId}))
         commit('addPlayerToTeam', {id, teamId})
+      }
+    },
+    async setTurnTime({commit, dispatch}, turnTime) {
+      if (turnTime) {
+        await dispatch(msg('setTurnTime', turnTime))
+        commit('setTurnTime', turnTime)
       }
     },
     async startGame({dispatch}) {

@@ -17,7 +17,6 @@ export default new Vuex.Store({
 
         state.game.players = game.players
         state.game.teams = game.teams
-
         state.game.master = game.master
         state.game.entriesPerPlayer = game.entriesPerPlayer
         state.game.turnOrder = game.turnOrder
@@ -28,14 +27,18 @@ export default new Vuex.Store({
         state.game.turnTime = game.turnTime
         state.game.scorePerEntry = game.scorePerEntry
         state.game.roundStarted = game.roundStarted
+        state.game.roundFinished = game.roundFinished
 
+        state.game.activeTeam = game.activeTeam
         state.game.activePlayer = game.activePlayer
-        state.game.teamIsActive = game.teamIsActive
-        state.game.playerIsActive = game.playerIsActive
+        state.game.nextTeam = game.nextTeam
+        state.game.nextPlayer = game.nextPlayer
         state.game.turnStarted = game.turnStarted
+        state.game.turnFinished = game.turnFinished
+        state.game.activeEntry = game.activeEntry
         state.game.turnTimeLeft = game.turnTimeLeft
 
-        const player = game.players.find(player => player.id === userId)
+        const player = state.players.find(player => player.id === userId)
         if (player) {
           state.game.player = player
         }

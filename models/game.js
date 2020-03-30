@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 const EventEmitter = require('events').EventEmitter
-const User = require('../models/user')
 const randomString = require('../lib/random-string')
+const shuffle = require('../lib/shuffle')
 
 class Game extends EventEmitter {
   // identifiers
@@ -26,15 +26,14 @@ class Game extends EventEmitter {
 
   // settings for round
   turnTime // in seconds
-  scorePerEntry
+  scorePerEntry = 1 // for now hardcoded
 
   // state of round
   entriesRemaining = []
   roundStarted = false
+  roundFinished = false
 
   // state of turn
-  activeTeam
-  activePlayer
   turnStarted = false
   turnTimeLeft // in seconds
 
@@ -42,6 +41,36 @@ class Game extends EventEmitter {
     super()
     this.id = data.id || uuid.v4()
     this.path = data.path || randomString(10, true)
+    // TODO
+  }
+
+  get canStart() {
+    return !this.isStarted && Array.from(this.players.values())
+      .every((user) => user.isReady && user.teamId)
+  }
+
+  get canStartRound() {
+    return this.isStarted && (!this.roundStarted || this.roundFinished) && this.turnTime
+  }
+
+  get activeTeam() {
+    return this.turnOrder.size ? this.turnOrder[0].teamId : undefined
+  }
+
+  get activePlayer() {
+    return this.turnOrder.size ? this.turnOrder[0].players[0] : undefined
+  }
+
+  get nextTeam() {
+    return this.turnOrder.size > 1 ? this.turnOrder[1].teamId : undefined
+  }
+
+  get nextPlayer() {
+    return this.turnOrder.size > 1 ? this.turnOrder[1].players[0] : undefined
+  }
+
+  get activeEntry() {
+    return this.entriesRemaining[0]
   }
 
   addPlayer(user, isMaster = false) {
@@ -67,15 +96,19 @@ class Game extends EventEmitter {
     }
   }
 
-  removePlayer(userId) {
-    if (this.players.has(userId)) {
+  removePlayer(userId, byHimself = false) {
+    if (this.players.has(userId) && this.activePlayer !== userId) {
       this.players.delete(userId)
 
       this.turnOrder.forEach((team) => {
         team.players = team.players.filter(id => id !== userId)
       })
 
-      this.emit('playerRemoved', userId)
+      if (userId === this.master && this.players.size) {
+        this.master = this.players.values().next().value.id
+      }
+
+      this.emit(byHimself ? 'playerLeft' : 'playerRemoved', userId)
     }
   }
 
@@ -101,10 +134,10 @@ class Game extends EventEmitter {
   }
 
   removeTeam(teamId) {
-    if (this.teams.has(teamId)) {
+    if (this.teams.has(teamId) && this.activeTeam !== teamId) {
       this.teams.delete(teamId)
 
-      this.turnOrder = this.turnOrder.filter(id => id !== teamId)
+      this.turnOrder = this.turnOrder.filter(team => team.teamId !== teamId)
 
       this.emit('teamRemoved', teamId)
     }
@@ -119,25 +152,95 @@ class Game extends EventEmitter {
     }
   }
 
-  get canStart() {
-    return Array.from(this.players.values())
-      .every((user) => user.isReady && user.teamId)
+  setTurnTime(turnTime) {
+    this.turnTime = turnTime
+
+    this.emit('turnTimeUpdated')
   }
 
   start() {
-    if (!this.isStarted && this.canStart) {
-      // TODO
+    if (this.canStart) {
+      this.fillEntries()
 
       this.isStarted = true
 
       this.emit('started')
+
+      this.startRound()
     }
+  }
+
+  fillEntries() {
+    // put all of the player's entries into the game
+    // this prevents losing entries if a player leaves the game
+    for (const user in this.players.values()) {
+      for (const entry in user.entries) {
+        this.entries.push(entry)
+      }
+    }
+  }
+
+  startRound() {
+    if (this.canStartRound) {
+      this.randomizeTurnOrder()
+      this.randomizeEntries()
+
+      this.roundStarted = true
+      this.roundFinished = false
+
+      this.emit('roundStarted')
+    }
+  }
+
+  randomizeTurnOrder() {
+    this.turnOrder = []
+
+    for (const team in this.teams.values()) {
+      this.turnOrder.push({
+        teamId: team.id,
+        players: shuffle(this.playersForTeam(team.id).map(user => user.id))
+      })
+    }
+
+    shuffle(this.turnOrder)
+  }
+
+  randomizeEntries() {
+    this.entriesRemaining = [...this.entries]
+    shuffle(this.entriesRemaining)
+  }
+
+  startTurn() {
+
+  }
+
+  stopTurn() {
+
+  }
+
+  nextTurn() {
+    const team = this.turnOrder.shift()
+    team.push(team.players.shift())
+    this.turnOrder.push(team)
+
+    this.emit('nextTurn')
+  }
+
+  finishRound() {
+    this.roundFinished = true
+
+    this.emit('roundFinished')
   }
 
   finish() {
     this.isFinished = true
 
     this.emit('finished')
+  }
+
+  playersForTeam(teamId) {
+    return Array.from(this.players.values())
+      .filter(user => user.teamId === teamId)
   }
 
   playerIsReady(user) {
@@ -166,25 +269,27 @@ class Game extends EventEmitter {
   get data() {
     return {
       path: this.path,
-      master: this.master,
 
       players: this.playerData,
       teams: this.teamData,
+      master: this.master,
       entriesPerPlayer: this.entriesPerPlayer,
       turnOrder: this.turnOrder,
 
-      canStart: this.canStart,
       isStarted: this.isStarted,
       isFinished: this.isFinished,
 
       turnTime: this.turnTime,
       scorePerEntry: this.scorePerEntry,
       roundStarted: this.roundStarted,
+      roundFinished: this.roundFinished,
 
       activeTeam: this.activeTeam,
       activePlayer: this.activePlayer,
       turnStarted: this.turnStarted,
       turnTimeLeft: this.turnTimeLeft,
+      nextTeam: this.nextTeam,
+      nextPlayer: this.nextPlayer,
     }
   }
 
@@ -195,6 +300,9 @@ class Game extends EventEmitter {
       const user = this.players.get(userId)
       gameData.font = user.font
       gameData.entries = user.entries
+      if (this.activePlayer === userId) {
+        gameData.activeEntry = this.activeEntry
+      }
     }
 
     return gameData
