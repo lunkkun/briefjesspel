@@ -35,6 +35,7 @@ class Game extends EventEmitter {
 
   // state of turn
   turnStarted = false
+  turnFinished = false
   turnTimeLeft // in seconds
 
   constructor(data = {}) {
@@ -50,7 +51,11 @@ class Game extends EventEmitter {
   }
 
   get canStartRound() {
-    return this.isStarted && (!this.roundStarted || this.roundFinished) && this.turnTime
+    return this.isStarted && !this.roundStarted && this.turnTime
+  }
+
+  get canStartTurn() {
+    return this.roundStarted && !this.turnStarted
   }
 
   get activeTeam() {
@@ -185,7 +190,6 @@ class Game extends EventEmitter {
       this.randomizeTurnOrder()
       this.randomizeEntries()
 
-      this.roundStarted = true
       this.roundFinished = false
 
       this.emit('roundStarted')
@@ -211,11 +215,15 @@ class Game extends EventEmitter {
   }
 
   startTurn() {
-
+    // TODO
   }
 
-  stopTurn() {
+  nextEntry() {
+    // TODO
+  }
 
+  finishTurn() {
+    // TODO
   }
 
   nextTurn() {
@@ -230,6 +238,11 @@ class Game extends EventEmitter {
     this.roundFinished = true
 
     this.emit('roundFinished')
+  }
+
+  newRound() {
+    this.roundStarted = false
+    this.roundFinished = false
   }
 
   finish() {
@@ -287,6 +300,7 @@ class Game extends EventEmitter {
       activeTeam: this.activeTeam,
       activePlayer: this.activePlayer,
       turnStarted: this.turnStarted,
+      turnFinished: this.turnFinished,
       turnTimeLeft: this.turnTimeLeft,
       nextTeam: this.nextTeam,
       nextPlayer: this.nextPlayer,
