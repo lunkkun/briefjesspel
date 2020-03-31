@@ -4,40 +4,6 @@ const randomString = require('../lib/random-string')
 const shuffle = require('../lib/shuffle')
 
 class Game extends EventEmitter {
-  // identifiers
-  id
-  path
-
-  // timestamps
-  createdAt
-  updatedAt
-
-  // settings for game
-  master
-  players
-  teams
-  entriesPerPlayer
-  entries
-  turnOrder
-
-  // state of game
-  isStarted
-  isFinished
-
-  // settings for round
-  turnTime // in seconds
-  scorePerEntry
-
-  // state of round
-  entriesRemaining
-  roundStarted
-  roundFinished
-
-  // state of turn
-  turnStarted
-  turnFinished
-  turnTimeLeft // in seconds
-
   constructor(data = {}) {
     super()
 
@@ -255,8 +221,12 @@ class Game extends EventEmitter {
   }
 
   startTurn() {
-    // TODO
+    if (this.canStartRound) {
+      this.startTimer()
+    }
   }
+
+  startTimer
 
   nextEntry() {
     // TODO

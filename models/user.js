@@ -1,13 +1,6 @@
 const uuid = require('uuid')
 
 class User {
-  id
-  name
-  font
-  teamId
-  entries
-  isReady
-
   constructor(data = {}) {
     this.id = data.id || uuid.v4()
     this.name = data.name || null
