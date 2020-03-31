@@ -117,11 +117,11 @@ export default {
     },
     removeTeam(state, id) {
       Vue.delete(state.teams, id)
-      for (const player in Object.values(state.players)) {
+      Object.values(state.players).forEach((player) => {
         if (player.teamId === id) {
           player.teamId = null
         }
-      }
+      })
     },
     setTurnTime(state, turnTime) {
       state.turnTime = turnTime
@@ -145,7 +145,7 @@ export default {
       state.activeEntry = entry
     },
     updateTeamScore(state, {id, score}) {
-      const team = state.teams.find(t => t.id === id)
+      const team = state.teams[id]
       if (team) {
         team.score = score
       }

@@ -173,9 +173,9 @@ class Game extends EventEmitter {
 
       this.turnOrder = this.turnOrder.filter(team => team.teamId !== teamId)
 
-      for (const user in this._playersForTeam(teamId)) {
+      this._playersForTeam(teamId).forEach((user) => {
         user.teamId = null
-      }
+      })
 
       this.emit('teamRemoved', teamId)
     }
@@ -288,11 +288,9 @@ class Game extends EventEmitter {
   _fillEntries() {
     // put all of the player's entries into the game
     // this prevents losing entries if a player leaves the game
-    for (const user in this.players.values()) {
-      for (const entry in user.entries) {
-        this.entries.push(entry)
-      }
-    }
+    this.players.forEach((user) => {
+      this.entries.push(...user.entries)
+    })
   }
 
   _playersForTeam(teamId) {
@@ -303,12 +301,12 @@ class Game extends EventEmitter {
   _randomizeTurnOrder() {
     this.turnOrder = []
 
-    for (const team in this.teams.values()) {
+    this.teams.forEach((team) => {
       this.turnOrder.push({
         teamId: team.id,
         players: shuffle(this._playersForTeam(team.id).map(user => user.id))
       })
-    }
+    })
 
     shuffle(this.turnOrder)
   }

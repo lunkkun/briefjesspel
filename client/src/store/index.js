@@ -20,12 +20,12 @@ export default new Vuex.Store({
           window.history.pushState(null, '', '/' + game.path)
         }
 
-        for (const player in game.players) {
+        game.players.forEach((player) => {
           Vue.set(state.game.players, player.id, player)
-        }
-        for (const team in game.teams) {
+        })
+        game.teams.forEach((team) => {
           Vue.set(state.game.teams, team.id, team)
-        }
+        })
         state.game.master = game.master
         state.game.entriesPerPlayer = game.entriesPerPlayer
 
