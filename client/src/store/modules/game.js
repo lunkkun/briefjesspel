@@ -1,5 +1,6 @@
 import msg from '../../lib/msg'
 import randomFont from '../../lib/random-font'
+import link from '../../lib/link'
 
 export default {
   state: {
@@ -57,7 +58,7 @@ export default {
       return state.players.find(user => user.id === state.master)
     },
     shareableLink: (state) => {
-      return state.path ? `${window.location.protocol}//${window.location.host}/${state.path}` : null
+      return state.path ? link(state.path) : null
     },
     team: (state) => {
       return state.player.teamId ? state.teams.find(team => team.id === state.player.teamId) : null
@@ -76,6 +77,7 @@ export default {
     // Messages from server
     setPath(state, path) {
       state.path = path
+      window.history.pushState(null, '', '/' + path)
     },
     addPlayer(state, player) {
       state.players.push(player)

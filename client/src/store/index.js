@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import socket from './modules/socket'
 import game from './modules/game'
+import link from '../lib/link'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     load(state, {userId, game}) {
       if (game) {
         state.game.path = game.path
+        if (window.location.href !== link(game.path)) {
+          window.history.pushState(null, '', '/' + game.path)
+        }
 
         state.game.players = game.players
         state.game.teams = game.teams
