@@ -9,10 +9,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoaded: false,
-    showHelp: false,
+    showHelp: false, // TODO: do something with this
+    requestLeave: false, // TODO: do something with this
   },
   mutations: {
-    load(state, {userId, game}) {
+    load(state, {userId, game, requestLeave}) {
       if (game) {
         state.game.path = game.path
         if (window.location.href !== link(game.path)) {
@@ -55,7 +56,11 @@ export default new Vuex.Store({
         state.game.player.id = userId
       }
 
+      state.requestLeave = requestLeave
       state.isLoaded = true
+    },
+    toggleHelp(state) {
+      state.showHelp = !state.showHelp
     },
   },
   modules: {
