@@ -166,6 +166,10 @@ class Game extends EventEmitter {
 
       this.turnOrder = this.turnOrder.filter(team => team.teamId !== teamId)
 
+      for (const user in this.#playersForTeam(teamId)) {
+        user.teamId = null
+      }
+
       this.emit('teamRemoved', teamId)
     }
   }
