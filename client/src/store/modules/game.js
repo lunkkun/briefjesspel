@@ -93,10 +93,9 @@ export default {
       if (index > -1) {
         this.players.splice(index, 1)
       }
-      if (id === state.player.id) {
-        // TODO
-        state.isCreated = false
-      }
+    },
+    leaveGame() {
+      window.location.href = '/'
     },
     setEntriesPerPlayer(state, entriesPerPlayer) {
       state.entriesPerPlayer = entriesPerPlayer
@@ -206,6 +205,13 @@ export default {
         dispatch('setFont', randomFont()) // TODO: add option for user?
       }
     },
+    async removePlayer({commit, dispatch}, id) {
+      await dispatch(msg('removePlayer', id))
+      commit('removePlayer', id)
+    },
+    async leaveGame({dispatch}) {
+      dispatch(msg('leaveGame'))
+    },
     async setFont({commit, dispatch}, font) {
       if (font) {
         await dispatch(msg('setFont', font))
@@ -235,6 +241,10 @@ export default {
         commit('addPlayerToTeam', {id, teamId})
       }
     },
+    async removeTeam({commit, dispatch}, id) {
+      await dispatch(msg('removeTeam', id))
+      commit('removeTeam', id)
+    },
     async setTurnTime({commit, dispatch}, turnTime) {
       if (turnTime) {
         await dispatch(msg('setTurnTime', turnTime))
@@ -243,6 +253,24 @@ export default {
     },
     async startGame({dispatch}) {
       dispatch(msg('startGame'))
+    },
+    async startRound({dispatch}) {
+      dispatch(msg('startRound'))
+    },
+    async startTurn({dispatch}) {
+      dispatch(msg('startTurn'))
+    },
+    async nextEntry({dispatch}) {
+      dispatch(msg('nextEntry'))
+    },
+    async nextTurn({dispatch}) {
+      dispatch(msg('nextTurn'))
+    },
+    async nextRound({dispatch}) {
+      dispatch(msg('nextRound'))
+    },
+    async finishGame({dispatch}) {
+      dispatch(msg('finishGame'))
     },
   },
 }
