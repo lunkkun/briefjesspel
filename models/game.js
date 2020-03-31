@@ -228,12 +228,16 @@ class Game extends EventEmitter {
   finishTurn() {
     this.turnFinished = true
 
+    this.#randomizeEntries()
+
     this.emit('turnFinished')
   }
 
   nextTurn() {
     this.#shiftTurn()
 
+    this.turnStarted = false
+    this.turnFinished = false
     this.turnTimeLeft = this.turnTime
 
     this.emit('nextTurn')
