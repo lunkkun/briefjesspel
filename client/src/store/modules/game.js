@@ -13,7 +13,7 @@ export default {
     players: [],
     teams: [],
     master: null,
-    entriesPerPlayer: null,
+    entriesPerPlayer: 0,
     turnOrder: [],
 
     // state of game
@@ -21,7 +21,7 @@ export default {
     isFinished: false,
 
     // settings for round
-    turnTime: null, // in seconds
+    turnTime: 0, // in seconds
     scorePerEntry: 1, // for now hardcoded
 
     // state of round
@@ -36,7 +36,7 @@ export default {
     turnStarted: false,
     turnFinished: false,
     activeEntry: null, // only for active player
-    turnTimeLeft: null, // in seconds
+    turnTimeLeft: 0, // in seconds
 
     // public settings for player
     player: {
@@ -101,6 +101,12 @@ export default {
     setEntriesPerPlayer(state, entriesPerPlayer) {
       state.entriesPerPlayer = entriesPerPlayer
     },
+    setPlayerReady(state, id) {
+      const player = state.players.find(p => p.id === id)
+      if (player) {
+        player.isReady = true
+      }
+    },
     addTeam(state, team) {
       state.teams.push(team)
     },
@@ -110,10 +116,15 @@ export default {
         player.teamId = teamId
       }
     },
-    setPlayerReady(state, id) {
-      const player = state.players.find(p => p.id === id)
-      if (player) {
-        player.isReady = true
+    removeTeam(state, teamId) {
+      const index = state.teams.findIndex(t => t.id === teamId)
+      if (index > -1) {
+        this.teams.splice(index, 1)
+        for (const player in state.players) {
+          if (player.teamId === teamId) {
+            player.teamId = null
+          }
+        }
       }
     },
     setTurnTime(state, turnTime) {
@@ -127,7 +138,41 @@ export default {
       state.activePlayer = activePlayer
       state.nextTeam = nextTeam
       state.nextPlayer = nextPlayer
+
+      state.turnTimeLeft = state.turnTime
       state.roundStarted = true
+    },
+    startTurn(state) {
+      state.turnStarted = true
+    },
+    nextEntry(state, entry) {
+      state.activeEntry = entry
+    },
+    updateTeamScore(state, {id, score}) {
+      const team = state.teams.find(t => t.id === id)
+      if (team) {
+        team.score = score
+      }
+    },
+    finishTurn(state) {
+      state.turnFinished = true
+    },
+    nextTurn(state, {activeTeam, activePlayer, nextTeam, nextPlayer}) {
+      state.activeTeam = activeTeam
+      state.activePlayer = activePlayer
+      state.nextTeam = nextTeam
+      state.nextPlayer = nextPlayer
+
+      state.turnStarted = false
+      state.turnFinished = false
+      state.turnTimeLeft = state.turnTime
+    },
+    finishRound(state) {
+      state.roundFinished = true
+    },
+    nextRound(state) {
+      state.roundStarted = false
+      state.roundFinished = false
     },
     finishGame(state) {
       state.isFinished = true
