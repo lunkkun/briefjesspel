@@ -125,6 +125,7 @@ class Game extends EventEmitter {
 
       if (userId === this.master && this.players.size) {
         this.master = this.players.values().next().value.id
+        this.emit('masterUpdated')
       }
 
       if (byHimself) {

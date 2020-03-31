@@ -97,6 +97,9 @@ export default {
     leaveGame() {
       window.location.href = '/'
     },
+    updateMaster(state, master) {
+      state.master = master
+    },
     setEntriesPerPlayer(state, entriesPerPlayer) {
       state.entriesPerPlayer = entriesPerPlayer
     },
