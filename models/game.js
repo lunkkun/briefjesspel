@@ -101,6 +101,15 @@ class Game extends EventEmitter {
     }
   }
 
+  setFont(userId, font) {
+    if (this.players.has(userId)) {
+      const user = this.players.get(userId)
+      user.font = font
+
+      this.emit('playerFontSet', user)
+    }
+  }
+
   removePlayer(userId, byHimself = false) {
     if (this.players.has(userId) && this.activePlayer !== userId) {
       this.players.delete(userId)
@@ -138,6 +147,15 @@ class Game extends EventEmitter {
     this.emit('teamAdded', team)
   }
 
+  addPlayerToTeam(userId, teamId) {
+    if (this.players.has(userId) && this.teams.has(teamId)) {
+      const user = this.players.get(userId)
+      user.teamId = teamId
+
+      this.emit('playerAddedToTeam', user)
+    }
+  }
+
   removeTeam(teamId) {
     if (this.teams.has(teamId) && this.activeTeam !== teamId) {
       this.teams.delete(teamId)
@@ -145,15 +163,6 @@ class Game extends EventEmitter {
       this.turnOrder = this.turnOrder.filter(team => team.teamId !== teamId)
 
       this.emit('teamRemoved', teamId)
-    }
-  }
-
-  addPlayerToTeam(userId, teamId) {
-    if (this.players.has(userId) && this.teams.has(teamId)) {
-      const user = this.players.get(userId)
-      user.teamId = teamId
-
-      this.emit('playerAddedToTeam', user)
     }
   }
 
