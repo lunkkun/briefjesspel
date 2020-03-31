@@ -20,7 +20,7 @@ router.get('/:gamePath?', (req, res) => {
       if (game.players.has(userId)) {
         req.session.gameId = gameId = game.id
       } else if (game.removedPlayers.has(userId)) {
-        console.error(`User ${userId} was removed from game ${gameId}`)
+        console.error(`User ${userId} was removed from game ${game.id}`)
       } else if (game.isStarted) {
         console.error(`Game ${game.id} already started; could not add user ${userId}`)
       } else {
