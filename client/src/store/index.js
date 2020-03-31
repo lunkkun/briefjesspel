@@ -42,7 +42,7 @@ export default new Vuex.Store({
         state.game.activeEntry = game.activeEntry
         state.game.turnTimeLeft = game.turnTimeLeft
 
-        const player = state.players.find(player => player.id === userId)
+        const player = state.game.players.find(user => user.id === userId)
         if (player) {
           state.game.player = player
         }
