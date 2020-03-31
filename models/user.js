@@ -10,9 +10,9 @@ class User {
 
   constructor(data = {}) {
     this.id = data.id || uuid.v4()
-    this.name = data.name
-    this.font = data.font
-    this.teamId = data.teamId
+    this.name = data.name || null
+    this.font = data.font || null
+    this.teamId = data.teamId || null
     this.entries = data.entries || []
     this.isReady = data.isReady || false
   }

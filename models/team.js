@@ -7,7 +7,7 @@ class Team {
 
   constructor(data = {}) {
     this.id = data.id || uuid.v4()
-    this.name = data.name
+    this.name = data.name || null
     this.score = data.score || 0
   }
 

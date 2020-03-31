@@ -9,40 +9,71 @@ class Game extends EventEmitter {
   path
 
   // timestamps
-  createdAt = new Date()
-  updatedAt = new Date()
+  createdAt
+  updatedAt
 
   // settings for game
-  players = new Map()
-  teams = new Map()
   master
+  players
+  teams
   entriesPerPlayer
-  entries = []
-  turnOrder = []
+  entries
+  turnOrder
 
   // state of game
-  isStarted = false
-  isFinished = false
+  isStarted
+  isFinished
 
   // settings for round
   turnTime // in seconds
-  scorePerEntry = 1 // for now hardcoded
+  scorePerEntry
 
   // state of round
-  entriesRemaining = []
-  roundStarted = false
-  roundFinished = false
+  entriesRemaining
+  roundStarted
+  roundFinished
 
   // state of turn
-  turnStarted = false
-  turnFinished = false
+  turnStarted
+  turnFinished
   turnTimeLeft // in seconds
 
   constructor(data = {}) {
     super()
+
+    // identifiers
     this.id = data.id || uuid.v4()
     this.path = data.path || randomString(10, true)
-    // TODO
+
+    // timestamps
+    this.createdAt = data.createdAt || new Date()
+    this.updatedAt = data.updatedAt || new Date()
+
+    // settings for game
+    this.master = data.master || null
+    this.players = data.players || new Map()
+    this.teams = data.teams || new Map()
+    this.entriesPerPlayer = data.entriesPerPlayer || 0
+    this.entries = data.entries || []
+    this.turnOrder = data.turnOrder || []
+
+    // state of game
+    this.isStarted = data.isStarted || false
+    this.isFinished = data.isFinished || false
+
+    // settings for round
+    this.turnTime = data.turnTime || 0 // in seconds
+    this.scorePerEntry = data.scorePerEntry || 1
+
+    // state of round
+    this.entriesRemaining = data.entriesRemaining || []
+    this.roundStarted = data.roundStarted || false
+    this.roundFinished = data.roundFinished || false
+
+    // state of turn
+    this.turnStarted = data.turnStarted || false
+    this.turnFinished = data.turnFinished || false
+    this.turnTimeLeft = data.turnTimeLeft || 0 // in seconds
   }
 
   get canStart() {
@@ -51,27 +82,27 @@ class Game extends EventEmitter {
   }
 
   get canStartRound() {
-    return this.isStarted && !this.roundStarted && this.turnTime
+    return this.isStarted && !this.roundStarted && this.turnTime && this.scorePerEntry
   }
 
   get canStartTurn() {
-    return this.roundStarted && !this.turnStarted
+    return this.roundStarted && !this.turnStarted && this.entriesRemaining.size
   }
 
   get activeTeam() {
-    return this.turnOrder.size ? this.turnOrder[0].teamId : undefined
+    return this.turnOrder.size ? this.turnOrder[0].teamId : null
   }
 
   get activePlayer() {
-    return this.turnOrder.size ? this.turnOrder[0].players[0] : undefined
+    return this.turnOrder.size ? this.turnOrder[0].players[0] : null
   }
 
   get nextTeam() {
-    return this.turnOrder.size > 1 ? this.turnOrder[1].teamId : undefined
+    return this.turnOrder.size > 1 ? this.turnOrder[1].teamId : null
   }
 
   get nextPlayer() {
-    return this.turnOrder.size > 1 ? this.turnOrder[1].players[0] : undefined
+    return this.turnOrder.size > 1 ? this.turnOrder[1].players[0] : null
   }
 
   get activeEntry() {
