@@ -102,7 +102,7 @@ class Game extends EventEmitter {
 
       this.emit('playerNameSet', user)
 
-      this.#checkPlayerReady(user)
+      this._checkPlayerReady(user)
     }
   }
 
@@ -147,7 +147,7 @@ class Game extends EventEmitter {
       const user = this.players.get(userId)
       user.entries.push(entry)
 
-      this.#checkPlayerReady(user)
+      this._checkPlayerReady(user)
     }
   }
 
@@ -172,7 +172,7 @@ class Game extends EventEmitter {
 
       this.turnOrder = this.turnOrder.filter(team => team.teamId !== teamId)
 
-      for (const user in this.#playersForTeam(teamId)) {
+      for (const user in this._playersForTeam(teamId)) {
         user.teamId = null
       }
 
@@ -188,7 +188,7 @@ class Game extends EventEmitter {
 
   start() {
     if (this.canStart) {
-      this.#fillEntries()
+      this._fillEntries()
 
       this.isStarted = true
 
@@ -200,8 +200,8 @@ class Game extends EventEmitter {
 
   startRound() {
     if (this.canStartRound) {
-      this.#randomizeTurnOrder()
-      this.#randomizeEntries()
+      this._randomizeTurnOrder()
+      this._randomizeEntries()
 
       this.turnTimeLeft = this.turnTime
       this.roundStarted = true
@@ -212,7 +212,7 @@ class Game extends EventEmitter {
 
   startTurn() {
     if (this.canStartTurn) {
-      this.#startTimer()
+      this._startTimer()
 
       this.turnStarted = true
 
@@ -221,7 +221,7 @@ class Game extends EventEmitter {
   }
 
   nextEntry() {
-    this.#score()
+    this._score()
     this.entriesRemaining.pop()
 
     if (this.entriesRemaining.size) {
@@ -234,13 +234,13 @@ class Game extends EventEmitter {
   finishTurn() {
     this.turnFinished = true
 
-    this.#randomizeEntries()
+    this._randomizeEntries()
 
     this.emit('turnFinished')
   }
 
   nextTurn() {
-    this.#shiftTurn()
+    this._shiftTurn()
 
     this.turnStarted = false
     this.turnFinished = false
@@ -273,18 +273,18 @@ class Game extends EventEmitter {
 
   // private methods
 
-  #playerIsReady(user) {
+  _playerIsReady(user) {
     return user.name && this.entriesPerPlayer && user.entries.size === this.entriesPerPlayer
   }
 
-  #checkPlayerReady(user) {
-    if (!user.isReady && this.#playerIsReady(user)) {
+  _checkPlayerReady(user) {
+    if (!user.isReady && this._playerIsReady(user)) {
       user.isReady = true
       this.emit('playerReady', user)
     }
   }
 
-  #fillEntries() {
+  _fillEntries() {
     // put all of the player's entries into the game
     // this prevents losing entries if a player leaves the game
     for (const user in this.players.values()) {
@@ -294,30 +294,30 @@ class Game extends EventEmitter {
     }
   }
 
-  #playersForTeam(teamId) {
+  _playersForTeam(teamId) {
     return Array.from(this.players.values())
       .filter(user => user.teamId === teamId)
   }
 
-  #randomizeTurnOrder() {
+  _randomizeTurnOrder() {
     this.turnOrder = []
 
     for (const team in this.teams.values()) {
       this.turnOrder.push({
         teamId: team.id,
-        players: shuffle(this.#playersForTeam(team.id).map(user => user.id))
+        players: shuffle(this._playersForTeam(team.id).map(user => user.id))
       })
     }
 
     shuffle(this.turnOrder)
   }
 
-  #randomizeEntries() {
+  _randomizeEntries() {
     this.entriesRemaining = [...this.entries]
     shuffle(this.entriesRemaining)
   }
 
-  #startTimer() {
+  _startTimer() {
     this.timer = setInterval(() => {
       this.turnTimeLeft--
 
@@ -329,7 +329,7 @@ class Game extends EventEmitter {
     }, 1000)
   }
 
-  #score() {
+  _score() {
     const team = this.teams.get(this.activeTeam)
     if (team) {
       team.score += this.scorePerEntry
@@ -338,7 +338,7 @@ class Game extends EventEmitter {
     }
   }
 
-  #shiftTurn() {
+  _shiftTurn() {
     const team = this.turnOrder.shift()
     team.push(team.players.shift())
     this.turnOrder.push(team)
