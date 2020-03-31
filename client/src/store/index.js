@@ -20,11 +20,14 @@ export default new Vuex.Store({
           window.history.pushState(null, '', '/' + game.path)
         }
 
-        state.game.players = game.players
-        state.game.teams = game.teams
+        for (const player in game.players) {
+          Vue.set(state.game.players, player.id, player)
+        }
+        for (const team in game.teams) {
+          Vue.set(state.game.teams, team.id, team)
+        }
         state.game.master = game.master
         state.game.entriesPerPlayer = game.entriesPerPlayer
-        state.game.turnOrder = game.turnOrder
 
         state.game.isStarted = game.isStarted
         state.game.isFinished = game.isFinished
@@ -43,10 +46,7 @@ export default new Vuex.Store({
         state.game.activeEntry = game.activeEntry
         state.game.turnTimeLeft = game.turnTimeLeft
 
-        const player = state.game.players.find(user => user.id === userId)
-        if (player) {
-          state.game.player = player
-        }
+        state.game.player = state.game.players[userId]
 
         state.game.font = game.font
         state.game.entries = game.entries

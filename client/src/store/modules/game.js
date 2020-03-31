@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import msg from '../../lib/msg'
 import randomFont from '../../lib/random-font'
 import link from '../../lib/link'
@@ -10,11 +11,10 @@ export default {
     path: null,
 
     // settings for game
-    players: [],
-    teams: [],
+    players: {},
+    teams: {},
     master: null,
     entriesPerPlayer: 0,
-    turnOrder: [],
 
     // state of game
     isStarted: false,
@@ -55,19 +55,19 @@ export default {
       return state.master === state.player.id
     },
     master: (state) => {
-      return state.players.find(user => user.id === state.master)
+      return state.players[state.master]
     },
     shareableLink: (state) => {
       return state.path ? link(state.path) : null
     },
     team: (state) => {
-      return state.player.teamId ? state.teams.find(team => team.id === state.player.teamId) : null
+      return state.teams[state.player.teamId]
     },
-    visiblePlayers: (state) => {
-      return state.players.filter(player => player.name)
+    players: (state) => {
+      return Object.values(state.players).filter(player => player.name)
     },
     canStart: (state) => {
-      return state.players.every(player => player.isReady && player.teamId)
+      return Object.values(state.players).every(player => player.isReady && player.teamId)
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id
@@ -80,19 +80,16 @@ export default {
       window.history.pushState(null, '', '/' + path)
     },
     addPlayer(state, player) {
-      state.players.push(player)
+      Vue.set(state.players, player.id, player)
     },
     setPlayerName(state, {id, name}) {
-      const player = state.players.find(p => p.id === id)
+      const player = state.players[id]
       if (player) {
         player.name = name
       }
     },
     removePlayer(state, id) {
-      const index = state.players.findIndex(p => p.id === id)
-      if (index > -1) {
-        this.players.splice(index, 1)
-      }
+      Vue.delete(this.players, id)
     },
     leaveGame() {
       window.location.href = '/'
@@ -104,28 +101,25 @@ export default {
       state.entriesPerPlayer = entriesPerPlayer
     },
     setPlayerReady(state, id) {
-      const player = state.players.find(p => p.id === id)
+      const player = state.players[id]
       if (player) {
         player.isReady = true
       }
     },
     addTeam(state, team) {
-      state.teams.push(team)
+      Vue.set(state.teams, team.id, team)
     },
     addPlayerToTeam(state, {id, teamId}) {
-      const player = state.players.find(p => p.id === id)
+      const player = state.players[id]
       if (player) {
         player.teamId = teamId
       }
     },
-    removeTeam(state, teamId) {
-      const index = state.teams.findIndex(t => t.id === teamId)
-      if (index > -1) {
-        this.teams.splice(index, 1)
-        for (const player in state.players) {
-          if (player.teamId === teamId) {
-            player.teamId = null
-          }
+    removeTeam(state, id) {
+      Vue.delete(state.teams, id)
+      for (const player in Object.values(state.players)) {
+        if (player.teamId === id) {
+          player.teamId = null
         }
       }
     },
@@ -183,7 +177,7 @@ export default {
     // Only for local use
     newGame(state) {
       state.master = state.player.id
-      state.players.push(state.player)
+      Vue.set(state.players, state.player.id, state.player)
       state.isCreated = true
     },
     setName(state, name) {

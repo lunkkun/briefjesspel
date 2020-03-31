@@ -366,7 +366,6 @@ class Game extends EventEmitter {
       teams: this.teamData,
       master: this.master,
       entriesPerPlayer: this.entriesPerPlayer,
-      turnOrder: this.turnOrder,
 
       isStarted: this.isStarted,
       isFinished: this.isFinished,
