@@ -82,13 +82,9 @@ class Game extends EventEmitter {
 
   // public methods
 
-  addPlayer(user, isMaster = false) {
+  addPlayer(user) {
     if (!this.players.has(user.id)) {
       this.players.set(user.id, user)
-
-      if (isMaster) {
-        this.master = user.id
-      }
 
       this.emit('playerAdded', user)
     }

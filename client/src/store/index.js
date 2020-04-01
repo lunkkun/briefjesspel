@@ -10,10 +10,10 @@ export default new Vuex.Store({
   state: {
     isLoaded: false,
     showHelp: false, // TODO: do something with this
-    requestLeave: false, // TODO: do something with this
+    requestToLeave: false, // TODO: do something with this
   },
   mutations: {
-    load(state, {userId, game, requestLeave}) {
+    load(state, {userId, game}) {
       if (game) {
         state.game.path = game.path
         if (window.location.href !== link(game.path)) {
@@ -56,8 +56,19 @@ export default new Vuex.Store({
         state.game.player.id = userId
       }
 
-      state.requestLeave = requestLeave
       state.isLoaded = true
+    },
+    redirectToGame(state, path) {
+      window.location.href = '/' + path
+    },
+    leaveGame() {
+      window.location.href = '/'
+    },
+    requestToLeave(state) {
+      state.requestToLeave = true
+    },
+    stayInCurrentGame(state) {
+      state.requestToLeave = false
     },
     toggleHelp(state) {
       state.showHelp = !state.showHelp

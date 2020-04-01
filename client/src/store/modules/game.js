@@ -75,10 +75,6 @@ export default {
   },
   mutations: {
     // Messages from server
-    setPath(state, path) {
-      state.path = path
-      window.history.pushState(null, '', '/' + path)
-    },
     addPlayer(state, player) {
       Vue.set(state.players, player.id, player)
     },
@@ -90,9 +86,6 @@ export default {
     },
     removePlayer(state, id) {
       Vue.delete(this.players, id)
-    },
-    leaveGame() {
-      window.location.href = '/'
     },
     updateMaster(state, master) {
       state.master = master
@@ -175,11 +168,6 @@ export default {
     },
 
     // Only for local use
-    newGame(state) {
-      state.master = state.player.id
-      Vue.set(state.players, state.player.id, state.player)
-      state.isCreated = true
-    },
     setName(state, name) {
       state.player.name = name
     },
@@ -191,9 +179,8 @@ export default {
     },
   },
   actions: {
-    async newGame({commit, dispatch}) {
-      await dispatch(msg('newGame'))
-      commit('newGame')
+    async newGame({dispatch}) {
+      dispatch(msg('newGame'))
     },
     async setPlayerName({commit, dispatch}, name) {
       if (name) {
@@ -208,6 +195,10 @@ export default {
     },
     async leaveGame({dispatch}) {
       dispatch(msg('leaveGame'))
+    },
+    async stayInCurrentGame({dispatch, commit}) {
+      await dispatch(msg('stayInCurrentGame'))
+      commit('stayInCurrentGame')
     },
     async setFont({commit, dispatch}, font) {
       if (font) {
@@ -227,7 +218,7 @@ export default {
         commit('addEntry', entry)
       }
     },
-    async addTeam({commit, dispatch}, name) {
+    async addTeam({dispatch}, name) {
       if (name) {
         dispatch(msg('addTeam', name))
       }
@@ -268,6 +259,9 @@ export default {
     },
     async finishGame({dispatch}) {
       dispatch(msg('finishGame'))
+    },
+    async newGameFromCurrent({dispatch}) {
+      dispatch(msg('newGameFromCurrent'))
     },
   },
 }
