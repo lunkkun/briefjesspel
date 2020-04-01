@@ -6,15 +6,13 @@
     <br>
     <div v-if="!_playerName">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
-      <!-- ipv label: onfocus="this.value=''" value="Je naam...", wilde mij niet lukken. Wellicht JavaScript. Polle -->
-      <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName">
+      <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName" v-focus>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setPlayerName(playerName)">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <div v-else-if="!_entriesPerPlayer && isMaster">
       <label class="generalFont spelOpzetBriefjes labelPosition" style="" for="entriesPerPlayer">Aantal briefjes per speler:</label>
-      <!-- ipv label: onfocus="this.value=''" value="Aantal briefjes per speler...", wilde mij niet lukken. Wellicht JavaScript. Polle -->
-      <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="10" v-model="entriesPerPlayer">
+      <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="9" v-model="entriesPerPlayer"  v-focus>
       <!-- Input number arrows nog hiden. Polle -->
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setEntriesPerPlayer(entriesPerPlayer)">&#187;</button>
       <!-- Button mooier maken. Polle -->
