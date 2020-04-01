@@ -18,7 +18,6 @@ class Game extends EventEmitter {
     // settings for game
     this.master = data.master || null
     this.players = data.players || new Map()
-    this.removedPlayers = data.removedPlayers || new Map()
     this.teams = data.teams || new Map()
     this.entriesPerPlayer = data.entriesPerPlayer || 0
     this.entries = data.entries || []
@@ -128,12 +127,7 @@ class Game extends EventEmitter {
         this.emit('masterUpdated')
       }
 
-      if (byHimself) {
-        this.emit('playerLeft', userId)
-      } else {
-        this.removedPlayers.set(userId, userId)
-        this.emit('playerRemoved', userId)
-      }
+      this.emit(byHimself ? 'playerLeft' : 'playerRemoved', userId)
     }
   }
 

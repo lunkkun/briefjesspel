@@ -16,7 +16,7 @@ router.get('/:gamePath?', (req, res) => {
   if (req.session.gameId) {
     const game = gameStore.get(req.session.gameId)
     if (game) {
-      if (game.removedPlayers.has(userId)) {
+      if (!game.players.has(userId)) {
         console.info(`User ${userId} was removed from game ${req.session.gameId}`)
         delete(req.session.gameId)
       }
@@ -35,8 +35,6 @@ router.get('/:gamePath?', (req, res) => {
         }
       } else if (game.players.has(userId)) {
         req.session.gameId = game.id
-      } else if (game.removedPlayers.has(userId)) {
-        console.error(`User ${userId} was denied access to game ${game.id}`)
       } else if (game.isStarted) {
         console.error(`Game ${game.id} already started; could not add user ${userId}`)
       } else {
