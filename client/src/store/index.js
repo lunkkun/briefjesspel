@@ -13,6 +13,7 @@ export default new Vuex.Store({
     requestToLeave: false, // TODO: do something with this
   },
   mutations: {
+    // Messages from server
     load(state, {userId, game}) {
       if (game) {
         state.game.path = game.path
@@ -58,15 +59,17 @@ export default new Vuex.Store({
 
       state.isLoaded = true
     },
-    redirectToGame(state, path) {
-      window.location.href = '/' + path
+    requestToLeave(state) {
+      state.requestToLeave = true
     },
     leaveGame() {
       window.location.href = '/'
     },
-    requestToLeave(state) {
-      state.requestToLeave = true
+    redirectToGame(state, path) {
+      window.location.href = '/' + path
     },
+
+    // Only for local use
     stayInCurrentGame(state) {
       state.requestToLeave = false
     },
