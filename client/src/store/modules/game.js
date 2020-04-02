@@ -60,6 +60,18 @@ export default {
     shareableLink: (state) => {
       return state.path ? link(state.path) : null
     },
+    playerNameSet: (state) => {
+      return !!state.player.name
+    },
+    entriesPerPlayerSet: (state) => {
+      return !!state.entriesPerPlayer
+    },
+    enoughEntries: (state) => {
+      return state.entries.length >= state.entriesPerPlayer
+    },
+    turnTimeSet: (state) => {
+      return !!state.turnTime
+    },
     team: (state) => {
       return state.teams[state.player.teamId]
     },

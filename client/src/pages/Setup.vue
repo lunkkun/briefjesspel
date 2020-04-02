@@ -4,20 +4,27 @@
     <!-- auto copy to clipboard, on select. JavaScript? Polle -->
     <br>
     <br>
-    <div v-if="!_playerName">
+    <div v-if="!playerNameSet">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName" v-focus>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setPlayerName(playerName)">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <div v-else-if="!_entriesPerPlayer && isMaster">
+    <div v-else-if="!entriesPerPlayerSet && isMaster">
       <label class="generalFont spelOpzetBriefjes labelPosition" style="" for="entriesPerPlayer">Aantal briefjes per speler:</label>
       <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="9" v-model="entriesPerPlayer"  v-focus>
       <!-- Input number arrows nog hiden. Polle -->
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setEntriesPerPlayer(entriesPerPlayer)">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <!-- briefjes invullen -->
+    <div v-else-if="!enoughEntries">
+      <label class="generalFont spelOpzetBriefjes labelPosition" for="entry">
+        Vul <span v-if="firstEntryAdded">nog </span>een briefje in:
+      </label>
+      <input id="entry" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="entry" v-focus>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="pushEntry()">&#187;</button>
+      <!-- Button mooier maken. Polle -->
+    </div>
     <!-- teams samenstellen -->
     <!-- tijd per ronde instellen -->
     <div v-else-if="canStart && isMaster">
@@ -30,7 +37,7 @@
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
 
 export default {
@@ -42,24 +49,37 @@ export default {
     return {
       playerName: '',
       entriesPerPlayer: 4,
+      entry: '',
+      firstEntryAdded: false,
     }
   },
-  computed: {
-    ...mapState({
-      _playerName: state => state.game.player.name,
-      _entriesPerPlayer: state => state.game.entriesPerPlayer,
-    }),
-    ...mapGetters([
-      'isMaster',
-      'shareableLink',
-      'canStart',
-    ]),
-  },
-  methods: mapActions([
-    'setPlayerName',
-    'setEntriesPerPlayer',
-    'startGame',
+  computed: mapGetters([
+    'isMaster',
+    'shareableLink',
+    'playerNameSet',
+    'entriesPerPlayerSet',
+    'enoughEntries',
+    'allPlayersAssigned',
+    'turnTimeSet',
+    'canStart',
   ]),
+  methods: {
+    pushEntry() {
+      this.addEntry(this.entry)
+      this.entry = ''
+      this.firstEntryAdded = true
+    },
+    ...mapActions([
+      'setPlayerName',
+      'setEntriesPerPlayer',
+      'startGame',
+      'addEntry',
+      'addTeam',
+      'addPlayerToTeam',
+      'removeTeam',
+      'setTurnTime',
+     ])
+  },
 }
 </script>
 
