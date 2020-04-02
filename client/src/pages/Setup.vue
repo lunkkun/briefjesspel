@@ -73,7 +73,6 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  height: 15%;
   padding: 3% 2%;
   text-align: center;
   word-wrap: break-word;
