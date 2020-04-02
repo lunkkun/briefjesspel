@@ -40,6 +40,7 @@ class Game extends EventEmitter {
     this.turnStarted = data.turnStarted || false
     this.turnFinished = data.turnFinished || false
     this.turnTimeLeft = data.turnTimeLeft || 0 // in seconds
+    this.scoreThisTurn = data.scoreThisTurn || 0
   }
 
 
@@ -236,6 +237,7 @@ class Game extends EventEmitter {
     this.turnStarted = false
     this.turnFinished = false
     this.turnTimeLeft = this.turnTime
+    this.scoreThisTurn = 0
 
     this.emit('nextTurn')
   }
@@ -251,6 +253,9 @@ class Game extends EventEmitter {
     this.roundStarted = false
     this.roundFinished = false
     this.turnTimeLeft = this.turnTime
+    this.teams.forEach((team) => {
+      team.scoreThisRound = 0
+    })
 
     this.emit('nextRound')
   }
@@ -319,9 +324,12 @@ class Game extends EventEmitter {
   }
 
   _score() {
+    this.scoreThisTurn += this.scorePerEntry
+
     const team = this.teams.get(this.activeTeam)
     if (team) {
       team.score += this.scorePerEntry
+      team.scoreThisRound += this.scorePerEntry
 
       this.emit('teamScored', team)
     }

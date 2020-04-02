@@ -22,7 +22,7 @@ export default {
 
     // settings for round
     turnTime: 0, // in seconds
-    scorePerEntry: 1, // for now hardcoded
+    scorePerEntry: 1,
 
     // state of round
     roundStarted: false,
@@ -37,6 +37,7 @@ export default {
     turnFinished: false,
     activeEntry: null, // only for active player
     turnTimeLeft: 0, // in seconds
+    scoreThisTurn: 0,
 
     // public settings for player
     player: {
@@ -66,8 +67,14 @@ export default {
     players: (state) => {
       return Object.values(state.players).filter(player => player.name)
     },
-    canStart: (state) => {
-      return Object.values(state.players).every(player => player.isReady && player.teamId)
+    allPlayersReady: (state) => {
+      return Object.values(state.players).every(player => player.isReady)
+    },
+    allPlayersAssigned: (state) => {
+      return Object.values(state.players).every(player => player.teamId)
+    },
+    canStart: (state, getters) => {
+      return getters.allPlayersReady && getters.allPlayersAssigned
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id
@@ -137,10 +144,13 @@ export default {
     nextEntry(state, entry) {
       state.activeEntry = entry
     },
-    updateTeamScore(state, {id, score}) {
+    updateTeamScore(state, {id, score, scoreThisRound, scoreThisTurn}) {
+      state.scoreThisTurn = scoreThisTurn
+
       const team = state.teams[id]
       if (team) {
         team.score = score
+        team.scoreThisRound = scoreThisRound
       }
     },
     finishTurn(state) {
@@ -155,6 +165,7 @@ export default {
       state.turnStarted = false
       state.turnFinished = false
       state.turnTimeLeft = state.turnTime
+      state.scoreThisTurn = 0
     },
     finishRound(state) {
       state.roundFinished = true
@@ -162,6 +173,10 @@ export default {
     nextRound(state) {
       state.roundStarted = false
       state.roundFinished = false
+
+      Object.values(state.teams).forEach((team) => {
+        team.scoreThisRound = 0
+      })
     },
     finishGame(state) {
       state.isFinished = true

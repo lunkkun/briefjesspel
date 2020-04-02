@@ -46,6 +46,7 @@ export default new Vuex.Store({
         state.game.turnFinished = game.turnFinished
         state.game.activeEntry = game.activeEntry
         state.game.turnTimeLeft = game.turnTimeLeft
+        state.game.scoreThisTurn = game.scoreThisTurn
 
         state.game.player = state.game.players[userId]
 
