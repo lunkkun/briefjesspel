@@ -158,6 +158,17 @@ class Game extends EventEmitter {
     }
   }
 
+  removePlayerFromTeam(userId, teamId) {
+    if (this.players.has(userId)) {
+      const user = this.players.get(userId)
+      if (user.teamId === teamId) {
+        user.teamId = null
+
+        this.emit('playerRemovedFromTeam', {userId, teamId})
+      }
+    }
+  }
+
   removeTeam(teamId) {
     if (this.teams.has(teamId) && this.activeTeam !== teamId) {
       this.teams.delete(teamId)
@@ -270,7 +281,7 @@ class Game extends EventEmitter {
   // private methods
 
   _playerIsReady(user) {
-    return user.name && this.entriesPerPlayer && user.entries.size === this.entriesPerPlayer
+    return user.name && this.entriesPerPlayer && user.entries.length === this.entriesPerPlayer
   }
 
   _checkPlayerReady(user) {

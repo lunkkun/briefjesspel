@@ -25,25 +25,35 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="pushEntry()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <!-- teams samenstellen -->
-    <!-- tijd per ronde instellen -->
+    <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
+    <div v-else-if="!turnTimeSet && isMaster">
+      <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
+      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" v-model="turnTime"  v-focus>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setTurnTime(turnTime)">&#187;</button>
+      <!-- Button mooier maken. Polle -->
+    </div>
     <div v-else-if="canStart && isMaster">
       <button class="generalFont spelOpzetNaam centerTextInput" @click="startGame">Start</button>
     </div>
-    <div class="generalFont spelOpzetBriefjes centerTextInput" v-else>
+    <div v-else-if="canStart" class="generalFont spelOpzetBriefjes centerTextInput">
+      Wachten tot het spel begint...
+    </div>
+    <div v-else class="generalFont spelOpzetBriefjes centerTextInput">
       Wachten tot het spel kan beginnen...
     </div>
   </HomeCube>
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import {mapState, mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
+import SetupTeams from '../components/SetupTeams'
 
 export default {
   name: 'Setup',
   components: {
     HomeCube,
+    SetupTeams,
   },
   data() {
     return {
@@ -51,18 +61,23 @@ export default {
       entriesPerPlayer: 4,
       entry: '',
       firstEntryAdded: false,
+      turnTime: 60,
     }
   },
-  computed: mapGetters([
-    'isMaster',
-    'shareableLink',
-    'playerNameSet',
-    'entriesPerPlayerSet',
-    'enoughEntries',
-    'allPlayersAssigned',
-    'turnTimeSet',
-    'canStart',
-  ]),
+  computed: {
+    ...mapState({
+      teamsConfirmed: state => state.game.teamsConfirmed,
+    }),
+    ...mapGetters([
+      'isMaster',
+      'shareableLink',
+      'playerNameSet',
+      'entriesPerPlayerSet',
+      'enoughEntries',
+      'turnTimeSet',
+      'canStart',
+     ])
+  },
   methods: {
     pushEntry() {
       this.addEntry(this.entry)
@@ -74,9 +89,6 @@ export default {
       'setEntriesPerPlayer',
       'startGame',
       'addEntry',
-      'addTeam',
-      'addPlayerToTeam',
-      'removeTeam',
       'setTurnTime',
      ])
   },

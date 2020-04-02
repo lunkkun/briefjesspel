@@ -14,6 +14,7 @@ export default {
     teams: {},
     master: null,
     entriesPerPlayer: 0,
+    teamsConfirmed: false,
 
     // state of game
     isStarted: false,
@@ -78,6 +79,12 @@ export default {
     players: (state) => {
       return Object.values(state.players).filter(player => player.name)
     },
+    playersForTeam: (state) => (teamId) => {
+      return Object.values(state.players).filter(player => player.teamId === teamId)
+    },
+    playersNotInTeam: (state) => (teamId) => {
+      return Object.values(state.players).filter(player => player.teamId !== teamId)
+    },
     allPlayersReady: (state) => {
       return Object.values(state.players).every(player => player.isReady)
     },
@@ -126,6 +133,12 @@ export default {
         player.teamId = teamId
       }
     },
+    removePlayerFromTeam(state, {id, teamId}) {
+      const player = state.players[id]
+      if (player && player.teamId === teamId) {
+        player.teamId = null
+      }
+    },
     removeTeam(state, id) {
       Vue.delete(state.teams, id)
       Object.values(state.players).forEach((player) => {
@@ -133,6 +146,9 @@ export default {
           player.teamId = null
         }
       })
+    },
+    confirmTeams(state) {
+      state.teamsConfirmed = true
     },
     setTurnTime(state, turnTime) {
       state.turnTime = turnTime
@@ -253,6 +269,12 @@ export default {
       if (id && teamId) {
         await dispatch(msg('addPlayerToTeam', {id, teamId}))
         commit('addPlayerToTeam', {id, teamId})
+      }
+    },
+    async removePlayerFromTeam({commit, dispatch}, {id, teamId}) {
+      if (id && teamId) {
+        await dispatch(msg('removePlayerFromTeam', {id, teamId}))
+        commit('removePlayerFromTeam', {id, teamId})
       }
     },
     async removeTeam({commit, dispatch}, id) {

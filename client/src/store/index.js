@@ -29,6 +29,7 @@ export default new Vuex.Store({
         })
         state.game.master = game.master
         state.game.entriesPerPlayer = game.entriesPerPlayer
+        state.game.teamsConfirmed = game.isStarted
 
         state.game.isStarted = game.isStarted
         state.game.isFinished = game.isFinished
