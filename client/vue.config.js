@@ -1,4 +1,13 @@
 module.exports = {
+  css: {
+    loaderOptions: {
+      scss: {
+        prependData: `
+          @import "~@/scss/fonts.scss";
+        `
+      }
+    }
+  },
   devServer: {
     proxy: {
       '/ws/': {
