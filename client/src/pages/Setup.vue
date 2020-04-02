@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <HomeCube>
     <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster">{{ shareableLink }}</div>
     <!-- auto copy to clipboard, on select. JavaScript? Polle -->
     <br>
@@ -26,14 +26,18 @@
     <div class="generalFont spelOpzetBriefjes centerTextInput" v-else>
       Wachten tot het spel kan beginnen...
     </div>
-  </div>
+  </HomeCube>
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from "vuex"
+import {mapState, mapGetters, mapActions} from 'vuex'
+import HomeCube from '../components/HomeCube'
 
 export default {
   name: 'Setup',
+  components: {
+    HomeCube,
+  },
   data() {
     return {
       playerName: '',

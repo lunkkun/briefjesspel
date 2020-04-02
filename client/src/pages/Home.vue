@@ -1,14 +1,18 @@
 <template>
-  <div class="centerHome">
-    <button class="generalFont nieuwSpel transparentButton" @click="newGame">NIEUW SPEL</button>
-  </div>
+  <HomeCube>
+    <button class="centerHome generalFont nieuwSpel transparentButton" @click="newGame">NIEUW SPEL</button>
+  </HomeCube>
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import {mapActions} from 'vuex'
+import HomeCube from '../components/HomeCube'
 
 export default {
   name: 'Home',
+  components: {
+    HomeCube,
+  },
   methods: mapActions([
     'newGame',
   ]),

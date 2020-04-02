@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoaded: false,
-    showHelp: false, // TODO: do something with this
+    showHelp: false,
     requestToLeave: false, // TODO: do something with this
   },
   mutations: {
