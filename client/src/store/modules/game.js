@@ -6,8 +6,7 @@ import link from '../../lib/link'
 export default {
   state: {
     // game initialization
-    isLoaded: false, // whether we've received the first response from the server
-    isCreated: false, // whether there's actually a game on the server
+    isCreated: false,
     path: null,
 
     // settings for game
