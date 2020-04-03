@@ -37,6 +37,7 @@ export default {
     turnFinished: false,
     activeEntry: null, // only for active player
     turnTimeLeft: 0, // in seconds
+    timer: null,
     scoreThisTurn: 0,
 
     // public settings for player
@@ -169,6 +170,13 @@ export default {
       state.roundStarted = true
     },
     startTurn(state) {
+      state.timer = setInterval(() => {
+        state.turnTimeLeft--
+
+        if (state.turnTimeLeft <= 0) {
+          clearInterval(state.timer)
+        }
+      })
       state.turnStarted = true
     },
     nextEntry(state, {entry, font}) {
@@ -198,6 +206,7 @@ export default {
       state.scoreThisTurn = 0
     },
     finishRound(state) {
+      clearInterval(state.timer)
       state.roundFinished = true
     },
     nextRound(state) {
