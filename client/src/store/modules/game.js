@@ -195,8 +195,8 @@ export default {
       }, 1000)
       state.turnStarted = true
     },
-    nextEntry(state, {entry, font}) {
-      state.activeEntry = {entry, font}
+    nextEntry(state, {text, font}) {
+      state.activeEntry = {text, font}
     },
     updateTeamScore(state, {id, score, scoreThisRound, scoreThisTurn}) {
       state.scoreThisTurn = scoreThisTurn
