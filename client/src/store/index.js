@@ -17,6 +17,7 @@ export default new Vuex.Store({
     load(state, {userId, game}) {
       if (game) {
         state.game.path = game.path
+
         if (window.location.href !== link(game.path)) {
           window.history.pushState(null, '', '/' + game.path)
         }
@@ -57,6 +58,10 @@ export default new Vuex.Store({
         state.game.isCreated = true
       } else {
         state.game.player.id = userId
+
+        if (window.location.href !== link()) {
+          window.history.pushState(null, '', '/')
+        }
       }
 
       state.isLoaded = true
