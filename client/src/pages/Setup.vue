@@ -28,7 +28,7 @@
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
-      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" v-model="turnTime"  v-focus>
+      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="995" v-model="turnTime"  v-focus>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setTurnTime(turnTime)">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>

@@ -1,6 +1,5 @@
 <template>
   <div class="generalFont timer">
-    <!-- TODO: mooie timer -->
     {{ turnTimeLeft }}
   </div>
 </template>
@@ -11,7 +10,12 @@ import {mapState} from 'vuex'
 export default {
   name: 'Timer',
   computed: mapState({
-    turnTimeLeft: state => state.game.turnTimeLeft,
+    turnTimeLeft: (state) => {
+      const timeLeft = state.game.turnTimeLeft
+      const minutes = Math.floor(timeLeft / 60)
+      const seconds = timeLeft - 60 * minutes
+      return minutes + ':' + seconds.toString().padStart(2, '0')
+    },
   }),
 }
 </script>
