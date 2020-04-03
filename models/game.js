@@ -26,6 +26,7 @@ class Game extends EventEmitter {
     // state of game
     this.isStarted = data.isStarted || false
     this.isFinished = data.isFinished || false
+    this.isArchived = data.isArchived || false
 
     // settings for round
     this.turnTime = data.turnTime || 0 // in seconds
@@ -296,6 +297,12 @@ class Game extends EventEmitter {
     this.emit('finished')
   }
 
+  archive() {
+    this.isArchived = true
+
+    this.emit('archived')
+  }
+
 
   // private methods
 
@@ -438,11 +445,11 @@ class Game extends EventEmitter {
 
   // event handling
 
-  emit(event, args) {
+  emit(event, ...args) {
     // always save when emitting
     this.save()
 
-    return super.emit(event, args)
+    return super.emit(event, ...args)
   }
 
   save() {
