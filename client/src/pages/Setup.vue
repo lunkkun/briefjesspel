@@ -32,14 +32,14 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setTurnTime(turnTime)">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <div v-else-if="canStart && isMaster">
+    <div v-else-if="!canStart" class="generalFont spelOpzetBriefjes centerTextInput">
+      Wachten tot het spel kan beginnen...
+    </div>
+    <div v-else-if="isMaster">
       <button class="generalFont spelOpzetNaam centerTextInput" @click="startGame">Start</button>
     </div>
-    <div v-else-if="canStart" class="generalFont spelOpzetBriefjes centerTextInput">
-      Wachten tot het spel begint...
-    </div>
     <div v-else class="generalFont spelOpzetBriefjes centerTextInput">
-      Wachten tot het spel kan beginnen...
+      Wachten tot het spel begint...
     </div>
   </HomeCube>
 </template>
