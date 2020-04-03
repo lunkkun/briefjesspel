@@ -1,26 +1,6 @@
 <template>
   <div>
-    <div v-if="editing">
-      <h4 class="generalFont teamLabel teamName">Spelers {{ teams[editing].name }}:</h4>
-      <ul class="teamList">
-        <li v-for="player in players" :key="player.id" class="teamItem">
-          <div class="generalFont teamItemName">
-            {{ player.name }}
-            <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
-          </div>
-          <div v-if="player.teamId === editing" class="listButton">
-            <button class="generalFont transparentButton" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
-          </div>
-          <div v-else class="listButton">
-            <button class="generalFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
-          </div>
-        </li>
-      </ul>
-      <div>
-        <button class="generalFont transparentButton nextButton" @click="stopEditing()">&#187;</button>
-      </div>
-    </div>
-    <div v-else>
+    <div v-if="!editing">
       <div>
         <label class="generalFont teamLabel teamName" for="teamName">Voeg team toe:</label>
         <input id="teamName" class="generalFont teamNameInput teamName" style="color: #688980;" type="text" v-model="teamName" v-focus>
@@ -41,6 +21,26 @@
       </ul>
       <div v-if="allPlayersAssigned && allTeamsHaveEnoughPlayers">
         <button class="generalFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
+      </div>
+    </div>
+    <div v-else>
+      <h4 class="generalFont teamLabel teamName">Spelers {{ teams[editing].name }}:</h4>
+      <ul class="teamList">
+        <li v-for="player in players" :key="player.id" class="teamItem">
+          <div class="generalFont teamItemName">
+            {{ player.name }}
+            <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
+          </div>
+          <div v-if="player.teamId === editing" class="listButton">
+            <button class="generalFont transparentButton" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
+          </div>
+          <div v-else class="listButton">
+            <button class="generalFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
+          </div>
+        </li>
+      </ul>
+      <div>
+        <button class="generalFont transparentButton nextButton" @click="stopEditing()">&#187;</button>
       </div>
     </div>
   </div>
