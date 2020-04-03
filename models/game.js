@@ -323,16 +323,18 @@ class Game extends EventEmitter {
     shuffle(this.entriesRemaining)
   }
 
+  _decrementTimer() {
+    this.turnTimeLeft--
+
+    if (this.turnTimeLeft === 0) {
+      clearInterval(this.timer)
+
+      this.finishTurn()
+    }
+  }
+
   _startTimer() {
-    this.timer = setInterval(() => {
-      this.turnTimeLeft--
-
-      if (this.turnTimeLeft === 0) {
-        clearInterval(this.timer)
-
-        this.finishTurn()
-      }
-    }, 1000)
+    this.timer = setInterval(this._decrementTimer.bind(this), 1000)
   }
 
   _score() {
