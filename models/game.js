@@ -193,6 +193,7 @@ class Game extends EventEmitter {
   start() {
     if (this.canStart) {
       this._fillEntries()
+      this._randomizeTurnOrder()
 
       this.isStarted = true
 
@@ -204,7 +205,6 @@ class Game extends EventEmitter {
 
   startRound() {
     if (this.canStartRound) {
-      this._randomizeTurnOrder()
       this._randomizeEntries()
 
       this.turnTimeLeft = this.turnTime
@@ -238,9 +238,10 @@ class Game extends EventEmitter {
   finishTurn() {
     this.turnFinished = true
 
-    this._randomizeEntries()
-
     this.emit('turnFinished')
+
+    // Bury the active entry into the pile
+    shuffle(this.entriesRemaining, true)
   }
 
   nextTurn() {
@@ -323,18 +324,16 @@ class Game extends EventEmitter {
     shuffle(this.entriesRemaining)
   }
 
-  _decrementTimer() {
-    this.turnTimeLeft--
-
-    if (this.turnTimeLeft === 0) {
-      clearInterval(this.timer)
-
-      this.finishTurn()
-    }
-  }
-
   _startTimer() {
-    this.timer = setInterval(this._decrementTimer.bind(this), 1000)
+    this.timer = setInterval(() => {
+      this.turnTimeLeft--
+
+      if (this.turnTimeLeft <= 0) {
+        clearInterval(this.timer)
+
+        this.finishTurn()
+      }
+    }, 1000)
   }
 
   _score() {
