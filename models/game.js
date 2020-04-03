@@ -57,23 +57,37 @@ class Game extends EventEmitter {
   }
 
   get canStartTurn() {
-    return this.roundStarted && !this.turnStarted && this.entriesRemaining.size
+    return this.roundStarted && !this.turnStarted && this.entriesRemaining.length
   }
 
   get activeTeam() {
-    return this.turnOrder.size ? this.turnOrder[0].teamId : null
+    return this.turnOrder.length ? this.turnOrder[0].teamId : null
   }
 
   get activePlayer() {
-    return this.turnOrder.size ? this.turnOrder[0].players[0] : null
+    return this.turnOrder.length ? this.turnOrder[0].players[0] : null
   }
 
   get nextTeam() {
-    return this.turnOrder.size > 1 ? this.turnOrder[1].teamId : null
+    if (this.turnOrder.length > 1) {
+      return this.turnOrder[1].teamId
+    } else if (this.turnOrder.length) {
+      // Special case for playing with only one team
+      return this.turnOrder[0].teamId
+    } else {
+      return null
+    }
   }
 
   get nextPlayer() {
-    return this.turnOrder.size > 1 ? this.turnOrder[1].players[0] : null
+    if (this.turnOrder.length > 1) {
+      return this.turnOrder[1].players[0]
+    } else if (this.turnOrder.length) {
+      // Special case for playing with only one team
+      return this.turnOrder[0].players[1]
+    } else {
+      return null
+    }
   }
 
   get activeEntry() {
@@ -221,6 +235,8 @@ class Game extends EventEmitter {
       this.turnStarted = true
 
       this.emit('turnStarted')
+
+      this._checkNextEntry()
     }
   }
 
@@ -228,11 +244,7 @@ class Game extends EventEmitter {
     this._score()
     this.entriesRemaining.pop()
 
-    if (this.entriesRemaining.size) {
-      this.emit('nextEntry')
-    } else {
-      this.finishRound()
-    }
+    this._checkNextEntry()
   }
 
   finishTurn() {
@@ -265,10 +277,15 @@ class Game extends EventEmitter {
   nextRound() {
     this.roundStarted = false
     this.roundFinished = false
-    this.turnTimeLeft = this.turnTime
+
+    this.turnStarted = false
+    this.scoreThisTurn = 0
+
     this.teams.forEach((team) => {
       team.scoreThisRound = 0
     })
+
+    this._shiftTurn()
 
     this.emit('nextRound')
   }
@@ -336,6 +353,14 @@ class Game extends EventEmitter {
     }, 1000)
   }
 
+  _checkNextEntry() {
+    if (this.entriesRemaining.length) {
+      this.emit('nextEntry')
+    } else {
+      this.finishRound()
+    }
+  }
+
   _score() {
     this.scoreThisTurn += this.scorePerEntry
 
@@ -350,7 +375,7 @@ class Game extends EventEmitter {
 
   _shiftTurn() {
     const team = this.turnOrder.shift()
-    team.push(team.players.shift())
+    team.players.push(team.players.shift())
     this.turnOrder.push(team)
   }
 
@@ -389,6 +414,7 @@ class Game extends EventEmitter {
       turnStarted: this.turnStarted,
       turnFinished: this.turnFinished,
       turnTimeLeft: this.turnTimeLeft,
+      scoreThisTurn: this.scoreThisTurn,
       nextTeam: this.nextTeam,
       nextPlayer: this.nextPlayer,
     }

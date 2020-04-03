@@ -96,7 +96,7 @@ export default {
       return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= 2)
     },
     canStart: (state, getters) => {
-      return getters.allPlayersReady && state.teamsConfirmed
+      return getters.allPlayersReady && getters.allPlayersAssigned && getters.allTeamsHaveEnoughPlayers
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id
@@ -228,6 +228,9 @@ export default {
     nextRound(state) {
       state.roundStarted = false
       state.roundFinished = false
+
+      state.turnStarted = false
+      state.scoreThisTurn = 0
 
       Object.values(state.teams).forEach((team) => {
         team.scoreThisRound = 0
