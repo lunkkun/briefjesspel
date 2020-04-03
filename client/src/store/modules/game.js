@@ -91,8 +91,11 @@ export default {
     allPlayersAssigned: (state) => {
       return Object.values(state.players).every(player => player.teamId)
     },
+    allTeamsHaveEnoughPlayers: (state, getters) => {
+      return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= 2)
+    },
     canStart: (state, getters) => {
-      return getters.allPlayersReady && getters.allPlayersAssigned
+      return getters.allPlayersReady && state.teamsConfirmed
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id

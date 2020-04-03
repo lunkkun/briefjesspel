@@ -47,8 +47,9 @@ class Game extends EventEmitter {
   // getters
 
   get canStart() {
-    return !this.isStarted && Array.from(this.players.values())
-      .every((user) => user.isReady && user.teamId)
+    return !this.isStarted &&
+      Array.from(this.players.values()).every(user => user.isReady && user.teamId) &&
+      Array.from(this.teams.values()).every(team => this._playersForTeam(team.id).length >= 2)
   }
 
   get canStartRound() {

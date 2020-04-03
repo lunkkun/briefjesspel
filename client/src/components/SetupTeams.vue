@@ -9,10 +9,10 @@
             <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
           </div>
           <div v-if="player.teamId === editing" class="listButton">
-            <button class="generalFont transparentButton" @click="removePlayerFromTeam({id: player.id, teamId: editing})">X</button>
+            <button class="generalFont transparentButton" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
           </div>
           <div v-else class="listButton">
-            <button class="generalFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">V</button>
+            <button class="generalFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
           </div>
         </li>
       </ul>
@@ -29,17 +29,17 @@
       <ul class="teamList">
         <li v-for="team in teams" :key="team.id" class="teamItem">
           <div class="generalFont teamItemName">
-            {{ team.name }} ({{ playersForTeam(team.id).length }} spelers)
+            {{ team.name }} ({{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>)
           </div>
           <div class="listButton">
-            <button class="generalFont transparentButton" @click="removeTeam(team.id)">X</button>
+            <button class="generalFont transparentButton" @click="removeTeam(team.id)">x</button>
           </div>
           <div class="listButton">
             <button class="generalFont transparentButton" @click="editTeam(team.id)">&#187;</button>
           </div>
         </li>
       </ul>
-      <div v-if="allPlayersAssigned">
+      <div v-if="allPlayersAssigned && allTeamsHaveEnoughPlayers">
         <button class="generalFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
       </div>
     </div>
@@ -65,9 +65,10 @@ export default {
       teams: state => state.game.teams,
     }),
     ...mapGetters([
-      'allPlayersAssigned',
       'playersForTeam',
       'playersNotInTeam',
+      'allPlayersAssigned',
+      'allTeamsHaveEnoughPlayers',
     ]),
     players() {
       return [
