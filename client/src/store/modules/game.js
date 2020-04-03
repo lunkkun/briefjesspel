@@ -101,6 +101,22 @@ export default {
     myTurn: (state) => {
       return state.activePlayer === state.player.id
     },
+    activePlayerName: (state) => {
+      const player = state.players[state.activePlayer]
+      return player ? player.name : null
+    },
+    nextPlayerName: (state) => {
+      const player = state.players[state.nextPlayer]
+      return player ? player.name : null
+    },
+    activeTeamName: (state) => {
+      const team = state.teams[state.activeTeam]
+      return team ? team.name : null
+    },
+    nextTeamName: (state) => {
+      const team = state.teams[state.nextTeam]
+      return team ? team.name : null
+    },
   },
   mutations: {
     // Messages from server
@@ -176,7 +192,7 @@ export default {
         if (state.turnTimeLeft <= 0) {
           clearInterval(state.timer)
         }
-      })
+      }, 1000)
       state.turnStarted = true
     },
     nextEntry(state, {entry, font}) {
