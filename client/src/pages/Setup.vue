@@ -103,11 +103,6 @@ export default {
       if (this.playerName.length >= 2) {
         this.setPlayerName(this.playerName)
         this.errors.playerName = false
-        if (this.isMaster) {
-          this.$refs.entriesPerPlayer.focus()
-        } else {
-          this.$refs.entry.focus()
-        }
       } else {
         this.errors.playerName = true
       }
@@ -117,18 +112,15 @@ export default {
       if (entriesPerPlayer > 0 && entriesPerPlayer <= 9) {
         this.setEntriesPerPlayer(entriesPerPlayer)
         this.errors.entriesPerPlayer = false
-        this.$refs.entry.focus()
       } else {
         this.errors.entriesPerPlayer = true
       }
     },
     confirmEntry() {
       if (this.entry.length > 0) {
-        this.addEntry(this.entry).then(() => {
-          this.entry = ''
-          this.firstEntryAdded = true
-          this.errors.entry = false
-        })
+        this.addEntry(this.entry)
+        this.entry = ''
+        this.firstEntryAdded = true
       } else {
         this.errors.entry = true
       }
