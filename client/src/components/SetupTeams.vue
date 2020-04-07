@@ -4,7 +4,8 @@
       <div>
         <label class="generalFont teamLabel teamName" for="teamName">Voeg team toe:</label>
         <input id="teamName" class="generalFont teamNameInput teamName" style="color: #688980;" type="text" v-model="teamName" v-focus>
-        <button class="generalFont transparentButton teamNameButton teamName" @click="confirmAddTeam()">&#187;</button>
+        <div v-if="errors.teamName" class="generalFont errorTeamName">Teamnaam mag niet leeg zijn</div>
+        <button class="generalFont transparentButton teamNameButton teamName" @click="confirmTeamName()">&#187;</button>
       </div>
       <ul class="teamList">
         <li v-for="team in teams" :key="team.id" class="teamItem">
@@ -58,6 +59,10 @@ export default {
     return {
       teamName: '',
       editing: null,
+
+      errors: {
+        teamName: false,
+      },
     }
   },
   computed: {
@@ -78,9 +83,14 @@ export default {
     },
   },
   methods: {
-    confirmAddTeam() {
-      this.addTeam(this.teamName)
-      this.teamName = ''
+    confirmTeamName() {
+      if (this.teamName.length > 0) {
+        this.addTeam(this.teamName)
+        this.teamName = ''
+        this.errors.teamName = false
+      } else {
+        this.errors.teamName = true
+      }
     },
     editTeam(teamId) {
       this.editing = teamId
@@ -160,5 +170,17 @@ button.nextButton {
   right: 4%;
   font-size: 10vmin;
   font-weight: bold;
+}
+.errorTeamName {
+  display: block;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: red;
 }
 </style>

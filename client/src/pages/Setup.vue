@@ -7,29 +7,33 @@
     <div v-if="!playerNameSet">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName" v-focus>
-      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setPlayerName(playerName)">&#187;</button>
+      <div v-if="errors.playerName" class="generalFont error">Je naam moet minimaal 2 tekens bevatten</div>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <div v-else-if="!entriesPerPlayerSet && isMaster">
       <label class="generalFont spelOpzetBriefjes labelPosition" style="" for="entriesPerPlayer">Aantal briefjes per speler:</label>
       <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="9" v-model="entriesPerPlayer"  v-focus>
+      <div v-if="errors.entriesPerPlayer" class="generalFont error">Vul een getal in tussen de 1 en de 9</div>
       <!-- Input number arrows nog hiden. Polle -->
-      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setEntriesPerPlayer(entriesPerPlayer)">&#187;</button>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <div v-else-if="!enoughEntries">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="entry">
-        Vul <span v-if="firstEntryAdded">nog </span>een briefje in:
+        Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
       <input id="entry" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="entry" v-focus>
-      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="pushEntry()">&#187;</button>
+      <div v-if="errors.entry" class="generalFont error">Het briefje mag niet leeg zijn</div>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntry()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
-      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="995" v-model="turnTime"  v-focus>
-      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="setTurnTime(turnTime)">&#187;</button>
+      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="600" v-model="turnTime"  v-focus>
+      <div v-if="errors.turnTime" class="generalFont error">Vul een getal in tussen de 5 en de 600</div>
+      <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmTurnTime()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <div v-else-if="!canStart" class="generalFont spelOpzetBriefjes centerTextInput">
@@ -62,10 +66,19 @@ export default {
       entry: '',
       firstEntryAdded: false,
       turnTime: 60,
+
+      errors: {
+        playerName: false,
+        entriesPerPlayer: false,
+        entry: false,
+        turnTime: false,
+      },
     }
   },
   computed: {
     ...mapState({
+      nrEntries: state => state.game.entries.length,
+      ofTotalEntries: state => state.game.entriesPerPlayer,
       teamsConfirmed: state => state.game.teamsConfirmed,
     }),
     ...mapGetters([
@@ -79,10 +92,41 @@ export default {
      ])
   },
   methods: {
-    pushEntry() {
-      this.addEntry(this.entry)
-      this.entry = ''
-      this.firstEntryAdded = true
+    confirmPlayerName() {
+      if (this.playerName.length >= 2) {
+        this.setPlayerName(this.playerName)
+        this.errors.playerName = false
+      } else {
+        this.errors.playerName = true
+      }
+    },
+    confirmEntriesPerPlayer() {
+      let entriesPerPlayer = parseInt(this.entriesPerPlayer)
+      if (entriesPerPlayer > 0 && entriesPerPlayer <= 9) {
+        this.setEntriesPerPlayer(entriesPerPlayer)
+        this.errors.entriesPerPlayer = false
+      } else {
+        this.errors.entriesPerPlayer = true
+      }
+    },
+    confirmTurnTime() {
+      let turnTime = parseInt(this.turnTime)
+      if (turnTime > 0 && turnTime <= 600) {
+        this.setTurnTime(this.turnTime)
+        this.errors.turnTime = false
+      } else {
+        this.errors.turnTime = true
+      }
+    },
+    confirmEntry() {
+      if (this.entry.length > 0) {
+        this.addEntry(this.entry)
+        this.entry = ''
+        this.firstEntryAdded = true
+        this.errors.entry = false
+      } else {
+        this.errors.entry = true
+      }
     },
     ...mapActions([
       'setPlayerName',
@@ -163,5 +207,17 @@ button.nextButton {
   .spelLink {
     font-size: 30px;
   }
+}
+.error {
+  display: block;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: red;
 }
 </style>

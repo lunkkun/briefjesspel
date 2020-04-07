@@ -256,11 +256,9 @@ export default {
       dispatch(msg('newGame'))
     },
     async setPlayerName({commit, dispatch}, name) {
-      if (name) {
-        await dispatch(msg('setPlayerName', name))
-        commit('setName', name)
-        dispatch('setFont', randomFont()) // TODO: add option for user?
-      }
+      await dispatch(msg('setPlayerName', name))
+      commit('setName', name)
+      dispatch('setFont', randomFont()) // TODO: add option for user?
     },
     async removePlayer({commit, dispatch}, id) {
       await dispatch(msg('removePlayer', id))
@@ -274,49 +272,35 @@ export default {
       commit('stayInCurrentGame')
     },
     async setFont({commit, dispatch}, font) {
-      if (font) {
-        await dispatch(msg('setFont', font))
-        commit('setFont', font)
-      }
+      await dispatch(msg('setFont', font))
+      commit('setFont', font)
     },
     async setEntriesPerPlayer({commit, dispatch}, entriesPerPlayer) {
-      if (entriesPerPlayer) {
-        await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
-        commit('setEntriesPerPlayer', entriesPerPlayer)
-      }
+      await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
+      commit('setEntriesPerPlayer', entriesPerPlayer)
     },
     async addEntry({commit, dispatch}, entry) {
-      if (entry) {
-        await dispatch(msg('addEntry', entry))
-        commit('addEntry', entry)
-      }
+      await dispatch(msg('addEntry', entry))
+      commit('addEntry', entry)
     },
     async addTeam({dispatch}, name) {
-      if (name) {
-        dispatch(msg('addTeam', name))
-      }
+      dispatch(msg('addTeam', name))
     },
     async addPlayerToTeam({commit, dispatch}, {id, teamId}) {
-      if (id && teamId) {
-        await dispatch(msg('addPlayerToTeam', {id, teamId}))
-        commit('addPlayerToTeam', {id, teamId})
-      }
+      await dispatch(msg('addPlayerToTeam', {id, teamId}))
+      commit('addPlayerToTeam', {id, teamId})
     },
     async removePlayerFromTeam({commit, dispatch}, {id, teamId}) {
-      if (id && teamId) {
-        await dispatch(msg('removePlayerFromTeam', {id, teamId}))
-        commit('removePlayerFromTeam', {id, teamId})
-      }
+      await dispatch(msg('removePlayerFromTeam', {id, teamId}))
+      commit('removePlayerFromTeam', {id, teamId})
     },
     async removeTeam({commit, dispatch}, id) {
       await dispatch(msg('removeTeam', id))
       commit('removeTeam', id)
     },
     async setTurnTime({commit, dispatch}, turnTime) {
-      if (turnTime) {
-        await dispatch(msg('setTurnTime', turnTime))
-        commit('setTurnTime', turnTime)
-      }
+      await dispatch(msg('setTurnTime', turnTime))
+      commit('setTurnTime', turnTime)
     },
     async startGame({dispatch}) {
       dispatch(msg('startGame'))
