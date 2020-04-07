@@ -103,7 +103,11 @@ export default {
       if (this.playerName.length >= 2) {
         this.setPlayerName(this.playerName)
         this.errors.playerName = false
-        this.$refs.entriesPerPlayer.focus()
+        if (this.isMaster) {
+          this.$refs.entriesPerPlayer.focus()
+        } else {
+          this.$refs.entry.focus()
+        }
       } else {
         this.errors.playerName = true
       }
