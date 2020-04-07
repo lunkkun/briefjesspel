@@ -6,14 +6,14 @@
       <br>
       <br>
     </div>
-    <div v-if="!playerNameSet">
+    <div v-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName" v-focus>
       <div v-if="errors.playerName" class="generalFont error">Je naam moet minimaal 2 tekens bevatten</div>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <div v-else-if="!entriesPerPlayerSet && isMaster">
+    <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
       <label class="generalFont spelOpzetBriefjes labelPosition" style="" for="entriesPerPlayer">Aantal briefjes per speler:</label>
       <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="9" v-model="entriesPerPlayer"  v-focus>
       <div v-if="errors.entriesPerPlayer" class="generalFont error">Vul een getal in tussen de 1 en de 9</div>
@@ -21,7 +21,7 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <div v-else-if="!enoughEntries">
+    <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
@@ -31,7 +31,7 @@
       <!-- Button mooier maken. Polle -->
     </div>
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
-    <div v-else-if="!turnTimeSet && isMaster">
+    <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
       <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="600" v-model="turnTime"  v-focus>
       <div v-if="errors.turnTime" class="generalFont error">Vul een getal in tussen de 5 en de 600</div>
