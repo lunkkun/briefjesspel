@@ -3,7 +3,7 @@
     <div v-if="!editing">
       <div @keydown.enter="confirmTeamName()">
         <label class="generalFont teamLabel teamName" for="teamName">Voeg team toe:</label>
-        <input id="teamName" class="generalFont teamNameInput teamName" style="color: #688980;" type="text" v-model="teamName" v-focus>
+        <input id="teamName" class="generalFont teamNameInput teamName" style="color: #688980;" type="text" autocomplete="off" v-model="teamName" v-focus>
         <div v-if="errors.teamName" class="generalFont errorTeamName">Teamnaam mag niet leeg zijn</div>
         <button class="generalFont transparentButton teamNameButton teamName" @click="confirmTeamName()">&#187;</button>
       </div>
