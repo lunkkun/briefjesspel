@@ -154,7 +154,6 @@ export default {
 .linkPosition {
   display: block;
   background-color: #F8DC8D;
-  background-color: red;
   position: absolute;
   top: 10%;
   left: 50%;
