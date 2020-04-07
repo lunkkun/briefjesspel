@@ -151,14 +151,18 @@ export default {
 .linkPosition {
   display: block;
   background-color: #F8DC8D;
+  background-color: red;
   position: absolute;
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
+  height: 8%;
   padding: 3% 2%;
   text-align: center;
-  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .labelPosition {
   display: block;
