@@ -1,43 +1,33 @@
 <template>
-  <HomeCube>
-    <div v-if="!isFinished">
-      <div v-if="!roundStarted">
-        <div v-if="isMaster">
-          <!-- TODO: tijd per ronde aanpassen -->
-          <button class="centerHome generalFont transparentButton startRoundButton" @click="startRound">Start ronde</button>
-        </div>
-        <div v-else class="generalFont">
-          Wachten tot de ronde start...
-        </div>
-      </div>
-      <div v-else-if="!roundFinished">
-        <MyTurn v-if="myTurn"></MyTurn>
-        <NotMyTurn v-else></NotMyTurn>
-      </div>
-      <RoundFinished v-else></RoundFinished>
+  <div v-if="!isFinished">
+    <RoundSetup v-if="!roundStarted"></RoundSetup>
+    <div v-else-if="!roundFinished">
+      <MyTurn v-if="myTurn"></MyTurn>
+      <NotMyTurn v-else></NotMyTurn>
     </div>
-    <div v-else class="generalFont centerHome">
-      EINDE
-      <!-- TODO: nieuw spel kunnen starten -->
-      <!-- TODO: spel kunnen verlaten -->
-    </div>
-  </HomeCube>
+    <RoundFinished v-else></RoundFinished>
+  </div>
+  <Finished v-else></Finished>
 </template>
 
 <script>
-import {mapState, mapGetters, mapActions} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import HomeCube from '../components/HomeCube'
-import MyTurn from '../components/game/MyTurn'
-import NotMyTurn from '../components/game/NotMyTurn'
-import RoundFinished from '../components/game/RoundFinished'
+import Finished from './game/Finished'
+import MyTurn from './game/MyTurn'
+import NotMyTurn from './game/NotMyTurn'
+import RoundFinished from './game/RoundFinished'
+import RoundSetup from './game/RoundSetup'
 
 export default {
   name: 'Game',
   components: {
     HomeCube,
+    Finished,
     MyTurn,
     NotMyTurn,
     RoundFinished,
+    RoundSetup,
   },
   computed: {
     ...mapState({
@@ -46,20 +36,12 @@ export default {
       roundFinished: state => state.game.roundFinished,
     }),
     ...mapGetters([
-      'isMaster',
       'myTurn',
     ]),
   },
-  methods: mapActions([
-    'startRound',
-  ]),
 }
 </script>
 
 <style lang="scss" scoped>
-.startRoundButton {
-  font-size: 12vmin;
-  font-weight: bold;
-  color: #344558;
-}
+
 </style>

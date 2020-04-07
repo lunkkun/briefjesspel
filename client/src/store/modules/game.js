@@ -22,6 +22,7 @@ export default {
 
     // settings for round
     turnTime: 0, // in seconds
+    previousTurnTime: 0,
     scorePerEntry: 1,
 
     // state of round
@@ -231,6 +232,9 @@ export default {
 
       state.turnStarted = false
       state.scoreThisTurn = 0
+
+      state.previousTurnTime = state.turnTime
+      state.turnTime = 0 // triggers setup
 
       Object.values(state.teams).forEach((team) => {
         team.scoreThisRound = 0

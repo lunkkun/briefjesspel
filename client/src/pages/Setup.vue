@@ -1,9 +1,11 @@
 <template>
   <HomeCube>
-    <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster">{{ shareableLink }}</div>
-    <!-- auto copy to clipboard, on select. JavaScript? Polle -->
-    <br>
-    <br>
+    <div v-if="!gameStarted">
+      <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster">{{ shareableLink }}</div>
+      <!-- auto copy to clipboard, on select. JavaScript? Polle -->
+      <br>
+      <br>
+    </div>
     <div v-if="!playerNameSet">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" v-model="playerName" v-focus>
@@ -75,11 +77,16 @@ export default {
       },
     }
   },
+  mounted() {
+    this.turnTime = this.previousTurnTime || this.turnTime
+  },
   computed: {
     ...mapState({
       nrEntries: state => state.game.entries.length,
       ofTotalEntries: state => state.game.entriesPerPlayer,
       teamsConfirmed: state => state.game.teamsConfirmed,
+      previousTurnTime: state => state.game.previousTurnTime,
+      gameStarted: state => state.game.isStarted,
     }),
     ...mapGetters([
       'isMaster',

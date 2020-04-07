@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <HomeCube>
     <div v-if="!isStarted" class="generalFont">
       De beurt is aan jou!
       <button class="centerHome generalFont transparentButton startTurnButton" @click="startTurn">Start je beurt</button>
@@ -18,16 +18,18 @@
       Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
       <button class="centerHome generalFont transparentButton nextTurnButton" @click="nextTurn">Geef de beurt door</button>
     </div>
-  </div>
+  </HomeCube>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
-import Timer from './Timer'
+import HomeCube from '../../components/HomeCube'
+import Timer from '../../components/Timer'
 
 export default {
   name: 'MyTurn',
   components: {
+    HomeCube,
     Timer,
   },
   computed: {

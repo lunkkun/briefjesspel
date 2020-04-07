@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <HomeCube>
     <div v-if="!isFinished">
       <span class="generalFont centerHome">
         De beurt is aan {{ activePlayerName }} ({{ activeTeamName }})!
@@ -11,16 +11,18 @@
       Behaalde score: {{ scoreThisTurn }}<br>
       Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
     </div>
-  </div>
+  </HomeCube>
 </template>
 
 <script>
 import {mapState, mapGetters} from 'vuex'
-import Timer from './Timer'
+import HomeCube from '../../components/HomeCube'
+import Timer from '../../components/Timer'
 
 export default {
   name: 'NotMyTurn',
   components: {
+    HomeCube,
     Timer,
   },
   computed: {
