@@ -2,6 +2,7 @@ import Vue from 'vue'
 import msg from '../../lib/msg'
 import randomFont from '../../lib/random-font'
 import link from '../../lib/link'
+import rankTeams from '../../lib/rank-teams'
 
 export default {
   state: {
@@ -117,6 +118,9 @@ export default {
     nextTeamName: (state) => {
       const team = state.teams[state.nextTeam]
       return team ? team.name : null
+    },
+    rankings: (state) => {
+      return Object.values(state.teams).sort(rankTeams)
     },
   },
   mutations: {
