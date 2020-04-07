@@ -22,12 +22,16 @@ export default new Vuex.Store({
           window.history.pushState(null, '', '/' + game.path)
         }
 
+        state.game.players = {}
         game.players.forEach((player) => {
           Vue.set(state.game.players, player.id, player)
         })
+
+        state.game.teams = {}
         game.teams.forEach((team) => {
           Vue.set(state.game.teams, team.id, team)
         })
+
         state.game.master = game.master
         state.game.entriesPerPlayer = game.entriesPerPlayer
         state.game.teamsConfirmed = game.isStarted
