@@ -76,6 +76,9 @@ export default new Vuex.Store({
     leaveGame() {
       window.location.href = '/'
     },
+    stayInGame(state) {
+      state.requestToLeave = false
+    },
     redirectToGame(state, path) {
       window.location.href = '/' + path
     },

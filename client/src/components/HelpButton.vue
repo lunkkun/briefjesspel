@@ -40,6 +40,7 @@ export default {
   border-bottom: 6.6vmin solid #F6D370;;
   border-right: 6.6vmin solid transparent;
   z-index: 20;
+  cursor: pointer;
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
   .infoCornerBottomLeft {

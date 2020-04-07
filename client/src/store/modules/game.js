@@ -135,7 +135,9 @@ export default {
       }
     },
     removePlayer(state, id) {
-      Vue.delete(this.players, id)
+      if (state.players.hasOwnProperty(id)) {
+        Vue.delete(this.players, id)
+      }
     },
     updateMaster(state, master) {
       state.master = master
@@ -165,12 +167,14 @@ export default {
       }
     },
     removeTeam(state, id) {
-      Vue.delete(state.teams, id)
-      Object.values(state.players).forEach((player) => {
-        if (player.teamId === id) {
-          player.teamId = null
-        }
-      })
+      if (state.teams.hasOwnProperty(id)) {
+        Vue.delete(state.teams, id)
+        Object.values(state.players).forEach((player) => {
+          if (player.teamId === id) {
+            player.teamId = null
+          }
+        })
+      }
     },
     confirmTeams(state) {
       state.teamsConfirmed = true
@@ -274,6 +278,9 @@ export default {
     },
     async leaveGame({dispatch}) {
       dispatch(msg('leaveGame'))
+    },
+    async stayInGame({commit}) {
+      commit('stayInGame')
     },
     async stayInCurrentGame({dispatch, commit}) {
       await dispatch(msg('stayInCurrentGame'))

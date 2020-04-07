@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <LeaveButton v-if="gameCreated"></LeaveButton>
     <HelpButton></HelpButton>
-    <Help v-if="showHelp"></Help>
+
+    <RequestToLeave v-if="requestToLeave"></RequestToLeave>
+    <Help v-else-if="showHelp"></Help>
+
     <div v-else-if="isLoaded">
       <Game v-if="gameStarted"></Game>
       <Setup v-else-if="gameCreated"></Setup>
       <Home v-else></Home>
     </div>
+
     <HomeCube v-else>
       <SpinnerLoader class="centerHome" color="#344558" />
     </HomeCube>
@@ -18,9 +23,11 @@ import {mapState} from 'vuex'
 import SpinnerLoader from '@bit/joshk.vue-spinners-css.spinner-loader'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
+import LeaveButton from './components/LeaveButton'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
+import RequestToLeave from './pages/RequestToLeave'
 import Setup from './pages/Setup'
 
 export default {
@@ -29,14 +36,17 @@ export default {
     SpinnerLoader,
     HelpButton,
     HomeCube,
+    LeaveButton,
     Game,
     Help,
     Home,
+    RequestToLeave,
     Setup,
   },
   computed: mapState({
     isLoaded: state => state.isLoaded,
     showHelp: state => state.showHelp,
+    requestToLeave: state => state.requestToLeave,
     gameCreated: state => state.game.isCreated,
     gameStarted: state => state.game.isStarted,
   }),
