@@ -42,6 +42,8 @@ class Game extends EventEmitter {
     this.turnFinished = data.turnFinished || false
     this.turnTimeLeft = data.turnTimeLeft || 0 // in seconds
     this.scoreThisTurn = data.scoreThisTurn || 0
+
+    this.redirectPath = data.redirectPath || null
   }
 
 
@@ -295,6 +297,12 @@ class Game extends EventEmitter {
     this.isFinished = true
 
     this.emit('finished')
+  }
+
+  redirect(game) {
+    this.redirectPath = game.path
+
+    this.emit('redirected')
   }
 
   archive() {

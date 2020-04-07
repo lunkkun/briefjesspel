@@ -31,7 +31,14 @@ router.get('/:gamePath?', (req, res) => {
     if (game) {
       if (req.session.gameId) {
         if (req.session.gameId !== game.id) {
-          req.session.newGameId = game.id
+          const previousGame = gameStore.get(req.session.gameId)
+          if (previousGame && previousGame.redirectPath === gamePath) {
+            req.session.gameId = game.id
+            console.debug(`User ${userId} was redirected to game ${game.id}`)
+          } else {
+            req.session.newGameId = game.id
+            console.debug(`User ${userId} has requested game ${game.id}`)
+          }
         }
       } else if (game.players.has(userId)) {
         req.session.gameId = game.id
