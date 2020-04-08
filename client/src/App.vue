@@ -13,14 +13,13 @@
     </div>
 
     <HomeCube v-else>
-      <SpinnerLoader class="centerBlock" color="#344558" />
+      <FontAwesomeIcon icon="spinner" class="fa-3x fa-spin spinner" color="#344558"></FontAwesomeIcon>
     </HomeCube>
   </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import SpinnerLoader from '@bit/joshk.vue-spinners-css.spinner-loader'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
@@ -33,7 +32,6 @@ import Setup from './pages/Setup'
 export default {
   name: 'App',
   components: {
-    SpinnerLoader,
     HelpButton,
     HomeCube,
     LeaveButton,
@@ -76,6 +74,16 @@ export default {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.spinner {
+  display: block;
+  position: absolute;
+  top: 43%;
+  left: 43%;
+  transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
   box-sizing: border-box;

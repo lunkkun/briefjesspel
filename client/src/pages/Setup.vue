@@ -1,10 +1,7 @@
 <template>
   <HomeCube>
     <div v-if="!gameStarted">
-      <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster">{{ shareableLink }}</div>
-      <!-- auto copy to clipboard, on select. JavaScript? Polle -->
-      <br>
-      <br>
+      <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster" @click="copyLink()">{{ shareableLink }}</div>
     </div>
     <div v-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
@@ -152,6 +149,11 @@ export default {
       } else {
         this.errors.turnTime = true
       }
+    },
+    copyLink() {
+      navigator.clipboard.writeText(this.shareableLink)
+        .then(() => {})
+        .catch((err) => console.error(err))
     },
     ...mapActions([
       'setPlayerName',
