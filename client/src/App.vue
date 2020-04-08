@@ -13,7 +13,7 @@
     </div>
 
     <HomeCube v-else>
-      <SpinnerLoader class="centerHome" color="#344558" />
+      <SpinnerLoader class="centerBlock" color="#344558" />
     </HomeCube>
   </div>
 </template>
@@ -63,7 +63,7 @@ export default {
   height: 100%;
   background-color: #688980;
 }
-.centerHome {
+.centerBlock {
   display: block;
   position: absolute;
   top: 50%;
@@ -77,11 +77,25 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #344558;
   caret-color: #344558;
-
+}
+.bigFont {
+  font-size: 12vmin;
+  font-weight: bold;
+  background-color: #344558;
+  color: transparent;
+  text-shadow: 0.4vmin 0.4vmin 0.2vmin #FFF2;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+}
+@media screen and (min-width: 613px) and (min-height: 613px){
+  .bigFont {
+    font-size: 74px;
+    text-shadow: 4px 4px 2px #FFF2;
+  }
 }
 .transparentButton {
   display: block;
-  background: transparent;
   border: none;
   margin: 0;
   padding: 0;
@@ -92,5 +106,16 @@ select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

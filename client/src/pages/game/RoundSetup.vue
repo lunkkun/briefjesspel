@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <HomeCube>
-        <button class="centerHome generalFont transparentButton startRoundButton" @click="startRound">Start ronde</button>
+        <button class="centerBlock generalFont transparentButton startRoundButton" @click="startRound">Start ronde</button>
       </HomeCube>
     </div>
   </div>

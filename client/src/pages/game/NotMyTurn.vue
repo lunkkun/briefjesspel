@@ -1,7 +1,7 @@
 <template>
   <HomeCube>
     <div v-if="!isFinished">
-      <span class="generalFont centerHome">
+      <span class="generalFont centerBlock bigFont">
         De beurt is aan {{ activePlayerName }} ({{ activeTeamName }})!
       </span>
       <Timer v-if="isStarted"></Timer>

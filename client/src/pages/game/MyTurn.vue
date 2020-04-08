@@ -2,11 +2,11 @@
   <HomeCube>
     <div v-if="!isStarted" class="generalFont">
       De beurt is aan jou!
-      <button class="centerHome generalFont transparentButton startTurnButton" @click="startTurn">Start je beurt</button>
+      <button class="centerBlock generalFont bigFont transparentButton" @click="startTurn">Start je beurt</button>
     </div>
     <div v-else-if="!isFinished">
       <div v-if="entry">
-        <button class="centerHome generalFont transparentButton entryButton" @click="nextEntry">
+        <button class="centerBlock generalFont bigFont transparentButton" @click="nextEntry">
           <span>{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
         </button>
       </div>
@@ -16,7 +16,7 @@
       Je beurt is voorbij!<br>
       Behaalde score: {{ scoreThisTurn }}<br>
       Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
-      <button class="centerHome generalFont transparentButton nextTurnButton" @click="nextTurn">Geef de beurt door</button>
+      <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn">Geef de beurt door</button>
     </div>
   </HomeCube>
 </template>

@@ -33,8 +33,8 @@
     <SetupTeams ref="setupTeams" v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
-      <input id="turnTime" ref="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="600" autocomplete="off" v-model="turnTime"  v-focus>
-      <div v-if="errors.turnTime" class="generalFont error">Vul een getal in tussen de 5 en de 600</div>
+      <input id="turnTime" ref="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="300" autocomplete="off" v-model="turnTime"  v-focus>
+      <div v-if="errors.turnTime" class="generalFont error">Vul een getal in tussen de 5 en de 300</div>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmTurnTime()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
