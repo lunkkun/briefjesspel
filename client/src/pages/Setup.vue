@@ -1,8 +1,12 @@
 <template>
   <HomeCube>
     <div v-if="!gameStarted">
-      <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster" @click="copyLink()">{{ shareableLink }}</div>
+      <div class="generalFont spelLink linkPosition" v-if="shareableLink && isMaster" @click="copyLink()">
+        <span class="linkText">{{ shareableLink }}&nbsp;</span>
+        <FontAwesomeIcon :icon="clipboard"></FontAwesomeIcon>
+      </div>
     </div>
+
     <div v-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text"
@@ -11,6 +15,7 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
+
     <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
       <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number"
@@ -20,6 +25,7 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
+
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
@@ -30,6 +36,7 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntry()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
+
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
@@ -40,12 +47,15 @@
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmTurnTime()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
+
     <div v-else-if="!canStart" class="generalFont spelOpzetBriefjes centerTextInput">
       Wachten tot het spel kan beginnen...
     </div>
+
     <div v-else-if="isMaster">
       <button class="generalFont spelOpzetNaam centerTextInput" @click="startGame()">Start</button>
     </div>
+
     <div v-else class="generalFont spelOpzetBriefjes centerTextInput">
       Wachten tot het spel begint...
     </div>
@@ -70,6 +80,7 @@ export default {
       entry: '',
       firstEntryAdded: false,
       turnTime: 60,
+      clipboard: 'clipboard',
 
       errors: {
         playerName: false,
@@ -152,7 +163,7 @@ export default {
     },
     copyLink() {
       navigator.clipboard.writeText(this.shareableLink)
-        .then(() => {})
+        .then(() => {this.clipboard = 'clipboard-check'})
         .catch((err) => console.error(err))
     },
     ...mapActions([
@@ -175,11 +186,13 @@ export default {
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 95%;
   height: 8%;
   padding: 3% 2%;
   text-align: center;
   overflow: hidden;
+}
+.linkText {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -230,7 +243,7 @@ button.nextButton {
 }
 .spelLink {
   font-style: italic;
-  font-size: 5vmin;
+  font-size: 4.5vmin;
   font-weight: bold;
 }
 @media screen and (min-width: 613px) and (min-height: 613px){

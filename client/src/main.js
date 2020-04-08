@@ -1,14 +1,7 @@
 import Vue from 'vue'
 import VueNativeSock from 'vue-native-websocket'
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-library.add(faSpinner)
-Vue.component('FontAwesomeIcon', FontAwesomeIcon)
-
 import './lib/directives'
+import './lib/font-awesome'
 import App from './App.vue'
 import store from './store'
 import passToStoreHandler from './lib/pass-to-store-handler'
