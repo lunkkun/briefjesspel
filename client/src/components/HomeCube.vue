@@ -16,7 +16,8 @@ export default {
 <style lang="scss" scoped>
 .homeCube {
   display: block;
-  position: fixed;
+  background-color: #F6D370;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -24,13 +25,13 @@ export default {
   height: 75vmin;
   max-width: 460px;
   max-height: 460px;
-  background-color: #F6D370;
   z-index: 20;
 }
 .homeCubeDropShadow {
   display: block;
   background-color: #344558;
-  position: fixed;
+  background-image: linear-gradient(-155deg, #344558, #688980);
+  position: absolute;
   top: 50%;
   left: 50%;
   width: 106.6vmin;
