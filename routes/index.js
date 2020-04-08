@@ -35,7 +35,7 @@ router.get('/:gamePath?', (req, res) => {
             req.session.gameId = game.id
             console.debug(`User ${userId} was redirected to game ${game.id}`)
           } else {
-            req.session.newGameId = game.id
+            req.session.requestedGameId = game.id
             console.debug(`User ${userId} has requested game ${game.id}`)
           }
         }

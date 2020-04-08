@@ -21,7 +21,6 @@ npm install
 
 ``` bash
 cd client
-npm config set '@bit:registry' https://node.bit.dev
 npm install
 ```
 

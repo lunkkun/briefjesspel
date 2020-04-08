@@ -13,14 +13,13 @@
     </div>
 
     <HomeCube v-else>
-      <SpinnerLoader class="centerHome" color="#344558" />
+      <FontAwesomeIcon icon="spinner" class="fa-3x fa-spin spinner" color="#344558"></FontAwesomeIcon>
     </HomeCube>
   </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import SpinnerLoader from '@bit/joshk.vue-spinners-css.spinner-loader'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
@@ -33,7 +32,6 @@ import Setup from './pages/Setup'
 export default {
   name: 'App',
   components: {
-    SpinnerLoader,
     HelpButton,
     HomeCube,
     LeaveButton,
@@ -62,23 +60,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #688980;
-}
-.centerHome {
-  display: block;
-  background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
-}
-.generalFont{
-  font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #344558;
-  caret-color: #344558;
-
+  overflow: hidden;
 }
 .transparentButton {
   display: block;
@@ -86,12 +68,69 @@ export default {
   border: none;
   margin: 0;
   padding: 0;
-  width: max-content;
+}
+.centerBlock {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.spinner {
+  display: block;
+  position: absolute;
+  top: 43%;
+  left: 43%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.generalFont{
+  font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #344558;
+  caret-color: #344558;
+}
+.bigFont {
+  font-size: 12vmin;
+  font-weight: bold;
+  background-color: #344558;
+  color: transparent;
+  text-shadow: 0.4vmin 0.4vmin 0.2vmin #FFF2;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+}
+@media screen and (min-width: 613px) and (min-height: 613px){
+  .bigFont {
+    font-size: 74px;
+    text-shadow: 4px 4px 2px #FFF2;
+  }
 }
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input::selection,
+textarea::selection {
+  background-color: transparent;
 }
 </style>

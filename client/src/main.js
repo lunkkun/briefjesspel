@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueNativeSock from 'vue-native-websocket'
+import './lib/directives'
+import './lib/font-awesome'
 import App from './App.vue'
 import store from './store'
+import passToStoreHandler from './lib/pass-to-store-handler'
 
 const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws'
 const url = `${scheme}://${window.location.host}/ws/`
@@ -9,24 +12,7 @@ const url = `${scheme}://${window.location.host}/ws/`
 Vue.use(VueNativeSock, url, {
   store: store,
   reconnection: true,
-  passToStoreHandler: function (eventName, event) {
-    if (!eventName.startsWith('SOCKET_')) return
-
-    let type = eventName.toUpperCase()
-    let payload = event
-
-    if (event.data) {
-      ({type, payload} = JSON.parse(event.data))
-    }
-
-    this.store.commit(type, payload)
-  }
-})
-
-Vue.directive('focus', {
-  inserted: function (el) {
-    el.focus()
-  }
+  passToStoreHandler,
 })
 
 Vue.config.productionTip = false
