@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div class="homeCubeDropShadow"></div>
-    <div class="homeCube">
-      <slot></slot>
+    <div class="wrapHomeCube">
+      <div class="homeCubeDropShadow"></div>
+      <div class="homeCube">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -18,9 +20,8 @@ export default {
   display: block;
   background-color: #F6D370;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   width: 75vmin;
   height: 75vmin;
   max-width: 460px;
@@ -42,4 +43,21 @@ export default {
   transform-origin: center top;
   z-index: 19;
 }
+.wrapHomeCube {
+    display: block;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75vmin;
+    height: 75vmin;
+    max-width: 460px;
+    max-height: 460px;
+    transform: translate(-50%, -50%);
+    transition: transform 1s;
+}
+/* animatie om HomeCube te laten verdwijnen */
+/* .wrapHomeCube:active {
+    transform: translate(200%, 200%);
+} */
 </style>

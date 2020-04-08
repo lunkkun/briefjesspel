@@ -1,7 +1,9 @@
 <template>
-  <HomeCube>
-    <button class="centerHome generalFont nieuwSpel transparentButton" @click="newGame">NIEUW SPEL</button>
-  </HomeCube>
+  <button class="transparentButton" @click="newGame">
+    <HomeCube>
+      <div class="centerHome generalFont nieuwSpel" >NIEUW SPEL</div>
+    </HomeCube>
+  </button>
 </template>
 
 <script>
@@ -21,20 +23,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.centerHome {
-  display: block;
-  background-color: transparent;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-}
 .nieuwSpel {
   font-size: 12vmin;
   font-weight: bold;
-  color: #344558;
-/*  -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+  background-color: #344558;
+  color: transparent;
+  text-shadow: 0.4vmin 0.4vmin 0.2vmin #FFF2;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+/* -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
 /*  -moz-animation: fadein 1s; /* Firefox < 16 */
 /* -ms-animation: fadein 1s; /* Internet Explorer */
 /*  -o-animation: fadein 1s; /* Opera < 12.1 */
@@ -48,6 +46,7 @@ export default {
 @media screen and (min-width: 613px) and (min-height: 613px){
   .nieuwSpel {
     font-size: 74px;
+    text-shadow: 4px 4px 2px #FFF2;
   }
 }
 </style>
