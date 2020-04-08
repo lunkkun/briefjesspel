@@ -8,14 +8,16 @@
     </div>
     <div v-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="playerName">Vul je naam in:</label>
-      <input id="playerName" ref="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" autocomplete="off" v-model="playerName" v-focus>
+      <input id="playerName" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text"
+             autocomplete="off" v-model="playerName" v-focus>
       <div v-if="errors.playerName" class="generalFont error">Je naam moet minimaal 2 tekens bevatten</div>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
     <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
-      <label class="generalFont spelOpzetBriefjes labelPosition" style="" for="entriesPerPlayer">Aantal briefjes per speler:</label>
-      <input id="entriesPerPlayer" ref="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="1" max="9" autocomplete="off" v-model="entriesPerPlayer"  v-focus>
+      <label class="generalFont spelOpzetBriefjes labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
+      <input id="entriesPerPlayer" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number"
+             min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
       <div v-if="errors.entriesPerPlayer" class="generalFont error">Vul een getal in tussen de 1 en de 9</div>
       <!-- Input number arrows nog hiden. Polle -->
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
@@ -25,15 +27,18 @@
       <label class="generalFont spelOpzetBriefjes labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
-      <input id="entry" ref="entry" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text" autocomplete="off" v-model="entry" v-focus>
+      <input id="entry" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="text"
+             autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="generalFont error">Het briefje mag niet leeg zijn</div>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmEntry()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-    <SetupTeams ref="setupTeams" v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
+    <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont spelOpzetBriefjes labelPosition" for="turnTime">Aantal seconde per beurt:</label>
-      <input id="turnTime" ref="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number" min="5" step="5" max="300" autocomplete="off" v-model="turnTime"  v-focus>
+      <input id="turnTime" class="generalFont spelOpzetNaam centerTextInput" style="color: #688980;" type="number"
+             min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
+             v-focus v-select>
       <div v-if="errors.turnTime" class="generalFont error">Vul een getal in tussen de 5 en de 300</div>
       <button class="generalFont spelOpzetNaam transparentButton nextButton" @click="confirmTurnTime()">&#187;</button>
       <!-- Button mooier maken. Polle -->
@@ -42,7 +47,7 @@
       Wachten tot het spel kan beginnen...
     </div>
     <div v-else-if="isMaster">
-      <button class="generalFont spelOpzetNaam centerTextInput" @click="startGame">Start</button>
+      <button class="generalFont spelOpzetNaam centerTextInput" @click="startGame()">Start</button>
     </div>
     <div v-else class="generalFont spelOpzetBriefjes centerTextInput">
       Wachten tot het spel begint...
@@ -107,6 +112,13 @@ export default {
         this.errors.playerName = true
       }
     },
+    updateEntriesPerPlayer(event) {
+      let value = event.target.value
+      if (value.length <= 1) {
+        this.entriesPerPlayer = value
+      }
+      this.$forceUpdate()
+    },
     confirmEntriesPerPlayer() {
       let entriesPerPlayer = parseInt(this.entriesPerPlayer)
       if (entriesPerPlayer > 0 && entriesPerPlayer <= 9) {
@@ -125,9 +137,16 @@ export default {
         this.errors.entry = true
       }
     },
+    updateTurnTime(event) {
+      let value = event.target.value
+      if (value.length <= 3) {
+        this.turnTime = value
+      }
+      this.$forceUpdate()
+    },
     confirmTurnTime() {
       let turnTime = parseInt(this.turnTime)
-      if (turnTime > 0 && turnTime <= 600) {
+      if (turnTime > 0 && turnTime <= 300) {
         this.setTurnTime(this.turnTime)
         this.errors.turnTime = false
       } else {

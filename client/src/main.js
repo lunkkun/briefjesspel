@@ -23,11 +23,7 @@ Vue.use(VueNativeSock, url, {
   }
 })
 
-Vue.directive('focus', {
-  inserted: function (el) {
-    el.focus()
-  }
-})
+require('./lib/directives')
 
 Vue.config.productionTip = false
 
