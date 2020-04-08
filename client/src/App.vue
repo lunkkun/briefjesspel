@@ -62,14 +62,23 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #688980;
+  overflow: hidden;
+}
+.transparentButton {
+  display: block;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 .centerBlock {
   display: block;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: max-content;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
 }
 .generalFont{
   font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
@@ -93,13 +102,6 @@ export default {
     font-size: 74px;
     text-shadow: 4px 4px 2px #FFF2;
   }
-}
-.transparentButton {
-  display: block;
-  border: none;
-  margin: 0;
-  padding: 0;
-  width: max-content;
 }
 input:focus,
 select:focus,

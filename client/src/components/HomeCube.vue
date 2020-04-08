@@ -3,7 +3,9 @@
     <div class="wrapHomeCube">
       <div class="homeCubeDropShadow"></div>
       <div class="homeCube">
-        <slot></slot>
+        <div class="homeCubePadding">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -16,6 +18,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.homeCubePadding {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vmin;
+  height: 70vmin;
+  max-height: 430px;
+  max-width: 430px;
+}
 .homeCube {
   display: block;
   background-color: #F6D370;
@@ -24,14 +37,19 @@ export default {
   left: 0;
   width: 75vmin;
   height: 75vmin;
-  max-width: 460px;
   max-height: 460px;
+  max-width: 460px;
   z-index: 20;
 }
 .homeCubeDropShadow {
   display: block;
   background-color: #344558;
-  background-image: linear-gradient(-155deg, #344558, #688980);
+  background: -webkit-gradient(linear, center top, center bottom, from(#344558), to(#688980));
+  background: -webkit-linear-gradient(-155deg, #344558, #688980);
+  background: -moz-linear-gradient(-155deg, #344558, #688980);
+  background: -o-linear-gradient(-155deg, #344558, #688980);
+  background: -ms-linear-gradient(-155deg, #344558, #688980);
+  background: linear-gradient(-155deg, #344558, #688980);
   position: absolute;
   top: 50%;
   left: 50%;
