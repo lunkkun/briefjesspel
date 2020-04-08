@@ -4,7 +4,7 @@
  * @param onlyLastItem Set to true if you only want to bury the last item in the pile.
  * @returns array The shuffled array
  */
-module.exports = function (array, onlyLastItem = false) {
+function shuffle(array, onlyLastItem = false) {
   let counter = array.length;
 
   // While there are elements in the array
@@ -25,3 +25,5 @@ module.exports = function (array, onlyLastItem = false) {
 
   return array;
 }
+
+module.exports = shuffle

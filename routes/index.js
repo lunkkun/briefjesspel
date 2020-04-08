@@ -5,8 +5,6 @@ const User = require('../models/user')
 const router = express.Router();
 
 router.get('/:gamePath?', (req, res) => {
-  const gamePath = req.params.gamePath
-
   let userId = req.session.userId
   if (!userId) {
     const user = new User()
@@ -26,6 +24,7 @@ router.get('/:gamePath?', (req, res) => {
     }
   }
 
+  const gamePath = req.params.gamePath
   if (gamePath) {
     const game = gameStore.byPath.get(gamePath)
     if (game) {

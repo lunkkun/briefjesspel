@@ -1,7 +1,9 @@
 const uuid = require('uuid')
-const EventEmitter = require('events').EventEmitter
-const randomString = require('../lib/random-string')
-const shuffle = require('../lib/shuffle')
+const {EventEmitter} = require('events')
+const randomString = require('../utils/random-string')
+const shuffle = require('../utils/shuffle')
+const User = require('./user')
+const Team = require('./team')
 
 class Game extends EventEmitter {
   constructor(data = {}) {
@@ -16,9 +18,11 @@ class Game extends EventEmitter {
     this.updatedAt = data.updatedAt || new Date()
 
     // settings for game
+    this.players = new Map(Object.entries(data.players || {})
+      .map(([key, value]) => [key, new User(value)]))
+    this.teams = new Map(Object.entries(data.teams || {})
+      .map(([key, value]) => [key, new Team(value)]))
     this.master = data.master || null
-    this.players = data.players || new Map()
-    this.teams = data.teams || new Map()
     this.entriesPerPlayer = data.entriesPerPlayer || 0
     this.entries = data.entries || []
     this.turnOrder = data.turnOrder || []
@@ -455,15 +459,10 @@ class Game extends EventEmitter {
 
   emit(event, ...args) {
     // always save when emitting
-    this.save()
+    this.updatedAt = new Date()
+    super.emit('changed')
 
     return super.emit(event, ...args)
-  }
-
-  save() {
-    this.updatedAt = new Date()
-
-    // TODO
   }
 }
 
