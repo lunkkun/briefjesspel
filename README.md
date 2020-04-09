@@ -7,6 +7,7 @@ Gemaakt met Node.js, websockets en Vue.
 ## Benodigdheden
 
 * [Node.js 12.x](https://nodejs.org/)
+* [MongoDB 4.x](https://www.mongodb.com/download-center/community)
 
 ## Installatie
 

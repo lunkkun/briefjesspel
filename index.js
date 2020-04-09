@@ -8,40 +8,58 @@ const appKey = process.env.APP_KEY || '$eCuRiTy'
 const express = require('express')
 const http = require('http')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
 
-// load internal dependencies
-const wsServer = require('./lib/websocket-server')
-const routes = require('./routes/index')
-const User = require('./models/user')
+// load utils
+const dbClient = require('./utils/mongodb-client')
+const logger = require('./utils/logger')
 
-// create shared sessionParser for http & ws
-const sessionParser = session({
-  saveUninitialized: true,
-  secret: appKey,
-  resave: false,
-})
+async function init() {
+  // connect to DB
+  await dbClient.connect()
 
-const app = express()
+  // create shared sessionParser for http & ws
+  const sessionParser = session({
+    saveUninitialized: true,
+    secret: appKey,
+    resave: false,
+    store: new MongoStore({client: dbClient}),
+  })
 
-app.use(sessionParser)
-app.use(express.static('client/dist', { index: '_' }))
-app.use('/', routes)
+  // load remaining internal dependencies
+  const wsServer = require('./lib/websocket-server')
+  const routes = require('./routes/index')
+  const User = require('./models/user')
 
-const server = http.createServer(app)
+  // create app
+  const app = express()
 
-server.on('upgrade', (req, socket, head) => {
-  sessionParser(req, {}, () => {
-    if (!req.session.userId) {
-      const user = new User()
-      req.session.userId = user.id
-    }
+  app.use(sessionParser)
+  app.use(express.static('client/dist', {index: '_'}))
+  app.use('/', routes)
 
-    wsServer.handleUpgrade(req, socket, head, function(ws) {
-      wsServer.emit('connection', ws, req)
+  // create server
+  const server = http.createServer(app)
+
+  server.on('upgrade', (req, socket, head) => {
+    sessionParser(req, {}, () => {
+      if (!req.session.userId) {
+        const user = new User()
+        req.session.userId = user.id
+      }
+
+      wsServer.handleUpgrade(req, socket, head, function (ws) {
+        wsServer.emit('connection', ws, req)
+      })
     })
   })
-})
 
-server.listen(port, () => {
-  console.log(`listening on ${port}`)
-})
+  server.listen(port, () => {
+    logger.info(`Server listening on ${port}`)
+  })
+}
+
+init()
+  .catch((err) => {
+    logger.error(`Error initializing server: `, err)
+  })
