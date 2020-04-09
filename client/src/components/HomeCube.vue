@@ -76,7 +76,7 @@ export default {
     transition-property: transform;
     transition-timing-function: cubic-bezier(.85,-0.2,.56,.91);
 }
- .wrapHomeCube:active {
+/* .wrapHomeCube:active {
     transform: translate(150%, 150%);
-}
+}*/
 </style>
