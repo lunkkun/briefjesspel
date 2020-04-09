@@ -99,11 +99,11 @@ export default {
   font-weight: lighter;
 }
 .smallFont {
-  font-size: 6vmin;
+  font-size: 4.9vmin;
   font-weight: lighter;
 }
 .mediumFont {
-  font-size: 7.5vmin;
+  font-size: 7.3vmin;
   font-weight: normal;
 }
 .bigFont {

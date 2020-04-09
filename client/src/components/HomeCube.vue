@@ -72,10 +72,11 @@ export default {
     max-width: 460px;
     max-height: 460px;
     transform: translate(-50%, -50%);
-    transition: all 0.5s ease-in-out;
+    transition: all 0.6s;
     transition-property: transform;
+    transition-timing-function: cubic-bezier(.85,-0.2,.56,.91);
 }
- /*.wrapHomeCube:active {
+ .wrapHomeCube:active {
     transform: translate(150%, 150%);
-}*/
+}
 </style>
