@@ -1,6 +1,6 @@
 <template>
   <HomeCube>
-    <div v-if="!linkInfoRead">
+    <div v-if="!linkInfoRead && isMaster">
       <div class="generalFont smallFont spelLink linkBox" v-if="shareableLink && isMaster" @click="copyLink()">
         <FontAwesomeIcon :icon="clipboard" style="margin: 0 2%;"> </FontAwesomeIcon> {{ shareableLink }}
       </div>
