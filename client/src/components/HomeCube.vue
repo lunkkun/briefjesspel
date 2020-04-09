@@ -72,10 +72,10 @@ export default {
     max-width: 460px;
     max-height: 460px;
     transform: translate(-50%, -50%);
-    transition: transform 1s;
+    transition: all 0.5s ease-in-out;
+    transition-property: transform;
 }
-/* animatie om HomeCube te laten verdwijnen */
-/* .wrapHomeCube:active {
-    transform: translate(200%, 200%);
-} */
+ /*.wrapHomeCube:active {
+    transform: translate(150%, 150%);
+}*/
 </style>

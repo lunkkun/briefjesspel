@@ -2,46 +2,46 @@
   <div>
     <div v-if="!editing">
       <div @keydown.enter="confirmTeamName()">
-        <label class="generalFont teamLabel teamName" for="teamName">Voeg team toe:</label>
-        <input id="teamName" class="generalFont teamNameInput teamName" style="color: #688980;" type="text" autocomplete="off" v-model="teamName" v-focus>
-        <div v-if="errors.teamName" class="generalFont errorTeamName">Teamnaam mag niet leeg zijn</div>
-        <button class="generalFont transparentButton teamNameButton teamName" @click="confirmTeamName()">&#187;</button>
+        <label class="generalFont mediumFont teamLabel" for="teamName">Voeg team toe <button class="generalFont transparentButton mediumFont teamNameButton" @click="confirmTeamName()">+</button></label>
+        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" autocomplete="off" v-model="teamName" v-focus>
+        <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
+        
       </div>
-      <ul class="teamList">
-        <li v-for="team in teams" :key="team.id" class="teamItem">
-          <div class="generalFont teamItemName">
+      <div class="teamList">
+        <div v-for="team in teams" :key="team.id" class="teamItem">
+          <div class="teamPlayer generalFont smallFont">
             {{ team.name }} ({{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>)
           </div>
-          <div class="listButton">
-            <button class="generalFont transparentButton" @click="removeTeam(team.id)">x</button>
+          <div class="teamItem listButton">
+            <button class="generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>
           </div>
           <div class="listButton">
-            <button class="generalFont transparentButton" @click="editTeam(team.id)">&#187;</button>
+            <button class="generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
       <div v-if="allPlayersAssigned && allTeamsHaveEnoughPlayers">
-        <button class="generalFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
+        <button class="generalFont bigFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
       </div>
     </div>
     <div v-else>
-      <h4 class="generalFont teamLabel teamName">Spelers {{ teams[editing].name }}:</h4>
-      <ul class="teamList">
-        <li v-for="player in players" :key="player.id" class="teamItem">
-          <div class="generalFont teamItemName">
+      <div class="generalFont mediumFont teamLabel">Spelers {{ teams[editing].name }}:</div>
+      <div class="teamPlayerList">
+        <div v-for="player in players" :key="player.id" class="teamItem">
+          <div class="generalFont smallFont teamPlayer">
             {{ player.name }}
             <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
           </div>
           <div v-if="player.teamId === editing" class="listButton">
-            <button class="generalFont transparentButton" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
+            <button class="generalFont smallFont transparentButton" style="font-weight: bold;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
           </div>
           <div v-else class="listButton">
-            <button class="generalFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
-          </div>
-        </li>
-      </ul>
+            <button class="generalFont smallFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
+          </div>          
+        </div>
+      </div>
       <div>
-        <button class="generalFont transparentButton nextButton" @click="stopEditing()">&#187;</button>
+        <button class="generalFont bigFont transparentButton nextButton" @click="stopEditing()">&#187;</button>
       </div>
     </div>
   </div>
@@ -116,11 +116,10 @@ export default {
   display: block;
   background-color: transparent;
   position: absolute;
-  top: 20%;
+  top: 28%;
   left: 50%;
   transform: translateX(-50%);
-  width: 94%;
-  padding: 3%;
+  width: 100%;
   text-align: center;
 }
 .teamNameInput {
@@ -128,57 +127,65 @@ export default {
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 36%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   text-align: center;
+  text-overflow: ellipsis;
 }
 .teamList {
-  display: block;
+  display: table;
   background-color: transparent;
-  border: none;
   position: absolute;
-  top: 38%;
+  bottom: 8%;
   left: 50%;
   transform: translate(-50%);
   width: 100%;
   text-align: left;
+  padding: 0;
 }
-.teamName {
-  font-size: 6vmin;
-  font-weight: bold;
+.teamPlayerList {
+  display: table;
+  background-color: transparent;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100%;
+  text-align: left;
+  padding: 0;
 }
 .teamItem {
-  display: flex;
+  display: table-row;
+  width: 100%;
 }
-.teamItemName {
-
+.teamPlayer {
+  display: table-cell;
+  width: 50%;
 }
 .listButton {
-  align-self: flex-end;
-  margin-left: 0.5rem
+  display: table-cell;
+  width: 25%;
 }
 button.teamNameButton {
-  position: absolute;
-  top: 32%;
-  right: 4%;
+  display: table-cell;
+  width: 25%;
 }
 button.nextButton {
   position: absolute;
-  bottom: 2%;
-  right: 4%;
-  font-size: 10vmin;
-  font-weight: bold;
+  transform: rotate(45deg);
+  bottom: -5%;
+  right: 0;
 }
 .errorTeamName {
   display: block;
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 46%;
+  bottom: 1%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 100%;
   text-align: center;
   color: red;
