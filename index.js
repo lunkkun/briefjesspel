@@ -9,7 +9,10 @@ const express = require('express')
 const http = require('http')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
+
+// load utils
 const dbClient = require('./utils/mongodb-client')
+const logger = require('./utils/logger')
 
 async function init() {
   // connect to DB
@@ -52,11 +55,11 @@ async function init() {
   })
 
   server.listen(port, () => {
-    console.log(`listening on ${port}`)
+    logger.info(`listening on ${port}`)
   })
 }
 
 init()
   .catch((err) => {
-    console.error(`Error initializing server:`, err)
+    logger.error(`Error initializing server: `, err)
   })

@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongodb": "^3.5.5",
+    "simple-node-logger": "^18.12.24",
     "uuid": "^7.0.2",
     "ws": "^7.2.3"
   }
