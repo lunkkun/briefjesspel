@@ -6,11 +6,13 @@
       </div>
     </div>
 
+<!-- Spel link -->
     <div v-if="!linkInfoRead && isMaster">      
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button>
     </div>
-
+    
+<!-- Naam spelleider -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">      
       <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont mediumFont centerTextInput" value="je naam" style="color: #688980;" type="text"
@@ -20,16 +22,17 @@
       <!-- Button mooier maken. Polle -->
     </div>
 
+<!-- Briefjes pp -->
     <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
       <label class="generalFont mediumFont labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
       <input id="entriesPerPlayer" class="generalFont mediumFont centerTextInput" style="color: #688980;" type="number"
              min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
       <div v-if="errors.entriesPerPlayer" class="generalFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
-      <!-- Input number arrows nog hiden. Polle -->
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
       <!-- Button mooier maken. Polle -->
     </div>
-
+    
+<!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="generalFont mediumFont labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
@@ -41,6 +44,7 @@
       <!-- Button mooier maken. Polle -->
     </div>
 
+<!-- Team setup -->
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont mediumFont labelPosition" for="turnTime">Aantal seconden per beurt:</label>
@@ -102,9 +106,9 @@ export default {
   computed: {
     linkClasses() {
       if (!this.linkInfoRead) {
-        return ['class1', 'class2']
+        return ['smallFont', 'linkBoxBig']
       } else {
-        return ['class3', 'class4']
+        return ['tinyFont', 'linkBoxSmall']
       }
     },
     ...mapState({
@@ -217,7 +221,7 @@ export default {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 94%;
+  width: 98%;
   padding: 1%;
 }
 .linkDescription {
