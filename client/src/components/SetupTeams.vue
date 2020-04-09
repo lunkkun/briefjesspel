@@ -8,16 +8,12 @@
         
       </div>
       <div class="teamList">
-        <div v-for="team in teams" :key="team.id" class="teamItem">
+        <div v-for="team in teams" :key="team.id" class="teamRow">
           <div class="teamPlayer generalFont smallFont">
             {{ team.name }} ({{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>)
           </div>
-          <div class="teamItem listButton">
-            <button class="generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>
-          </div>
-          <div class="listButton">
-            <button class="generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
-          </div>
+          <button class="listButton generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>          
+          <button class="listButton generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
         </div>
       </div>
       <div v-if="allPlayersAssigned && allTeamsHaveEnoughPlayers">
@@ -25,7 +21,7 @@
       </div>
     </div>
     <div v-else>
-      <div class="generalFont mediumFont teamLabel">Spelers {{ teams[editing].name }}:</div>
+      <div class="generalFont mediumFont teamLabel">Team {{ teams[editing].name }}:</div>
       <div class="teamPlayerList">
         <div v-for="player in players" :key="player.id" class="teamItem">
           <div class="generalFont smallFont teamPlayer">
@@ -156,17 +152,20 @@ export default {
   text-align: left;
   padding: 0;
 }
-.teamItem {
+.teamRow {
   display: table-row;
   width: 100%;
+  border-bottom: 1px solid black;
+  padding: 0;
+  margin: 0;
 }
 .teamPlayer {
   display: table-cell;
-  width: 50%;
+  width: 70%;
 }
 .listButton {
   display: table-cell;
-  width: 25%;
+  width: 15%;
 }
 button.teamNameButton {
   display: table-cell;
@@ -189,5 +188,4 @@ button.nextButton {
   width: 100%;
   text-align: center;
   color: red;
-}
-</style>
+}</style>
