@@ -1,18 +1,17 @@
 <template>
   <HomeCube>
     <div v-if="!gameStarted && shareableLink && isMaster">
-      <div class="generalFont smallFont spelLink linkBox" :class="linkClasses" @click="copyLink()">
+      <div class="generalFont spelLink linkBox" :class="linkClasses" @click="copyLink()">
         <FontAwesomeIcon :icon="clipboard" style="margin: 0 2%;"> </FontAwesomeIcon> {{ shareableLink }}
       </div>
     </div>
 
-    <div v-if="!linkInfoRead && isMaster">
-      Info over de link hierzo
+    <div v-if="!linkInfoRead && isMaster">      
+      <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button>
     </div>
 
-    <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
-      <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
+    <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">      
       <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
       <input id="playerName" class="generalFont mediumFont centerTextInput" value="je naam" style="color: #688980;" type="text"
              autocomplete="off" v-model="playerName" v-focus>
@@ -199,26 +198,32 @@ export default {
 .linkBox {
   display: block;
   background-color: #F8DC8D;
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 95%;
-  height: 8%;
-  padding: 3% 2%;
+  position: absolute;  
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.spelLink {
   font-style: italic;
+}
+.linkBoxBig {
+  top: 37%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  padding: 3%;
   font-weight: bold;
+}
+.linkBoxSmall {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 94%;
+  padding: 1%;
 }
 .linkDescription {
   display: block;
   position: absolute;
-  top: 19%;
+  top: 53%;
   width: 100%;
   text-align: center;
   color: grey;
