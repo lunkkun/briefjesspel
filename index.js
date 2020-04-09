@@ -55,7 +55,7 @@ async function init() {
   })
 
   server.listen(port, () => {
-    logger.info(`listening on ${port}`)
+    logger.info(`Server listening on ${port}`)
   })
 }
 
