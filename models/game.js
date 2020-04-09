@@ -11,6 +11,7 @@ class Game extends EventEmitter {
 
     // identifiers
     this.id = data.id || uuid.v4()
+    this._id = data._id // MongoDB's identifier
     this.path = data.path || randomString(10, true)
 
     // timestamps
