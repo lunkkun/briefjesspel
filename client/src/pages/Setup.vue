@@ -1,14 +1,15 @@
 <template>
   <HomeCube>
     <div v-if="!gameStarted">
-      <div class="generalFont spelLink linkBox" v-if="shareableLink && isMaster" @click="copyLink()">
-        <FontAwesomeIcon :icon="clipboard"> </FontAwesomeIcon> {{ shareableLink }}
+      <div class="generalFont smallFont spelLink linkBox" v-if="shareableLink && isMaster" @click="copyLink()">
+        <FontAwesomeIcon :icon="clipboard" style="margin: 0 2%;"> </FontAwesomeIcon> {{ shareableLink }}
       </div>
     </div>
 
     <div v-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
+      <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
-      <input id="playerName" class="generalFont mediumFont centerTextInput" style="color: #688980;" type="text"
+      <input id="playerName" class="generalFont mediumFont centerTextInput" value="je naam" style="color: #688980;" type="text"
              autocomplete="off" v-model="playerName" v-focus>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
@@ -182,7 +183,7 @@ export default {
   display: block;
   background-color: #F8DC8D;
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
   width: 95%;
@@ -192,6 +193,18 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.spelLink {
+  font-style: italic;
+  font-weight: bold;
+}
+.linkDescription {
+  display: block;
+  position: absolute;
+  top: 19%;
+  width: 100%;
+  text-align: center;
+  color: grey;
 }
 .labelPosition {
   display: block;
@@ -220,16 +233,6 @@ button.nextButton {
   transform: rotate(45deg);
   bottom: -5%;
   right: 0;
-}
-.spelLink {
-  font-style: italic;
-  font-size: 4.5vmin;
-  font-weight: bold;
-}
-@media screen and (min-width: 613px) and (min-height: 613px){
-  .spelLink {
-    font-size: 30px;
-  }
 }
 .error {
   display: block;
