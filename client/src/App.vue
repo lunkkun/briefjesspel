@@ -77,6 +77,7 @@ export default {
   width: 100%;
   text-align: center;
   box-sizing: border-box;
+  text-overflow: ellipsis;
 }
 .spinner {
   display: block;
@@ -85,8 +86,6 @@ export default {
   left: 43%;
   transform: translate(-50%, -50%);
   width: 100%;
-  text-align: center;
-  box-sizing: border-box;
 }
 .generalFont{
   font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
@@ -94,6 +93,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #344558;
   caret-color: #344558;
+}
+.tinyFont {
+  font-size: 4vmin;
+  font-weight: lighter;
+}
+.smallFont {
+  font-size: 6vmin;
+  font-weight: lighter;
+}
+.mediumFont {
+  font-size: 7.5vmin;
+  font-weight: normal;
 }
 .bigFont {
   font-size: 12vmin;
@@ -106,6 +117,18 @@ export default {
   background-clip: text;
 }
 @media screen and (min-width: 613px) and (min-height: 613px){
+  .tinyFont {
+    font-size: 24px;
+    font-weight: lighter;
+  }
+  .smallFont {
+    font-size: 30px;
+    font-weight: normal;
+  }
+  .mediumFont {
+    font-size: 45px;
+    font-weight: normal;
+  }
   .bigFont {
     font-size: 74px;
     text-shadow: 4px 4px 2px #FFF2;
