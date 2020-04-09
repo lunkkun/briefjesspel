@@ -8,17 +8,20 @@ const appKey = process.env.APP_KEY || '$eCuRiTy'
 const express = require('express')
 const http = require('http')
 const session = require('express-session')
-
-// create shared sessionParser for http & ws
-const sessionParser = session({
-  saveUninitialized: true,
-  secret: appKey,
-  resave: false,
-})
+const MongoStore = require('connect-mongo')(session);
+const dbClient = require('./utils/mongodb-client')
 
 async function init() {
   // connect to DB
-  await require('./utils/db').connect()
+  await dbClient.connect()
+
+  // create shared sessionParser for http & ws
+  const sessionParser = session({
+    saveUninitialized: true,
+    secret: appKey,
+    resave: false,
+    store: new MongoStore({client: dbClient}),
+  })
 
   // load remaining internal dependencies
   const wsServer = require('./lib/websocket-server')
