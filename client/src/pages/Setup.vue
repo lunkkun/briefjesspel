@@ -14,7 +14,7 @@
     
 <!-- Naam -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
-      <div class="" :class="nameClasses">
+      <div class="fade-in">
         <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
         <input id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
                autocomplete="off" maxlength="15" v-model="playerName" v-focus>
@@ -110,11 +110,6 @@ export default {
       } else {
         return ['tinyFont', 'linkBoxSmall']
       }
-    },
-    nameClasses() {
-      if (this.linkInfoRead) {
-        return ['fade-in']
-     } 
     },
     ...mapState({
       nrEntries: state => state.game.entries.length,
