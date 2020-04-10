@@ -9,7 +9,8 @@
 <!-- Spel link -->
     <div v-if="!linkInfoRead && isMaster">      
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
-      <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button>
+      <button class="transparentButton" @click="confirmLinkInfoRead()"><NextButton></NextButton></button>
+      <!-- <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button> -->
     </div>
     
 <!-- Naam -->
@@ -74,12 +75,14 @@
 import {mapState, mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
 import SetupTeams from '../components/SetupTeams'
+import NextButton from '../components/NextButton'
 
 export default {
   name: 'Setup',
   components: {
     HomeCube,
     SetupTeams,
+    NextButton,
   },
   data() {
     return {
