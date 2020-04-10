@@ -1,6 +1,8 @@
 <template>
   <div @click="requestToLeave">
-    <div class="leaveButton">&times;</div>
+    <div class="leaveButton generalFont smallFont" style="text-shadow: 0 0 1vmin #688980;">
+      &#8855;
+    </div>
   </div>
 </template>
 
@@ -19,8 +21,8 @@ export default {
 .leaveButton {
   display: block;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 1vmin;
+  left: 1vmin;
   cursor: pointer;
 }
 </style>
