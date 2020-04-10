@@ -6,7 +6,7 @@
     </div>
     <div v-else-if="!isFinished">
       <div v-if="entry">
-        <button class="centerBlock generalFont bigFont transparentButton" @click="nextEntry">
+        <button class="centerBlock generalFont bigFont transparentButton" @dblclick="nextEntry">
           <span>{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
         </button>
       </div>
