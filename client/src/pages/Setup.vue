@@ -10,17 +10,17 @@
     <div v-if="!linkInfoRead && isMaster">      
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <button class="transparentButton" @click="confirmLinkInfoRead()"><NextButton></NextButton></button>
-      <!-- <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button> -->
     </div>
     
 <!-- Naam -->
-    <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">      
-      <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
-      <input id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
-             autocomplete="off" maxlength="15" v-model="playerName" v-focus>
+    <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
+      <div class="" :class="nameClasses">
+        <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
+        <input id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
+               autocomplete="off" maxlength="15" v-model="playerName" v-focus>
+      </div>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
-      <button class="generalFont bigFont transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
-      <!-- Button mooier maken. Polle -->
+      <button class="transparentButton" @click="confirmPlayerName()"><NextButton></NextButton></button>      
     </div>
 
 <!-- Briefjes pp -->
@@ -29,8 +29,7 @@
       <input id="entriesPerPlayer" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
       <div v-if="errors.entriesPerPlayer" class="generalFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
-      <button class="generalFont bigFont transparentButton nextButton" @click="confirmEntriesPerPlayer()">&#187;</button>
-      <!-- Button mooier maken. Polle -->
+      <button class="transparentButton" @click="confirmEntriesPerPlayer()"><NextButton></NextButton></button>
     </div>
     
 <!-- Briefjes invullen -->
@@ -41,8 +40,7 @@
       <input id="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
              autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
-      <button class="generalFont bigFont transparentButton nextButton" @click="confirmEntry()">&#187;</button>
-      <!-- Button mooier maken. Polle -->
+      <button class="transparentButton" @click="confirmEntry()"><NextButton></NextButton></button>
     </div>
 
 <!-- Team setup -->
@@ -53,8 +51,7 @@
              min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
              v-focus v-select>
       <div v-if="errors.turnTime" class="generalFont tinyFont error">Vul een getal in tussen de 5 en de 300</div>
-      <button class="generalFont bigFont transparentButton nextButton" @click="confirmTurnTime()">&#187;</button>
-      <!-- Button mooier maken. Polle -->
+      <button class="transparentButton" @click="confirmTurnTime()"><NextButton></NextButton></button>
     </div>
 
     <div v-else-if="!canStart" class="generalFont mediumFont centerBlock">
@@ -113,6 +110,11 @@ export default {
       } else {
         return ['tinyFont', 'linkBoxSmall']
       }
+    },
+    nameClasses() {
+      if (this.linkInfoRead) {
+        return ['fade-in']
+     } 
     },
     ...mapState({
       nrEntries: state => state.game.entries.length,
@@ -211,6 +213,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-style: italic;
+  z-index: 25
 }
 .linkBoxBig {
   top: 37%;
@@ -218,7 +221,7 @@ export default {
   transform: translateX(-50%);
   width: 94%;
   padding: 3%;
-  font-weight: bold;
+  font-weight: lighter;
 }
 .linkBoxSmall {
   top: 0;
@@ -226,6 +229,59 @@ export default {
   transform: translateX(-50%);
   width: 98%;
   padding: 1%;
+  font-weight: lighter;
+  animation: shrink 0.8s cubic-bezier(.24,.99,.59,1);
+}
+@keyframes shrink {
+  from {
+    top: 37%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 94%;
+    padding: 3%;
+    font-size: 4.9vmin;
+  }
+  to{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 98%;
+    padding: 1%;
+    font-size: 3.75vmin;
+  }
+}
+@media screen and (min-width: 613px) and (min-height: 613px) {
+  @keyframes shrink {
+    from {
+      top: 37%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      padding: 3%;
+      font-size: 30px;
+    }
+    to {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 98%;
+      padding: 1%;
+      font-size: 23px;
+    }
+  }
+}
+
+.fade-in {
+  opacity: 1.0;
+  animation: fade-in 1s ease-out;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0.0;
+  }
+  to {
+    opacity: 1.0;
+  }
 }
 .linkDescription {
   display: block;
