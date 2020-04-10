@@ -2,8 +2,8 @@
   <div>
     <div v-if="!editing">
       <div @keydown.enter="confirmTeamName()">
-        <label class="generalFont mediumFont teamLabel" for="teamName">Voeg team toe <button class="generalFont transparentButton mediumFont teamNameButton" @click="confirmTeamName()">+</button></label>
-        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" autocomplete="off" v-model="teamName" v-focus>
+        <button class="generalFont mediumFont transparentButton teamLabel" @click="confirmTeamName()">Voeg teamnaam toe +</button>
+        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" maxlength="10" autocomplete="off" v-model="teamName" v-focus>
         <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
         
       </div>
@@ -112,7 +112,7 @@ export default {
   display: block;
   background-color: transparent;
   position: absolute;
-  top: 28%;
+  top: 13%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -123,9 +123,9 @@ export default {
   background-color: transparent;
   border: none;
   position: absolute;
-  top: 50%;
+  top: 25%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   width: 100%;
   text-align: center;
   text-overflow: ellipsis;
@@ -166,10 +166,6 @@ export default {
 .listButton {
   display: table-cell;
   width: 15%;
-}
-button.teamNameButton {
-  display: table-cell;
-  width: 25%;
 }
 button.nextButton {
   position: absolute;

@@ -1,18 +1,18 @@
 <template>
   <HomeCube>
-    <div class="generalFont">
+    <div class="generalFont mediumFont centerFontH">
       Ronde voorbij!<br>
       Scores:<br>
     </div>
     <ul>
-      <li v-for="team in teams" :key="team.id" class="generalFont">
+      <li v-for="team in teams" :key="team.id" class="generalFont smallFont">
         {{ team.name }}: {{ team.scoreThisRound }} (totaal: {{ team.score }})
       </li>
     </ul>
     <br>
     <div v-if="isMaster">
-      <button class="generalFont transparentButton" @click="nextRound">Speel nog een ronde</button><br>
-      <button class="generalFont transparentButton" @click="finishGame">Spel afronden</button>
+      <button class="generalFont smallFont transparentButton buttonLeft" @click="nextRound">Speel nog een ronde</button>
+      <button class="generalFont smallFont transparentButton buttonRight" @click="finishGame">Spel afronden</button>
     </div>
   </HomeCube>
 </template>
@@ -43,4 +43,14 @@ export default {
 
 <style lang="scss" scoped>
 
+.buttonLeft {
+  position: absolute;
+  bottom: 2%;
+  left: 2%;
+}
+.buttonRight {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}
 </style>

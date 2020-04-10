@@ -1,15 +1,17 @@
 <template>
   <HomeCube>
     <div v-if="!isFinished">
-      <span class="generalFont centerBlock bigFont">
+      <span class="generalFont mediumFont centerBlock">
         De beurt is aan {{ activePlayerName }} ({{ activeTeamName }})!
       </span>
       <Timer v-if="isStarted"></Timer>
     </div>
-    <div v-else class="generalFont">
+    <div v-else class="generalFont smallFont">
       De beurt is voorbij!<br>
-      Behaalde score: {{ scoreThisTurn }}<br>
-      Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
+      <span class="generalFont tinyFont">
+        Behaalde score: {{ scoreThisTurn }}<br>
+        Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
+      </span>
     </div>
   </HomeCube>
 </template>

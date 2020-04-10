@@ -1,7 +1,7 @@
 <template>
   <button class="transparentButton" @click="newGame">
     <HomeCube>
-      <div class="centerBlock generalFont bigFont">NIEUW SPEL</div>
+      <div class="centerBlock generalFont biggerFont">NIEUW SPEL</div>
     </HomeCube>
   </button>
 </template>

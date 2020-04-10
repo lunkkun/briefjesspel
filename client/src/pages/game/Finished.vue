@@ -1,19 +1,18 @@
 <template>
   <HomeCube>
-    <div class="generalFont">
-      <h3>Eindstand:</h3>
-
-      <ul>
-        <li v-for="team in rankings" :key="team.id">
-          <div class="generalFont">
-            {{ team.name }}: {{ team.score }}
-          </div>
-        </li>
-      </ul>
-
-      <button v-if="isMaster" class="generalFont transparentButton" @click="newGameFromCurrent()">Nieuw spel met dezelfde spelers</button><br>
-      <button class="generalFont transparentButton" @click="leaveGame()">Verlaat het spel</button>
+    <div class="generalFont mediumFont centerFontH">
+      Eindstand:
     </div>
+    <ul>
+      <li v-for="team in rankings" :key="team.id">
+        <div class="generalFont smallFont">
+          Team {{ team.name }}: {{ team.score }} punt<span v-if="team.score !== 1">en</span>
+        </div>
+      </li>
+    </ul>
+
+    <button v-if="isMaster" class="generalFont smallFont transparentButton buttonLeft" @click="newGameFromCurrent()">Nog eens</button><br>
+    <button class="generalFont smallFont transparentButton buttonRight" @click="leaveGame()">Verlaat het spel</button>
   </HomeCube>
 </template>
 
@@ -39,4 +38,15 @@ export default {
 
 <style lang="scss" scoped>
 
+
+.buttonLeft {
+  position: absolute;
+  bottom: 2%;
+  left: 2%;
+}
+.buttonRight {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}
 </style>

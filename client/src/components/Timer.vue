@@ -1,5 +1,5 @@
 <template>
-  <div class="generalFont timer">
+  <div class="generalFont mediumFont timer">
     {{ turnTimeLeft }}
   </div>
 </template>
@@ -25,11 +25,8 @@ export default {
   display: block;
   background-color: transparent;
   position: absolute;
-  top: 80%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  font-size: 10vmin;
+  bottom: 0;
+  right: 4%;
   font-weight: bold;
-  color: #344558;
 }
 </style>

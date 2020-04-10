@@ -1,11 +1,11 @@
 <template>
   <HomeCube>
-    <div class="generalFont">
+    <div class="generalFont mediumFont centerBlock">
       Wil je het huidige spel verlaten?
     </div>
     <br>
-    <button class="generalFont transparentButton" @click="leaveGame()">Ja</button>
-    <button class="generalFont transparentButton" @click="stayInGame()">Nee</button>
+    <button class="generalFont mediumFont transparentButton buttonLeft" @click="leaveGame()">Ja</button>
+    <button class="generalFont mediumFont transparentButton buttonRight" @click="stayInGame()">Nee</button>
   </HomeCube>
 </template>
 
@@ -27,4 +27,14 @@ export default {
 
 <style lang="scss" scoped>
 
+.buttonLeft {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+}
+.buttonRight {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
 </style>

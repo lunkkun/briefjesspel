@@ -94,8 +94,11 @@ export default {
   color: #344558;
   caret-color: #344558;
 }
+.centerFontH {
+  text-align: center;
+}
 .tinyFont {
-  font-size: 4vmin;
+  font-size: 3.75vmin;
   font-weight: lighter;
 }
 .smallFont {
@@ -107,6 +110,16 @@ export default {
   font-weight: normal;
 }
 .bigFont {
+  font-size: 9.8vmin;
+  font-weight: bold;
+  background-color: #344558;
+  color: transparent;
+  text-shadow: 0.3vmin 0.3vmin 0.15vmin #FFF2;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+}
+.biggerFont {
   font-size: 12vmin;
   font-weight: bold;
   background-color: #344558;
@@ -118,7 +131,7 @@ export default {
 }
 @media screen and (min-width: 613px) and (min-height: 613px){
   .tinyFont {
-    font-size: 24px;
+    font-size: 23px;
     font-weight: lighter;
   }
   .smallFont {
@@ -130,6 +143,10 @@ export default {
     font-weight: normal;
   }
   .bigFont {
+    font-size: 60px;
+    text-shadow: 3px 3px 1.5px #FFF2;
+  }
+  .biggerFont {
     font-size: 74px;
     text-shadow: 4px 4px 2px #FFF2;
   }

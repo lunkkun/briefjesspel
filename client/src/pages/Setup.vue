@@ -12,11 +12,11 @@
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmLinkInfoRead()">&#187;</button>
     </div>
     
-<!-- Naam spelleider -->
+<!-- Naam -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">      
       <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
-      <input id="playerName" class="generalFont mediumFont centerTextInput" value="je naam" style="color: #688980;" type="text"
-             autocomplete="off" v-model="playerName" v-focus>
+      <input id="playerName" class="generalFont mediumFont centerTextInput" style="color: #688980;" type="text"
+             autocomplete="off" maxlength="15" v-model="playerName" v-focus>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
       <button class="generalFont bigFont transparentButton nextButton" @click="confirmPlayerName()">&#187;</button>
       <!-- Button mooier maken. Polle -->
@@ -61,7 +61,7 @@
     </div>
 
     <div v-else-if="isMaster">
-      <button class="generalFont bigFont centerBlock transparentButton" @click="startGame()">Start</button>
+      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start</button>
     </div>
 
     <div v-else class="generalFont mediumFont centerBlock">
