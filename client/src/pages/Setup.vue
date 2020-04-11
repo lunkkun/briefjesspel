@@ -225,7 +225,7 @@ export default {
   width: 98%;
   padding: 1%;
   font-weight: lighter;
-  animation: shrink 0.8s cubic-bezier(.24,.99,.59,1);
+  animation: shrink 0.5s cubic-bezier(.24,.99,.59,1);
 }
 @keyframes shrink {
   from {
