@@ -12,6 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  
 .nextCorner{
   display: block;
   position: absolute;
@@ -32,7 +33,7 @@ export default {
   right: -2.5vmin;
   width: 0;
   height: 0;
-  border-left: 6.6vmin solid #F6D370;;
+  border-left: 6.6vmin solid #F8DC8D;
   border-bottom: 6.6vmin solid transparent;
   z-index: 22;
   cursor: pointer;
@@ -46,7 +47,7 @@ export default {
   .nextCornerTopLeft {
     bottom: -15px;
     right: -15px;
-    border-left: 40px solid #F6D370;;
+    border-left: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
   }
 }

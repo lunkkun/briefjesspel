@@ -37,7 +37,7 @@ export default {
   right: 0;
   width: 0;
   height: 0;
-  border-bottom: 6.6vmin solid #F6D370;;
+  border-bottom: 6.6vmin solid #F8DC8D;
   border-right: 6.6vmin solid transparent;
   z-index: 20;
   cursor: pointer;
@@ -47,7 +47,7 @@ export default {
     box-shadow: -2px 2px 1px rgba(52,69,88,0.6);
   }
   .infoCornerBottomLeft {
-    border-bottom: 40px solid #F6D370;;
+    border-bottom: 40px solid #F8DC8D;
     border-right: 40px solid transparent;
   }
 }
