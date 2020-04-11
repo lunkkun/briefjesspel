@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapHomeCube" :class="toggleHomeCube">
+    <div class="wrapHomeCube" :class="toggleHomeCube"> <!-- Nog werkend maken: toggle between classes "hideHomeCube" and "unhideHomeCube"-->
       <div class="homeCubeDropShadow"></div>
       <div class="homeCube">
         <div class="homeCubePadding">
@@ -8,11 +8,6 @@
         </div>
       </div>
     </div>
-    <!--
-    Divs om style te checken
-    <div class="bowl" :class="paperContainer"></div>
-    <div class="bowlShadow" :class="paperContainerShadow"></div>
-    -->
   </div>
 </template>
 
@@ -23,6 +18,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .homeCubePadding {
   display: block;
   position: absolute;
@@ -103,118 +99,5 @@ export default {
   to {
     transform: translate(-50%, -50%);    
   }
-}
-
-/* bowl + bowlShadow uitproberen, moet eigenlijk in MyTurn.vue */
-.hat {
-  display: block;
-  background: url("hoed.png");
-  background-size: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vmin;
-  height: 90vmin;
-  z-index: 11;
-}
-.hatShadow {
-  display: block;
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  top: 53%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75vmin;
-  height: 75vmin;
-  border-radius: 50%;
-  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
-  z-index: 10;
-}
-
-.bowl {
-  display: block;
-  background: url("schaal.png");
-  background-size: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 110vmin;
-  height: 110vmin;
-  z-index: 11;
-}
-.bowlShadow {
-  display: block;
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75vmin;
-  height: 75vmin;
-  border-radius: 50%;
-  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
-  z-index: 10;
-}
-
-/* colander style nog aanpassen 
-.colander {
-  display: block;
-  background: url("vergiet.png");
-  background-size: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90vmin;
-  height: 90vmin;
-  z-index: 11;
-}
-.colanderShadow {
-  display: block;
-  background-color: rgba(0,0,0,0.5);
-  position: absolute;
-  top: 53%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 75vmin;
-  height: 75vmin;
-  border-radius: 50%;
-  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
-  z-index: 10;
-} */
-
-@media screen and (min-width: 613px) and (min-height: 613px) {
-  .hat {
-    width: 550px;
-    height: 550px;
-  }
-  .hatShadow {
-    width: 460px;
-    height: 460px;
-    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
-  }
-  
-  .bowl {
-    width: 680px;
-    height: 680px;
-  }
-  .bowlShadow {
-    width: 460px;
-    height: 460px;
-    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
-  }
-  
-  .colander {
-    width: 550px;
-    height: 550px;
-  }
-  .colanderShadow {
-    width: 460px;
-    height: 460px;
-    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
-  }
-
 }
 </style>
