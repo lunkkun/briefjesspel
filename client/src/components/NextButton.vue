@@ -22,7 +22,7 @@ export default {
   max-width: 40px;
   max-height: 40px;
   background-color: #344558;
-  box-shadow: -0.4vmin -0.4vmin #344558;
+  box-shadow: -0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
   z-index: 21;
 }
 .nextCornerTopLeft {
@@ -38,16 +38,16 @@ export default {
   cursor: pointer;
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
+  .nextCorner {
+    box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
+    bottom: -15px;
+    right: -15px;
+  }
   .nextCornerTopLeft {
     bottom: -15px;
     right: -15px;
     border-left: 40px solid #F6D370;;
     border-bottom: 40px solid transparent;
-  }
-  .nextCorner {
-    box-shadow: -2px -2px #344558;
-    bottom: -15px;
-    right: -15px;
   }
 }
 </style>

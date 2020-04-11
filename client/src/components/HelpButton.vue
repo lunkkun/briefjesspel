@@ -27,7 +27,7 @@ export default {
   max-width: 40px;
   max-height: 40px;
   background-color: #344558;
-  box-shadow: -0.4vmin 0.4vmin #344558;
+  box-shadow: -0.4vmin 0.4vmin 0.2vmin rgba(52,69,88,0.6);
   z-index: 19;
 }
 .infoCornerBottomLeft {
@@ -43,12 +43,12 @@ export default {
   cursor: pointer;
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
+  .infoCorner {
+    box-shadow: -2px 2px 1px rgba(52,69,88,0.6);
+  }
   .infoCornerBottomLeft {
     border-bottom: 40px solid #F6D370;;
     border-right: 40px solid transparent;
-  }
-  .infoCorner {
-    box-shadow: -2px 2px #344558;
   }
 }
 </style>
