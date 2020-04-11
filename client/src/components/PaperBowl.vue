@@ -1,0 +1,137 @@
+<template>
+  <div>
+    <div class="hatShadow" :class="paperContainerShadow"></div> <!-- Nog werkend maken: toggle between classes "hat", "bowl" and "colander"-->
+    <div class="hat" :class="paperContainer"></div>             <!-- Nog werkend maken: toggle between classes "hatShadow", "bowlShadow" and "colanderShadow"-->
+    <!-- <div class="papers"></div> -->
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'PaperBowl',
+}
+</script>
+
+<style lang="scss" scoped>
+
+.hat {
+  display: block;
+  background: url("hoed.png");
+  background-size: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 99.5vmin;
+  height: 99.5vmin;
+}
+.hatShadow {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88.5vmin;
+  height: 88.5vmin;
+  border-radius: 50%;
+  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
+}
+
+.bowl {
+  display: block;
+  background: url("schaal.png");
+  background-size: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 105vmin;
+  height: 105vmin;
+}
+.bowlShadow {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 51%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72vmin;
+  height: 72vmin;
+  border-radius: 50%;
+  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
+}
+
+.colander {
+  display: block;
+  background: url("vergiet.png");
+  background-size: 100%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 105vmin;
+  height: 105vmin;
+}
+.colanderShadow {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+  position: fixed;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68.4vmin;
+  height: 68.4vmin;
+  border-radius: 50%;
+  box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
+}
+
+.papers {
+  display: block;
+  background: url("papersFolded.png");
+  background-size: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65vmin;
+  height: 65vmin;
+}
+
+@media screen and (min-width: 613px) and (min-height: 613px) {
+  .hat {
+    width: 610px;
+    height: 610px;
+  }
+  .hatShadow {
+    width: 540px;
+    height: 540px;
+    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
+  }
+  
+  .bowl {
+    width: 640px;
+    height: 640px;
+  }
+  .bowlShadow {
+    width: 440px;
+    height: 440px;
+    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
+  }
+  
+  .colander {
+    width: 640px;
+    height: 640px;
+  }
+  .colanderShadow {
+    width: 420px;
+    height: 420px;
+    box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
+  }
+
+  .papers {
+    width: 400px;
+    height: 400px
+  }
+}
+</style>
