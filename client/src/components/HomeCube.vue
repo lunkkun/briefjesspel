@@ -72,11 +72,31 @@ export default {
     max-width: 460px;
     max-height: 460px;
     transform: translate(-50%, -50%);
-    transition: all 0.6s;
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(.85,-0.2,.56,.91);
 }
-/* .wrapHomeCube:active {
+
+.hideHomeCube {
+  transform: translate(150%, 150%);
+  animation: hideHomeCube 0.6s cubic-bezier(.85,-0.2,.56,.91);
+}
+@keyframes hideHomeCube {
+  from {    
+    transform: translate(-50%, -50%);
+  }
+  to {
+    transform: translate(150%, 150%);    
+  }
+}
+
+.unhideHomeCube {
+  transform: translate(-50%, -50%);
+  animation: unhideHomeCube 0.6s cubic-bezier(.44,.06,.19,1.32)
+}
+@keyframes unhideHomeCube {
+  from {    
     transform: translate(150%, 150%);
-}*/
+  }
+  to {
+    transform: translate(-50%, -50%);    
+  }
+}
 </style>
