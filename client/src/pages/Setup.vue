@@ -91,7 +91,7 @@ export default {
       entry: '',
       firstEntryAdded: false,
       turnTime: 60,
-      clipboard: 'clipboard',
+      linkCopied: false,
 
       errors: {
         playerName: false,
@@ -106,6 +106,9 @@ export default {
     this.linkInfoRead = this.playerNameSet // assume info was read
   },
   computed: {
+    clipboard() {
+      return this.linkCopied ? 'clipboard-check' : 'clipboard'
+    },
     linkClasses() {
       if (!this.linkInfoRead) {
         return ['smallFont', 'linkBoxBig']
@@ -185,7 +188,12 @@ export default {
     },
     copyLink() {
       navigator.clipboard.writeText(this.shareableLink)
-        .then(() => {this.clipboard = 'clipboard-check'})
+        .then(() => {
+          this.linkCopied = true
+          setTimeout(() => {
+            this.linkCopied = false
+          }, 500)
+        })
         .catch((err) => console.error(err))
     },
     ...mapActions([
