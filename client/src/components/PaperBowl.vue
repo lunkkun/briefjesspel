@@ -1,14 +1,19 @@
 <template>
   <div>
-    <div class="hatShadow" :class="paperContainerShadow"></div> <!-- Nog werkend maken: toggle between classes "hat", "bowl" and "colander"-->
-    <div class="hat" :class="paperContainer"></div>             <!-- Nog werkend maken: toggle between classes "hatShadow", "bowlShadow" and "colanderShadow"-->
-    <!-- <div class="papers"></div> -->
+    <div class="colanderShadow" :class="paperContainerShadow"></div> <!-- Nog werkend maken: toggle between classes "hat", "bowl" and "colander"-->
+    <div class="colander" :class="paperContainer"></div>             <!-- Nog werkend maken: toggle between classes "hatShadow", "bowlShadow" and "colanderShadow"-->
+    <PapersFolded></PapersFolded>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'PaperBowl',
+  import PapersFolded from './PapersFolded'
+
+  export default {
+    name: 'PaperBowl',
+    components: {
+      PapersFolded,
+    },
 }
 </script>
 
@@ -72,6 +77,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 105vmin;
   height: 105vmin;
+  filter: brightness(0.9);
 }
 .colanderShadow {
   display: block;
@@ -84,18 +90,6 @@ export default {
   height: 68.4vmin;
   border-radius: 50%;
   box-shadow: 0 0 3vmin 5vmin rgba(0,0,0,0.5);
-}
-
-.papers {
-  display: block;
-  background: url("~@/assets/img/papersFolded.png");
-  background-size: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65vmin;
-  height: 65vmin;
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
@@ -127,11 +121,6 @@ export default {
     width: 420px;
     height: 420px;
     box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
-  }
-
-  .papers {
-    width: 400px;
-    height: 400px
   }
 }
 </style>

@@ -4,6 +4,8 @@
     <HelpButton></HelpButton>
 
     <RequestToLeave v-if="requestToLeave"></RequestToLeave>
+    
+    <PaperBowl v-else-if="true"></PaperBowl>
 
     <Help v-else-if="showHelp"></Help>
 
@@ -24,6 +26,8 @@ import {mapState} from 'vuex'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
+import PaperBowl from './components/PaperBowl'
+import PapersFolded from './components/PapersFolded'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -36,6 +40,8 @@ export default {
     HelpButton,
     HomeCube,
     LeaveButton,
+    PaperBowl,
+    PapersFolded,
     Game,
     Help,
     Home,
