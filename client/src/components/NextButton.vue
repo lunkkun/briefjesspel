@@ -2,7 +2,7 @@
   <button class="transparentButton" @click="$emit('click')">
     <div class="nextCorner"></div>
     <div class="nextCornerTopLeft"></div>
-    <div class="bigNextCorner"></div>
+    <div class="nextCornerBig"></div>
   </button>
 </template>
 
@@ -37,7 +37,7 @@ export default {
   z-index: 22;
   cursor: pointer;
 }
-.bigNextCorner{
+.nextCornerBig{
   display: block;
   position: absolute;
   bottom: -5.5vmin;
@@ -62,7 +62,7 @@ export default {
     border-left: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
   }
-  .bigNextCorner {
+  .nextCornerBig {
     width: 80px;
     height: 80px;
     bottom: -35px;
