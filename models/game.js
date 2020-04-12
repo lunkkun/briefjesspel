@@ -5,7 +5,7 @@ const shuffle = require('../utils/shuffle')
 const User = require('./user')
 const Team = require('./team')
 
-const minTeams = process.env.NODE_ENV === 'production' ? 2 : 1
+const minTeams = 1 // process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
 
 class Game extends EventEmitter {

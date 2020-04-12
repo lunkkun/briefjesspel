@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import {msg, randomFont, link, rankTeams} from '../../lib/helpers'
 
-const minTeams = process.env.NODE_ENV === 'production' ? 2 : 1
+const minTeams = 1 // process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
 
 export default {
