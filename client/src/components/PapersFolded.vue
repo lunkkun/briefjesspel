@@ -1,12 +1,17 @@
 <template>
-  <div>    
-    <div class="papersFolded" :class="papersQuantity"></div>
+  <div>
+    <div class="papersFolded" :class="quantityClass"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PapersFolded',
+  computed: {
+    quantityClass() {
+      return 'paperFolded' + '1' // TODO: depending on quantity remaining
+    },
+  },
 }
 </script>
 
@@ -25,7 +30,7 @@ export default {
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
-  
+
   .papers {
     width: 400px;
     height: 400px

@@ -1,12 +1,17 @@
 <template>
-  <div>    
-    <div class="papersUnfolded" :class="papersUnfoldedStyle"></div>
+  <div>
+    <div class="papersUnfolded" :class="quantityClass"></div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PapersUnfolded',
+  computed: {
+    quantityClass() {
+      return 'paperUnfolded' + '1' // TODO: depending on quantity remaining
+    },
+  },
 }
 </script>
 
@@ -25,7 +30,7 @@ export default {
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
-  
+
   .papersUnfolded {
     width: 400px;
     height: 400px
