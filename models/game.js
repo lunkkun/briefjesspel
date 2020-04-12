@@ -238,7 +238,7 @@ class Game extends EventEmitter {
 
   startTurn() {
     if (this.canStartTurn) {
-      this._startTimer()
+      this.startTimer()
 
       this.turnStarted = true
 
@@ -276,7 +276,7 @@ class Game extends EventEmitter {
   }
 
   finishRound() {
-    clearInterval(this.timer)
+    clearInterval(this._timer)
     this.roundFinished = true
 
     this.emit('roundFinished')
@@ -314,6 +314,18 @@ class Game extends EventEmitter {
     this.isArchived = true
 
     this.emit('archived')
+  }
+
+  startTimer() {
+    this._timer = setInterval(() => {
+      this.turnTimeLeft--
+
+      if (this.turnTimeLeft <= 0) {
+        clearInterval(this._timer)
+
+        this.finishTurn()
+      }
+    }, 1000)
   }
 
 
@@ -359,18 +371,6 @@ class Game extends EventEmitter {
   _randomizeEntries() {
     this.entriesRemaining = [...this.entries]
     shuffle(this.entriesRemaining)
-  }
-
-  _startTimer() {
-    this.timer = setInterval(() => {
-      this.turnTimeLeft--
-
-      if (this.turnTimeLeft <= 0) {
-        clearInterval(this.timer)
-
-        this.finishTurn()
-      }
-    }, 1000)
   }
 
   _checkNextEntry() {
