@@ -5,18 +5,18 @@
         <button class="generalFont mediumFont transparentButton teamLabel" @click="confirmTeamName()">Voeg teamnaam toe +</button>
         <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" maxlength="10" autocomplete="off" v-model="teamName" v-focus>
         <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
-        
+
       </div>
       <div class="teamList">
         <div v-for="team in teams" :key="team.id" class="teamRow">
           <div class="teamPlayer generalFont smallFont">
             {{ team.name }} ({{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>)
           </div>
-          <button class="listButton generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>          
+          <button class="listButton generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>
           <button class="listButton generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
         </div>
       </div>
-      <div v-if="allPlayersAssigned && allTeamsHaveEnoughPlayers">
+      <div v-if="canConfirmTeams">
         <button class="generalFont bigFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
       </div>
     </div>
@@ -33,7 +33,7 @@
           </div>
           <div v-else class="listButton">
             <button class="generalFont smallFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
-          </div>          
+          </div>
         </div>
       </div>
       <div>
@@ -68,8 +68,7 @@ export default {
     ...mapGetters([
       'playersForTeam',
       'playersNotInTeam',
-      'allPlayersAssigned',
-      'allTeamsHaveEnoughPlayers',
+      'canConfirmTeams',
     ]),
     players() {
       return [

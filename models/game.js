@@ -5,6 +5,9 @@ const shuffle = require('../utils/shuffle')
 const User = require('./user')
 const Team = require('./team')
 
+const minTeams = process.env.NODE_ENV === 'production' ? 2 : 1
+const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
+
 class Game extends EventEmitter {
   constructor(data = {}) {
     super()
@@ -57,7 +60,8 @@ class Game extends EventEmitter {
   get canStart() {
     return !this.isStarted &&
       Array.from(this.players.values()).every(user => user.isReady && user.teamId) &&
-      Array.from(this.teams.values()).every(team => this._playersForTeam(team.id).length >= 2)
+      this.teams.size >= minTeams &&
+      Array.from(this.teams.values()).every(team => this._playersForTeam(team.id).length >= minPlayersPerTeam)
   }
 
   get canStartRound() {
@@ -92,7 +96,12 @@ class Game extends EventEmitter {
       return this.turnOrder[1].players[0]
     } else if (this.turnOrder.length) {
       // Special case for playing with only one team
-      return this.turnOrder[0].players[1]
+      if (this.turnOrder[0].players.length > 1) {
+        return this.turnOrder[0].players[1]
+      } else {
+        // Special case for playing with only one player
+        return this.turnOrder[0].players[0]
+      }
     } else {
       return null
     }

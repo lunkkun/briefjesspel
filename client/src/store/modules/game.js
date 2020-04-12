@@ -4,6 +4,9 @@ import randomFont from '../../lib/random-font'
 import link from '../../lib/link'
 import rankTeams from '../../lib/rank-teams'
 
+const minTeams = process.env.NODE_ENV === 'production' ? 2 : 1
+const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
+
 export default {
   state: {
     // game initialization
@@ -91,14 +94,20 @@ export default {
     allPlayersReady: (state) => {
       return Object.values(state.players).every(player => player.isReady)
     },
+    enoughTeams: (state) => {
+      return Object.keys(state.teams).length >= minTeams
+    },
     allPlayersAssigned: (state) => {
       return Object.values(state.players).every(player => player.teamId)
     },
     allTeamsHaveEnoughPlayers: (state, getters) => {
-      return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= 2)
+      return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= minPlayersPerTeam)
+    },
+    canConfirmTeams: (state, getters) => {
+      return getters.enoughTeams && getters.allPlayersAssigned && getters.allTeamsHaveEnoughPlayers
     },
     canStart: (state, getters) => {
-      return getters.allPlayersReady && getters.allPlayersAssigned && getters.allTeamsHaveEnoughPlayers
+      return getters.allPlayersReady && getters.canConfirmTeams
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id
