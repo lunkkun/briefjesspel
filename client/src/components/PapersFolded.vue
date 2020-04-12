@@ -21,6 +21,7 @@ export default {
   display: block;
   background: url('~@/assets/img/papersFolded8.png');
   background-size: 100%;
+  background-repeat: no-repeat;
   position: absolute;
   top: 50%;
   left: 50%;

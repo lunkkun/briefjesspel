@@ -23,6 +23,7 @@
   display: block;
   background: url("~@/assets/img/hoed.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -47,6 +48,7 @@
   display: block;
   background: url("~@/assets/img/schaal.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -71,6 +73,7 @@
   display: block;
   background: url("~@/assets/img/vergiet.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   position: fixed;
   top: 50%;
   left: 50%;
