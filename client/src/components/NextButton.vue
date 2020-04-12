@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <button class="transparentButton" @click="$emit('click')">
     <div class="nextCorner"></div>
     <div class="nextCornerTopLeft"></div>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
+
 .nextCorner{
   display: block;
   position: absolute;

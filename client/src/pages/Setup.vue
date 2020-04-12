@@ -7,11 +7,11 @@
     </div>
 
 <!-- Spel link -->
-    <div v-if="!linkInfoRead && isMaster">      
+    <div v-if="!linkInfoRead && isMaster" @keydown.enter="confirmLinkInfoRead()">
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
-      <button class="transparentButton" @click="confirmLinkInfoRead()"><NextButton></NextButton></button>
+      <NextButton @click="confirmLinkInfoRead()" v-focus></NextButton>
     </div>
-    
+
 <!-- Naam -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <div class="fade-in">
@@ -20,7 +20,7 @@
                autocomplete="off" maxlength="15" v-model="playerName" v-focus>
       </div>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
-      <button class="transparentButton" @click="confirmPlayerName()"><NextButton></NextButton></button>      
+      <NextButton @click="confirmPlayerName()"></NextButton>
     </div>
 
 <!-- Briefjes pp -->
@@ -29,9 +29,9 @@
       <input id="entriesPerPlayer" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
       <div v-if="errors.entriesPerPlayer" class="generalFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
-      <button class="transparentButton" @click="confirmEntriesPerPlayer()"><NextButton></NextButton></button>
+      <NextButton @click="confirmEntriesPerPlayer()"></NextButton>
     </div>
-    
+
 <!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="generalFont mediumFont labelPosition" for="entry">
@@ -40,18 +40,20 @@
       <input id="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
              autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
-      <button class="transparentButton" @click="confirmEntry()"><NextButton></NextButton></button>
+      <NextButton @click="confirmEntry()"></NextButton>
     </div>
 
 <!-- Team setup -->
     <SetupTeams v-else-if="!teamsConfirmed && isMaster"></SetupTeams>
+
+<!-- Turn time -->
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
       <label class="generalFont mediumFont labelPosition" for="turnTime">Aantal seconden per beurt:</label>
       <input id="turnTime" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
              v-focus v-select>
       <div v-if="errors.turnTime" class="generalFont tinyFont error">Vul een getal in tussen de 5 en de 300</div>
-      <button class="transparentButton" @click="confirmTurnTime()"><NextButton></NextButton></button>
+      <NextButton @click="confirmTurnTime()"></NextButton>
     </div>
 
     <div v-else-if="!canStart" class="generalFont mediumFont centerBlock">
@@ -202,7 +204,7 @@ export default {
 .linkBox {
   display: block;
   background-color: #F8DC8D;
-  position: absolute;  
+  position: absolute;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
