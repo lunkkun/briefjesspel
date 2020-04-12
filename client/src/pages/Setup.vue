@@ -17,7 +17,7 @@
       <div class="fade-in">
         <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
         <input id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
-               autocomplete="off" maxlength="15" v-model="playerName" v-focus>
+               autocomplete="off" maxlength="30" :value="playerName" @input="updatePlayerName" v-focus>
       </div>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
       <NextButton @click="confirmPlayerName()"></NextButton>
@@ -75,6 +75,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
 import SetupTeams from '../components/SetupTeams'
 import NextButton from '../components/NextButton'
+import scaleInput from '../lib/scale-input'
 
 export default {
   name: 'Setup',
@@ -136,6 +137,10 @@ export default {
   methods: {
     confirmLinkInfoRead() {
       this.linkInfoRead = true
+    },
+    updatePlayerName() {
+      this.playerName = event.target.value
+      scaleInput(event.target, 'generalFont', 'mediumFont', 'smallFont', 'smallerFont')
     },
     confirmPlayerName() {
       if (this.playerName.length >= 2) {
