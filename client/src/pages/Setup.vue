@@ -75,7 +75,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
 import SetupTeams from '../components/SetupTeams'
 import NextButton from '../components/NextButton'
-import scaleInput from '../lib/scale-input'
+import {scaleInput} from '../lib/helpers'
 
 export default {
   name: 'Setup',

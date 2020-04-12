@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import socket from './modules/socket'
 import game from './modules/game'
-import link from '../lib/link'
+import {link} from '../lib/helpers'
 
 Vue.use(Vuex)
 

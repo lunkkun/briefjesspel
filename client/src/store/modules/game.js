@@ -1,8 +1,5 @@
 import Vue from 'vue'
-import msg from '../../lib/msg'
-import randomFont from '../../lib/random-font'
-import link from '../../lib/link'
-import rankTeams from '../../lib/rank-teams'
+import {msg, randomFont, link, rankTeams} from '../../lib/helpers'
 
 const minTeams = process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
