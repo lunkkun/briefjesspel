@@ -4,12 +4,13 @@
     <HelpButton></HelpButton>
 
     <RequestToLeave v-if="requestToLeave"></RequestToLeave>
+
     <Help v-else-if="showHelp"></Help>
 
     <div v-else-if="isLoaded">
-      <Game v-if="gameStarted"></Game>
-      <Setup v-else-if="gameCreated"></Setup>
-      <Home v-else></Home>
+      <Home v-if="!gameCreated"></Home>
+      <Setup v-else-if="!gameStarted"></Setup>
+      <Game v-else></Game>
     </div>
 
     <HomeCube v-else>
@@ -169,8 +170,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-input::selection,
-textarea::selection {
+input[type=number]::selection {
   background-color: transparent;
 }
 </style>
