@@ -6,7 +6,7 @@
     </div>
 
     <div v-else-if="!isFinished">
-      <!-- Nog paperBowl implementeren -->
+      <!-- TODO: paperBowl + toggleHomeCube implementeren -->
       <div v-if="entry">
         <button class="centerBlock generalFont bigFont transparentButton" @dblclick="nextEntry()">
           <span>{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
