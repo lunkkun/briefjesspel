@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="papersUnfolded" :class="quantityClass"></div>
+    <div class="paperUnfolded" :style="{background: `url('~@/assets/img/paperUnfolded${hierDanEenOfAndereVariabele}.png')`}"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PapersUnfolded',
+  name: 'PaperUnfolded',
   computed: {
     quantityClass() {
       return 'paperUnfolded' + '1' // TODO: depending on quantity remaining
@@ -17,23 +17,25 @@ export default {
 
 <style lang="scss" scoped>
 
-.papersUnfolded {
+.paperUnfolded {
   display: block;
   background: url("~@/assets/img/paperUnfolded1.png");
   background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 65vmin;
-  height: 65vmin;
+  width: 98vmin;
+  height: 98vmin;
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
-  .papersUnfolded {
-    width: 400px;
-    height: 400px
+  .paperUnfolded {
+    width: 600px;
+    height: 420px;
   }
 }
 </style>

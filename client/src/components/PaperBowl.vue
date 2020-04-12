@@ -3,16 +3,20 @@
     <div class="colanderShadow" :class="paperContainerShadow"></div> <!-- Nog werkend maken: toggle between classes "hat", "bowl" and "colander"-->
     <div class="colander" :class="paperContainer"></div>             <!-- Nog werkend maken: toggle between classes "hatShadow", "bowlShadow" and "colanderShadow"-->
     <PapersFolded></PapersFolded>
+    <PaperUnfolded v-if=""></PaperUnfolded>
+    
   </div>
 </template>
 
 <script>
   import PapersFolded from './PapersFolded'
+  import PaperUnfolded from './PaperUnfolded'
 
   export default {
     name: 'PaperBowl',
     components: {
       PapersFolded,
+      PaperUnfolded,
     },
 }
 </script>
