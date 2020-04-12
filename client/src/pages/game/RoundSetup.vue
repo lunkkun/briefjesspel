@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <HomeCube>
-        <button class="centerBlock generalFont transparentButton startRoundButton" @click="startRound">Start ronde</button>
+        <button class="centerBlock generalFont bigFont transparentButton" @click="startRound">Start ronde</button>
       </HomeCube>
     </div>
   </div>
@@ -38,9 +38,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.startRoundButton {
-  font-size: 12vmin;
-  font-weight: bold;
-  color: #344558;
-}
+
 </style>
