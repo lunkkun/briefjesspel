@@ -271,19 +271,19 @@ export default {
   },
   actions: {
     async newGame({dispatch}) {
-      dispatch(msg('newGame'))
+      await dispatch(msg('newGame'))
     },
     async setPlayerName({commit, dispatch}, name) {
       await dispatch(msg('setPlayerName', name))
       commit('setName', name)
-      dispatch('setFont', randomFont()) // TODO: add option for user?
+      await dispatch('setFont', randomFont()) // TODO: add option for user?
     },
     async removePlayer({commit, dispatch}, id) {
       await dispatch(msg('removePlayer', id))
       commit('removePlayer', id)
     },
     async leaveGame({dispatch}) {
-      dispatch(msg('leaveGame'))
+      await dispatch(msg('leaveGame'))
     },
     async stayInGame({commit}) {
       commit('stayInGame')
@@ -305,7 +305,7 @@ export default {
       commit('addEntry', entry)
     },
     async addTeam({dispatch}, name) {
-      dispatch(msg('addTeam', name))
+      await dispatch(msg('addTeam', name))
     },
     async addPlayerToTeam({commit, dispatch}, {id, teamId}) {
       await dispatch(msg('addPlayerToTeam', {id, teamId}))
@@ -324,28 +324,28 @@ export default {
       commit('setTurnTime', turnTime)
     },
     async startGame({dispatch}) {
-      dispatch(msg('startGame'))
+      await dispatch(msg('startGame'))
     },
     async startRound({dispatch}) {
-      dispatch(msg('startRound'))
+      await dispatch(msg('startRound'))
     },
     async startTurn({dispatch}) {
-      dispatch(msg('startTurn'))
+      await dispatch(msg('startTurn'))
     },
     async nextEntry({dispatch}) {
-      dispatch(msg('nextEntry'))
+      await dispatch(msg('nextEntry'))
     },
     async nextTurn({dispatch}) {
-      dispatch(msg('nextTurn'))
+      await dispatch(msg('nextTurn'))
     },
     async nextRound({dispatch}) {
-      dispatch(msg('nextRound'))
+      await dispatch(msg('nextRound'))
     },
     async finishGame({dispatch}) {
-      dispatch(msg('finishGame'))
+      await dispatch(msg('finishGame'))
     },
     async newGameFromCurrent({dispatch}) {
-      dispatch(msg('newGameFromCurrent'))
+      await dispatch(msg('newGameFromCurrent'))
     },
   },
 }
