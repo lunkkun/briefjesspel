@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="wrapHomeCube" :class="toggleHomeCube"> <!-- Nog werkend maken: toggle between classes "hideHomeCube" and "unhideHomeCube"-->
+    <div class="wrapHomeCube"> <!-- Nog werkend maken: toggle between classes "hideHomeCube" and "unhideHomeCube"-->
       <div class="homeCubeDropShadow"></div>
       <div class="homeCube">
         <div class="homeCubePadding">
@@ -80,11 +80,11 @@ export default {
   animation: hideHomeCube 0.6s cubic-bezier(.85,-0.2,.56,.91);
 }
 @keyframes hideHomeCube {
-  from {    
+  from {
     transform: translate(-50%, -50%);
   }
   to {
-    transform: translate(150%, 150%);    
+    transform: translate(150%, 150%);
   }
 }
 
@@ -93,11 +93,11 @@ export default {
   animation: unhideHomeCube 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
 @keyframes unhideHomeCube {
-  from {    
+  from {
     transform: translate(150%, 150%);
   }
   to {
-    transform: translate(-50%, -50%);    
+    transform: translate(-50%, -50%);
   }
 }
 </style>
