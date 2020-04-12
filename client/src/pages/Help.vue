@@ -1,9 +1,9 @@
 <template>
-  <HomeCube>
+  <div>
     <div class="generalFont mediumFont centerBlock">
       Met deze tool kun je, in combinatie met een video groepsgesprek, het briefjesspel online spelen!
     </div>
-  </HomeCube>
+  </div>
 </template>
 
 <script>
@@ -16,5 +16,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
+
 </style>

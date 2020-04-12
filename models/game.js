@@ -286,6 +286,7 @@ class Game extends EventEmitter {
 
   finishRound() {
     clearInterval(this._timer)
+    this.turnFinished = true
     this.roundFinished = true
 
     this.emit('roundFinished')

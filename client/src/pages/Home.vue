@@ -1,20 +1,14 @@
 <template>
   <button class="transparentButton" @click="newGame">
-    <HomeCube>
-      <div class="centerBlock generalFont biggerFont">NIEUW SPEL</div>
-    </HomeCube>
+    <div class="centerBlock generalFont biggerFont">NIEUW SPEL</div>
   </button>
 </template>
 
 <script>
 import {mapActions} from 'vuex'
-import HomeCube from '../components/HomeCube'
 
 export default {
   name: 'Home',
-  components: {
-    HomeCube,
-  },
   methods: mapActions([
     'newGame',
   ]),
@@ -22,6 +16,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 
 </style>

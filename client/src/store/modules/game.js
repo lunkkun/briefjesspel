@@ -238,6 +238,7 @@ export default {
     },
     finishRound(state) {
       clearInterval(state.timer)
+      state.turnFinished = true
       state.roundFinished = true
     },
     nextRound(state) {

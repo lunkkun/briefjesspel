@@ -1,60 +1,74 @@
 <template>
-  <div id="app">
-    <LeaveButton v-if="gameCreated"></LeaveButton>
-    <HelpButton></HelpButton>
+  <div id="app" v-cloak>
+    <LeaveButton v-if="gameCreated && !activeTurn"></LeaveButton>
+    <HelpButton v-if="!activeTurn"></HelpButton>
 
-    <RequestToLeave v-if="requestToLeave"></RequestToLeave>
-    
-    <PaperBowl v-else-if="true"></PaperBowl>
+    <transition name="homeCube">
+      <HomeCube v-if="showHomeCube">
+        <Help v-if="showHelp"></Help>
 
-    <Help v-else-if="showHelp"></Help>
+        <div v-else-if="isLoaded">
+          <RequestToLeave v-if="requestToLeave"></RequestToLeave>
+          <Home v-else-if="!gameCreated"></Home>
+          <Setup v-else-if="!gameStarted"></Setup>
+          <Game v-else></Game>
+        </div>
 
-    <div v-else-if="isLoaded">
-      <Home v-if="!gameCreated"></Home>
-      <Setup v-else-if="!gameStarted"></Setup>
-      <Game v-else></Game>
-    </div>
+        <div v-else>
+          <FontAwesomeIcon icon="spinner" class="fa-3x fa-spin spinner" color="#344558"></FontAwesomeIcon>
+        </div>
+      </HomeCube>
 
-    <HomeCube v-else>
-      <FontAwesomeIcon icon="spinner" class="fa-3x fa-spin spinner" color="#344558"></FontAwesomeIcon>
-    </HomeCube>
+      <ActiveTurn v-else></ActiveTurn>
+    </transition>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
-import PaperBowl from './components/PaperBowl'
-import PapersFolded from './components/PapersFolded'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
 import RequestToLeave from './pages/RequestToLeave'
 import Setup from './pages/Setup'
+import ActiveTurn from './pages/game/ActiveTurn'
 
 export default {
   name: 'App',
   components: {
+    ActiveTurn,
     HelpButton,
     HomeCube,
     LeaveButton,
-    PaperBowl,
-    PapersFolded,
     Game,
     Help,
     Home,
     RequestToLeave,
     Setup,
   },
-  computed: mapState({
-    isLoaded: state => state.isLoaded,
-    showHelp: state => state.showHelp,
-    requestToLeave: state => state.requestToLeave,
-    gameCreated: state => state.game.isCreated,
-    gameStarted: state => state.game.isStarted,
-  }),
+  computed: {
+    activeTurn() {
+      return this.myTurn && this.turnStarted && !this.turnFinished
+    },
+    showHomeCube() {
+      return !this.activeTurn
+    },
+    ...mapState({
+      isLoaded: state => state.isLoaded,
+      showHelp: state => state.showHelp,
+      requestToLeave: state => state.requestToLeave,
+      gameCreated: state => state.game.isCreated,
+      gameStarted: state => state.game.isStarted,
+      turnStarted: state => state.game.turnStarted,
+      turnFinished: state => state.game.turnFinished,
+    }),
+    ...mapGetters([
+      'myTurn',
+    ]),
+  },
 }
 </script>
 

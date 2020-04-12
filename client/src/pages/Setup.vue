@@ -1,5 +1,5 @@
 <template>
-  <HomeCube>
+  <div>
     <div v-if="!gameStarted && shareableLink && isMaster">
       <div class="generalFont spelLink linkBox" :class="linkClasses" @click="copyLink()">
         <FontAwesomeIcon :icon="clipboard" style="margin: 0 2%;"> </FontAwesomeIcon> {{ shareableLink }}
@@ -61,18 +61,17 @@
     </div>
 
     <div v-else-if="isMaster">
-      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()" v-focus>Start</button>
+      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start</button>
     </div>
 
     <div v-else class="generalFont mediumFont centerBlock">
       Wachten tot het spel begint...
     </div>
-  </HomeCube>
+  </div>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
-import HomeCube from '../components/HomeCube'
 import SetupTeams from '../components/SetupTeams'
 import NextButton from '../components/NextButton'
 import {scaleInput} from '../lib/helpers'
@@ -80,7 +79,6 @@ import {scaleInput} from '../lib/helpers'
 export default {
   name: 'Setup',
   components: {
-    HomeCube,
     SetupTeams,
     NextButton,
   },

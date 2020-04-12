@@ -1,12 +1,12 @@
 <template>
-  <HomeCube>
+  <div>
     <div class="generalFont mediumFont centerBlock">
       Wil je het huidige spel verlaten?
     </div>
     <br>
     <button class="generalFont mediumFont transparentButton buttonLeft" @click="leaveGame()">Ja</button>
     <button class="generalFont mediumFont transparentButton buttonRight" @click="stayInGame()">Nee</button>
-  </HomeCube>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <HomeCube>
+  <div>
     <div class="generalFont mediumFont centerFontH">
       Ronde voorbij!<br>
       Scores:<br>
@@ -14,18 +14,14 @@
       <button class="generalFont smallFont transparentButton buttonLeft" @click="nextRound">Speel nog een ronde</button>
       <button class="generalFont smallFont transparentButton buttonRight" @click="finishGame">Spel afronden</button>
     </div>
-  </HomeCube>
+  </div>
 </template>
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
-import HomeCube from '../../components/HomeCube'
 
 export default {
   name: 'RoundFinished',
-  components: {
-    HomeCube,
-  },
   computed: {
     ...mapState({
       teams: state => state.game.teams,

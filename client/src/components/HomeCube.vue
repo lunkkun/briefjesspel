@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div class="wrapHomeCube"> <!-- Nog werkend maken: toggle between classes "hideHomeCube" and "unhideHomeCube"-->
-      <div class="homeCubeDropShadow"></div>
-      <div class="homeCube">
-        <div class="homeCubePadding">
-          <slot></slot>
-        </div>
+  <div class="wrapHomeCube">
+    <div class="homeCubeDropShadow"></div>
+    <div class="homeCube">
+      <div class="homeCubePadding">
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -18,7 +16,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .homeCubePadding {
   display: block;
   position: absolute;
@@ -75,7 +72,7 @@ export default {
     transform: translate(-50%, -50%);
 }
 
-.hideHomeCube {
+.homeCube-leave-active {
   transform: translate(150%, 150%);
   animation: hideHomeCube 0.6s cubic-bezier(.85,-0.2,.56,.91);
 }
@@ -88,7 +85,7 @@ export default {
   }
 }
 
-.unhideHomeCube {
+.homeCube-enter-active {
   transform: translate(-50%, -50%);
   animation: unhideHomeCube 0.6s cubic-bezier(.44,.06,.19,1.32)
 }

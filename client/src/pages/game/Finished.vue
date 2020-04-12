@@ -1,5 +1,5 @@
 <template>
-  <HomeCube>
+  <div>
     <div class="generalFont mediumFont centerFontH">
       Eindstand:
     </div>
@@ -13,7 +13,7 @@
 
     <button v-if="isMaster" class="generalFont smallFont transparentButton buttonLeft" @click="newGameFromCurrent()">Nog eens</button><br>
     <button class="generalFont smallFont transparentButton buttonRight" @click="leaveGame()">Verlaat het spel</button>
-  </HomeCube>
+  </div>
 </template>
 
 <script>
