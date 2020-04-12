@@ -140,7 +140,7 @@ export default {
     },
     updatePlayerName() {
       this.playerName = event.target.value
-      scaleElement(event.target, event.target.value, 'generalFont', 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
+      scaleElement(event.target, event.target.value, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
     },
     confirmPlayerName() {
       if (this.playerName.length >= 2) {
