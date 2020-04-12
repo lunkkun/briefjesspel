@@ -2,6 +2,7 @@
   <button class="transparentButton" @click="$emit('click')">
     <div class="nextCorner"></div>
     <div class="nextCornerTopLeft"></div>
+    <div class="bigNextCorner"></div>
   </button>
 </template>
 
@@ -20,8 +21,6 @@ export default {
   right: -2.5vmin;
   width: 6.5vmin;
   height: 6.5vmin;
-  max-width: 40px;
-  max-height: 40px;
   background-color: #344558;
   box-shadow: -0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
   z-index: 21;
@@ -38,8 +37,21 @@ export default {
   z-index: 22;
   cursor: pointer;
 }
+.bigNextCorner{
+  display: block;
+  position: absolute;
+  bottom: -5.5vmin;
+  right: -5.5vmin;
+  width: 13vmin;
+  height: 13vmin;
+  background: transparent;
+  z-index: 20;
+}
+
 @media screen and (min-width: 613px) and (min-height: 613px) {
   .nextCorner {
+    width: 40px;
+    height: 40px;
     box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
     bottom: -15px;
     right: -15px;
@@ -49,6 +61,12 @@ export default {
     right: -15px;
     border-left: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
+  }
+  .bigNextCorner {
+    width: 80px;
+    height: 80px;
+    bottom: -35px;
+    right: -35px;
   }
 }
 </style>
