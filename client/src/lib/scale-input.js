@@ -1,5 +1,5 @@
 const span = document.createElement('span');
-span.style.visibility = "hidden";
+span.style.visibility = 'hidden';
 span.style.position = 'absolute';
 document.body.appendChild(span);
 
