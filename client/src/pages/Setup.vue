@@ -16,8 +16,8 @@
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <div class="fade-in">
         <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
-        <input id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
-               autocomplete="off" maxlength="30" :value="playerName" @input="updatePlayerName" v-focus>
+        <input ref="playerName" id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;"
+               type="text" autocomplete="off" maxlength="30" v-model="playerName" v-focus>
       </div>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
       <NextButton @click="confirmPlayerName()"></NextButton>
@@ -37,8 +37,8 @@
       <label class="generalFont mediumFont labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
-      <input id="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="text"
-             autocomplete="off" v-model="entry" v-focus>
+      <textarea id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;"
+                v-model="entry" v-focus></textarea>
       <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
     </div>
@@ -134,13 +134,17 @@ export default {
       'canStart',
      ])
   },
+  watch: {
+    playerName: function () {
+      scaleInput(this.$refs.playerName, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
+    },
+    entry: function () {
+      scaleInput(this.$refs.entry, 'mediumFont', 'smallFont', 'tinyFont')
+    },
+  },
   methods: {
     confirmLinkInfoRead() {
       this.linkInfoRead = true
-    },
-    updatePlayerName() {
-      this.playerName = event.target.value
-      scaleInput(event.target, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
     },
     confirmPlayerName() {
       if (this.playerName.length >= 2) {
