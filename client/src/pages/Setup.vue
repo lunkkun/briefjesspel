@@ -75,7 +75,7 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 import HomeCube from '../components/HomeCube'
 import SetupTeams from '../components/SetupTeams'
 import NextButton from '../components/NextButton'
-import scaleInput from '../lib/scale-input'
+import scaleElement from '../lib/scale-element'
 
 export default {
   name: 'Setup',
@@ -140,7 +140,7 @@ export default {
     },
     updatePlayerName() {
       this.playerName = event.target.value
-      scaleInput(event.target, 'generalFont', 'mediumFont', 'smallFont', 'tinyFont')
+      scaleElement(event.target, event.target.value, 'generalFont', 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
     },
     confirmPlayerName() {
       if (this.playerName.length >= 2) {

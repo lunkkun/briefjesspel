@@ -98,6 +98,10 @@ export default {
 .centerFontH {
   text-align: center;
 }
+.microFont {
+  font-size: 2.5vmin;
+  font-weight: lighter;
+}
 .tinyFont {
   font-size: 3.75vmin;
   font-weight: lighter;
