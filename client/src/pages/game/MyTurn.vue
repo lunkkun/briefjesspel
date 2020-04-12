@@ -2,26 +2,26 @@
   <HomeCube>
     <div v-if="!isStarted" class="generalFont smallFont centerFontH">
       Je bent aan de beurt!
-      <button class="centerBlock generalFont bigFont transparentButton" @click="startTurn">Start je beurt</button>
+      <button class="centerBlock generalFont bigFont transparentButton" @click="startTurn()">Start je beurt</button>
     </div>
-    
+
     <div v-else-if="!isFinished">
       <!-- Nog paperBowl implementeren -->
       <div v-if="entry">
-        <button class="centerBlock generalFont bigFont transparentButton" @dblclick="nextEntry">
+        <button class="centerBlock generalFont bigFont transparentButton" @dblclick="nextEntry()">
           <span>{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
         </button>
       </div>
       <Timer></Timer>
     </div>
-    
+
     <div v-else class="generalFont smallFont">
       Je beurt is voorbij!<br>
       <span class="generalFont tinyFont">
         Behaalde score: {{ scoreThisTurn }}<br>
         Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
       </span>
-      <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn">Geef de beurt door</button>
+      <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
     </div>
   </HomeCube>
 </template>
