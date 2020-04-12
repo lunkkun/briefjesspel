@@ -143,20 +143,20 @@ class Game extends EventEmitter {
     }
   }
 
-  removePlayer(userId, byHimself = false) {
-    if (this.players.has(userId) && this.activePlayer !== userId) {
+  removePlayer(userId) {
+    if (this.players.has(userId) && (this.isFinished || this.activePlayer !== userId)) {
       this.players.delete(userId)
 
       this.turnOrder.forEach((team) => {
         team.players = team.players.filter(id => id !== userId)
       })
 
-      if (userId === this.master && this.players.size) {
+      if (userId === this.master && this.players.size && !this.isFinished) {
         this.master = this.players.values().next().value.id
         this.emit('masterUpdated')
       }
 
-      this.emit(byHimself ? 'playerLeft' : 'playerRemoved', userId)
+      this.emit('playerRemoved', userId)
     }
   }
 
