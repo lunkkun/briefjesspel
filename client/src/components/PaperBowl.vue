@@ -16,7 +16,7 @@ export default {
 
 .hat {
   display: block;
-  background: url("hoed.png");
+  background: url("~@/assets/img/hoed.png");
   background-size: 100%;
   position: fixed;
   top: 50%;
@@ -40,7 +40,7 @@ export default {
 
 .bowl {
   display: block;
-  background: url("schaal.png");
+  background: url("~@/assets/img/schaal.png");
   background-size: 100%;
   position: fixed;
   top: 50%;
@@ -64,7 +64,7 @@ export default {
 
 .colander {
   display: block;
-  background: url("vergiet.png");
+  background: url("~@/assets/img/vergiet.png");
   background-size: 100%;
   position: fixed;
   top: 50%;
@@ -88,7 +88,7 @@ export default {
 
 .papers {
   display: block;
-  background: url("papersFolded.png");
+  background: url("~@/assets/img/papersFolded.png");
   background-size: 100%;
   position: absolute;
   top: 50%;
@@ -108,7 +108,7 @@ export default {
     height: 540px;
     box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
   }
-  
+
   .bowl {
     width: 640px;
     height: 640px;
@@ -118,7 +118,7 @@ export default {
     height: 440px;
     box-shadow: 0 0 18px 30px rgba(0,0,0,0.5);
   }
-  
+
   .colander {
     width: 640px;
     height: 640px;
