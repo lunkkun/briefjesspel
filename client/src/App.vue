@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     activeTurn() {
-      return this.myTurn && this.turnStarted && !this.turnFinished
+      return this.myTurn && this.turnStarted && !this.turnFinished && !this.roundFinished && !this.gameFinished
     },
     showHomeCube() {
       return !this.activeTurn
@@ -62,6 +62,8 @@ export default {
       requestToLeave: state => state.requestToLeave,
       gameCreated: state => state.game.isCreated,
       gameStarted: state => state.game.isStarted,
+      gameFinished: state => state.game.isFinished,
+      roundFinished: state => state.game.roundFinished,
       turnStarted: state => state.game.turnStarted,
       turnFinished: state => state.game.turnFinished,
     }),
