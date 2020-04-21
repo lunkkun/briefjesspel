@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isStarted" class="generalFont smallFont centerFontH">
-      Je bent aan de beurt!
+      Het is jouw beurt!
       <button class="centerBlock generalFont bigFont transparentButton" @click="startTurn()">Start je beurt</button>
     </div>
 
