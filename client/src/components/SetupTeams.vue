@@ -2,24 +2,26 @@
   <div>
     <div v-if="!editing">
       <div @keydown.enter="confirmTeamName()">
-        <button class="generalFont mediumFont transparentButton teamLabel" @click="confirmTeamName()">Voeg teamnaam toe +</button>
-        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" maxlength="10" autocomplete="off" v-model="teamName" v-focus>
+        <div class="generalFont mediumFont teamLabel">Teams:</div>
+        <!--<button class="generalFont smallFont transparentButton" style="background-color: red;" @click="confirmTeamName()">Voeg teamnaam toe +</button>-->
+        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" maxlength="11" placeholder="Voeg teamnaam toe..." autocomplete="off" v-model="teamName" v-focus>
         <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
-
       </div>
+      
       <div class="teamList">
         <div v-for="team in teams" :key="team.id" class="teamRow">
           <div class="teamPlayer generalFont smallFont">
-            {{ team.name }} ({{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>)
+            {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }}<!-- speler<span v-if="playersForTeam(team.id).length !== 1">s</span>-->)</span>
           </div>
           <button class="listButton generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>
           <button class="listButton generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
         </div>
       </div>
       <div v-if="canConfirmTeams">
-        <button class="generalFont bigFont transparentButton nextButton" @click="confirmTeams()">&#187;</button>
+        <NextButton @click="confirmTeams()"></NextButton>
       </div>
     </div>
+    
     <div v-else>
       <div class="generalFont mediumFont teamLabel">Team {{ teams[editing].name }}:</div>
       <div class="teamPlayerList">
@@ -37,7 +39,7 @@
         </div>
       </div>
       <div>
-        <button class="generalFont bigFont transparentButton nextButton" @click="stopEditing()">&#187;</button>
+        <NextButton @click="stopEditing()"></NextButton>
       </div>
     </div>
   </div>
@@ -45,11 +47,12 @@
 
 <script>
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+import NextButton from '../components/NextButton'
 
 export default {
   name: 'SetupTeams',
   components: {
-    //
+    NextButton,
   },
   data() {
     return {
@@ -115,7 +118,7 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 .teamNameInput {
   display: block;
@@ -126,8 +129,11 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  text-align: center;
+  text-align: left;
   text-overflow: ellipsis;
+}
+input::placeholder {
+  
 }
 .teamList {
   display: table;
@@ -166,12 +172,6 @@ export default {
   display: table-cell;
   width: 15%;
 }
-button.nextButton {
-  position: absolute;
-  transform: rotate(45deg);
-  bottom: -5%;
-  right: 0;
-}
 .errorTeamName {
   display: block;
   background-color: transparent;
@@ -183,4 +183,5 @@ button.nextButton {
   width: 100%;
   text-align: center;
   color: red;
-}</style>
+}
+</style>
