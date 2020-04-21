@@ -37,8 +37,8 @@
       <label class="generalFont mediumFont labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
-      <textarea id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;"
-                v-model="entry" v-focus></textarea>
+      <input id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;"
+                v-model="entry" v-focus></input>
       <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
     </div>
