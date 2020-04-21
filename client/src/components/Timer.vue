@@ -25,8 +25,19 @@ export default {
   display: block;
   background-color: transparent;
   position: absolute;
-  bottom: 0;
-  right: 4%;
+  bottom: 4vmin;
+  right: 4vmin;
   font-weight: bold;
+  text-align: left;
+  overflow: visible;
+}
+
+@media screen and (min-width: 613px) and (min-height: 613px) {
+ .timer {
+  width: 10px;
+  height: 10px;
+  bottom: 65px;
+  right: 110px;
+} 
 }
 </style>
