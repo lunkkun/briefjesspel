@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="papersFolded" :style="{background: `url('~@/assets/img/papersFolded${hierDanEenOfAndereVariabele}.png')`}"></div>
+    <div class="papersFolded"></div> <!-- :style="{background: `url('~@/assets/img/papersFolded${hierDanEenOfAndereVariabele}.png')`}"-->
   </div>
 </template>
 

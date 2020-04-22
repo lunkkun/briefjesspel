@@ -1,6 +1,7 @@
 <template>
   <div>
-    <!-- TODO: paperBowl + toggleHomeCube implementeren -->
+    <PaperBowl></PaperBowl>
+    <PapersFolded></PapersFolded>
     <div v-if="entry">
       <button class="transparentButton" @click="requestNextEntry()">
         <div class="paperUnfolded"> <!--:style="{background: `url('~@/assets/img/paperUnfolded${hierDanEenOfAndereVariabele}.png')`}-->
@@ -15,7 +16,8 @@
 <script>
 import {mapState, mapActions} from 'vuex'
 import Timer from '../../components/Timer'
-import PaperUnfolded from '../../components/PaperUnfolded'
+import PapersFolded from '../../components/PapersFolded'
+import PaperBowl from '../../components/PaperBowl'
 
 export default {
   name: 'ActiveTurn',
@@ -26,7 +28,8 @@ export default {
   },
   components: {
     Timer,
-    PaperUnfolded,
+    PapersFolded,
+    PaperBowl,
   },
   computed: mapState({
     entry: state => state.game.activeEntry,
