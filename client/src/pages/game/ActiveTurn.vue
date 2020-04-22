@@ -2,11 +2,11 @@
   <div>
     <!-- TODO: paperBowl + toggleHomeCube implementeren -->
     <div v-if="entry">
-      <div class="paperUnfolded">
-        <button class="centerBlock generalFont bigFont transparentButton" @click="requestNextEntry()">
-          <span>{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
-        </button>
-      </div>
+      <button class="transparentButton" @click="requestNextEntry()">
+        <div class="paperUnfolded"> <!--:style="{background: `url('~@/assets/img/paperUnfolded${hierDanEenOfAndereVariabele}.png')`}-->
+          <span class="centerBlock generalFont bigFont">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span> 
+        </div>
+      </button>
     </div>
     <Timer></Timer>
   </div>
@@ -64,11 +64,14 @@ export default {
   width: 98vmin;
   height: 98vmin;
   animation-name: unfold;
-  animation-duration: 1s;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
 }
 @keyframes unfold {
-  from {transform: translate(-50%, -50%) scale(0);}
-  to {transform: translate(-50%, -50%) scale(1);}
+  0% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  70% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  100% {transform: translate(-50%, -50%) scale(1, 1);}
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
