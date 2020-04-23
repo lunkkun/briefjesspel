@@ -5,7 +5,7 @@
     <div v-if="entry">
       <button class="transparentButton" @click="requestNextEntry()">
         <div class="paperUnfolded"> <!--:style="{background: `url('~@/assets/img/paperUnfolded${hierDanEenOfAndereVariabele}.png')`}-->
-          <span class="centerBlock generalFont bigFont">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span> 
+          <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span> 
         </div>
       </button>
     </div>
@@ -53,7 +53,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
+  .centerWord {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  text-align: center;
+  box-sizing: border-box;
+  overflow-wrap: break-word; 
+  text-overflow: ellipsis;
+  }
 .paperUnfolded {
   display: block;
   background: url("~@/assets/img/paperUnfolded1.png");
