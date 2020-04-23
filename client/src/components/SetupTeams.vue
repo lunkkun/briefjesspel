@@ -39,19 +39,6 @@
               <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;" @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
             </div>
           </div>
-          
-          <div>
-            <div class="generalFont smallFont teamPlayer">Joris</div>
-            <div class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;">&#9587;</button>
-            </div>
-          </div>
-          <div>
-            <div class="generalFont smallFont teamPlayer">Joris</div>
-            <div class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;">&#9587;</button>
-            </div>
-          </div>
         </div>
       </div>
       <div>
