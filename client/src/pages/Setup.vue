@@ -17,7 +17,7 @@
       <div class="fade-in">
         <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
         <input ref="playerName" id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;"
-               type="text" autocomplete="off" maxlength="30" v-model="playerName" v-focus>
+               type="text" autocomplete="off" maxlength="11" v-model="playerName" v-focus>
       </div>
       <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
       <NextButton @click="confirmPlayerName()"></NextButton>
