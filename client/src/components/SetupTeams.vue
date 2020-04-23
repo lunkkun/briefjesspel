@@ -1,20 +1,21 @@
 <template>
   <div>
     <div v-if="!editing">
-      <div @keydown.enter="confirmTeamName()">
-        <div class="generalFont mediumFont teamLabel">Teams:</div>
-        <!--<button class="generalFont smallFont transparentButton" style="background-color: red;" @click="confirmTeamName()">Voeg teamnaam toe +</button>-->
-        <input id="teamName" class="generalFont mediumFont teamNameInput" style="color: #688980;" type="text" maxlength="11" placeholder="Voeg teamnaam toe..." autocomplete="off" v-model="teamName" v-focus>
-        <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
-      </div>
-      
-      <div class="teamList">
-        <div v-for="team in teams" :key="team.id" class="teamRow">
-          <div class="teamPlayer generalFont smallFont">
-            {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }}<!-- speler<span v-if="playersForTeam(team.id).length !== 1">s</span>-->)</span>
+      <div class="generalFont mediumFont teamLabel">Teams:</div>
+      <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
+      <div class="tableWrap">
+        <div class="teamList">
+          <div v-for="team in teams" :key="team.id">
+            <button class="generalFont smallFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
+              {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }}<!-- speler<span v-if="playersForTeam(team.id).length !== 1">s</span>-->)</span>
+            </button>
+            <!--<button class="listButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="editTeam(team.id)"></button>-->
+            <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
-          <button class="listButton generalFont smallFont transparentButton" @click="removeTeam(team.id)">x</button>
-          <button class="listButton generalFont smallFont transparentButton" @click="editTeam(team.id)">+</button>
+          <div @keydown.enter="confirmTeamName()">
+            <input id="teamName" class="generalFont smallFont transparentButton" style="color: #688980;" type="text" maxlength="10" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
+            <!--<button class="generalFont smallFont transparentButton" @click="confirmTeamName()">&#9587;</button>-->
+          </div>
         </div>
       </div>
       <div v-if="canConfirmTeams">
@@ -24,17 +25,32 @@
     
     <div v-else>
       <div class="generalFont mediumFont teamLabel">Team {{ teams[editing].name }}:</div>
-      <div class="teamPlayerList">
-        <div v-for="player in players" :key="player.id" class="teamItem">
-          <div class="generalFont smallFont teamPlayer">
-            {{ player.name }}
-            <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
+      <div class="tableWrap">
+        <div class="teamPlayerList">
+          <div v-for="player in players" :key="player.id">
+            <div class="generalFont smallFont teamPlayer">
+              {{ player.name }}
+              <span v-if="player.teamId">({{ teams[player.teamId].name }})</span>
+            </div>
+            <div v-if="player.teamId === editing" class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
+            </div>
+            <div v-else class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;" @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+            </div>
           </div>
-          <div v-if="player.teamId === editing" class="listButton">
-            <button class="generalFont smallFont transparentButton" style="font-weight: bold;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">x</button>
+          
+          <div>
+            <div class="generalFont smallFont teamPlayer">Joris</div>
+            <div class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;">&#9587;</button>
+            </div>
           </div>
-          <div v-else class="listButton">
-            <button class="generalFont smallFont transparentButton" @click="addPlayerToTeam({id: player.id, teamId: editing})">+</button>
+          <div>
+            <div class="generalFont smallFont teamPlayer">Joris</div>
+            <div class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;">&#9587;</button>
+            </div>
           </div>
         </div>
       </div>
@@ -132,45 +148,57 @@ export default {
   text-align: left;
   text-overflow: ellipsis;
 }
-input::placeholder {
-  
+.tableWrap {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%);
+  height: 60%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .teamList {
   display: table;
-  background-color: transparent;
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  transform: translate(-50%);
-  width: 100%;
+  background-color: #F8DC8D;  
+  width: 95%;
   text-align: left;
-  padding: 0;
+  padding: 1vmin;
+}
+.teams {
+  display: table-cell;
+  width: 90%;
+  text-align: left;
+  vertical-align: bottom;
+  border-bottom: dotted 1px rgba(104,137,128,0.4);
+}
+.teamButton {
+  display: table-cell;
+  width: 10%;
+  vertical-align: bottom;
+  text-align: center;
+  border-bottom: dotted 1px rgba(104,137,128,0.4);
 }
 .teamPlayerList {
   display: table;
-  background-color: transparent;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%);
-  width: 100%;
+  background-color: #F8DC8D;
+  width: 90%;
   text-align: left;
-  padding: 0;
-}
-.teamRow {
-  display: table-row;
-  width: 100%;
-  border-bottom: 1px solid black;
-  padding: 0;
-  margin: 0;
+  padding: 1vmin;
 }
 .teamPlayer {
   display: table-cell;
-  width: 70%;
+  width: 95%;
+  text-align: left;
+  vertical-align: bottom;
+  border-bottom: dotted 1px rgba(104,137,128,0.4);
 }
-.listButton {
+.teamPlayerButton {
   display: table-cell;
-  width: 15%;
+  width: 5%;
+  vertical-align: bottom;
+  text-align: center;
+  border-bottom: dotted 1px rgba(104,137,128,0.4);
 }
 .errorTeamName {
   display: block;
@@ -183,5 +211,25 @@ input::placeholder {
   width: 100%;
   text-align: center;
   color: red;
+}
+.timesToPlus {
+  animation-name: rotateCW;
+  animation-duration: 0.1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes rotateCW {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(45deg);}
+}
+.plusToTimes {
+  animation-name: rotateCCW;
+  animation-duration: 0.1s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+@keyframes rotateCCW {
+  0% {transform: rotate(45deg);}
+  100% {transform: rotate(0deg);}
 }
 </style>
