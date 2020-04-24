@@ -9,12 +9,13 @@
 <!-- Spel link -->
     <div v-if="!linkInfoRead && isMaster" @keydown.enter="confirmLinkInfoRead()">
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
+      <div class="nextButtonPulse"></div>
       <NextButton @click="confirmLinkInfoRead()" v-focus></NextButton>
     </div>
 
 <!-- Naam -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
-      <div class="fade-in">
+      <div class="fadeIn">
         <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
         <input ref="playerName" id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;"
                type="text" autocomplete="off" maxlength="11" v-model="playerName" v-focus>
@@ -283,7 +284,7 @@ export default {
   }
 }
 
-.fade-in {
+.fadeIn {
   opacity: 1.0;
   animation: fade-in 1s ease-out;
 }
@@ -295,6 +296,36 @@ export default {
     opacity: 1.0;
   }
 }
+
+.nextButtonPulse{
+  display: block;
+  position: absolute;
+  bottom: -2.5vmin;
+  right: -2.5vmin;
+  width: 6.5vmin;
+  height: 6.5vmin;
+  background-color: #344558;
+  box-shadow: -0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
+  opacity: 0;
+  z-index: 22;
+  transform-origin: bottom right;
+  animation: pulse 2s ease-in infinite;
+  animation-delay: 6s;
+}
+  @keyframes pulse {
+  0% {transform: scale(0.8); opacity: 1;}
+  100% {transform: scale(1.3); opacity: 0;}
+}
+@media screen and (min-width: 613px) and (min-height: 613px) {
+  .nextButtonPulse {
+    width: 40px;
+    height: 40px;
+    box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
+    bottom: -15px;
+    right: -15px;
+  }
+}
+
 .linkDescription {
   display: block;
   position: absolute;
@@ -324,12 +355,6 @@ export default {
   width: 100%;
   text-align: center;
   text-overflow: ellipsis;
-}
-button.nextButton {
-  position: absolute;
-  transform: rotate(45deg);
-  bottom: -5%;
-  right: 0;
 }
 .error {
   display: block;
