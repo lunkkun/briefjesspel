@@ -27,8 +27,22 @@
       <div class="generalFont mediumFont teamLabel">Team {{ teams[editing].name }}:</div>
       <div class="tableWrap">
         <div class="teamPlayerList">
-          <div v-for="player in players" :key="player.id">
-            <div class="generalFont smallFont teamPlayer" :class="{playerInTeam: player.teamId === editing}">
+          <div v-for="player in playersForTeam(editing)" :key="player.id">
+            <div class="generalFont smallFont teamPlayer">
+              {{ player.name }}
+            </div>
+            <div v-if="player.teamId === editing" class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
+            </div>
+            <div v-else class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;" @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="teamPlayerList">
+          <div v-for="player in playersNotInTeam" :key="player.id">
+            <div class="generalFont smallFont teamPlayer">
               {{ player.name }}
             </div>
             <div v-if="player.teamId === editing" class="teamPlayerButton">
@@ -178,9 +192,6 @@ export default {
   text-align: left;
   vertical-align: bottom;
   border-bottom: dotted 1px rgba(104,137,128,0.4);
-}
-.playerInTeam {
-  background-color: green;
 }
 .teamPlayerButton {
   display: table-cell;
