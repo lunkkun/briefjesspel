@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isStarted">
-      <div class="centerBlock generalFont bigFont transparentButton">Het is jouw beurt!</div>
+      <div class="centerBlock generalFont bigFont transparentButton" style="top: 45%;">Het is jouw beurt!</div>
       <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt...</div>
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
@@ -51,7 +51,7 @@ export default {
 <style lang="scss" scoped>
 .subText {
   position: absolute;
-  top: 60%;
+  top: 55%;
   width: 100%;
   text-align: center;
 }
