@@ -2,10 +2,10 @@
   <div>
     <PaperBowl></PaperBowl>
     <PapersFolded></PapersFolded>
-    <div v-if="entry">
+    <div v-if="showPaperUnfolded">
       <button class="transparentButton" @click="requestNextEntry()">
-        <div class="paperUnfolded"> <!--:style="{background: `url('~@/assets/img/paperUnfolded${hierDanEenOfAndereVariabele}.png')`}-->
-          <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span> 
+        <div class="paperUnfolded" :style="paperUnfoldedImg">
+          <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
         </div>
       </button>
     </div>
@@ -23,6 +23,8 @@ export default {
   name: 'ActiveTurn',
   data() {
     return {
+      showPaperUnfolded: true,
+      paperUnfoldedNum: 1,
       clicked: false,
     }
   },
@@ -31,12 +33,32 @@ export default {
     PapersFolded,
     PaperBowl,
   },
-  computed: mapState({
-    entry: state => state.game.activeEntry,
-  }),
+  created() {
+    this.setRandomPaperUnfoldedNum()
+  },
+  watch: {
+    entry() {
+      this.showPaperUnfolded = true
+    },
+  },
+  computed: {
+    paperUnfoldedImg() {
+      return {
+        background: `url(${require(`@/assets/img/paperUnfolded${this.paperUnfoldedNum}.png`)})`,
+        backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+      }
+    },
+    ...mapState({
+      entry: state => state.game.activeEntry,
+    })
+  },
   methods: {
     requestNextEntry() {
       if (this.clicked) {
+        this.showPaperUnfolded = false
+        this.setRandomPaperUnfoldedNum()
         this.nextEntry()
       } else {
         this.clicked = true
@@ -44,6 +66,17 @@ export default {
           this.clicked = false
         }, 500)
       }
+    },
+    setRandomPaperUnfoldedNum() {
+      let num
+      let counter = 0
+
+      do {
+        num = Math.floor(Math.random() * 4) + 1
+        counter++
+      } while (num === this.paperUnfoldedNum && counter <= 100)
+
+      this.paperUnfoldedNum = num
     },
     ...mapActions([
       'nextEntry',
@@ -62,15 +95,11 @@ export default {
   width: 80%;
   text-align: center;
   box-sizing: border-box;
-  overflow-wrap: break-word; 
+  overflow-wrap: break-word;
   text-overflow: ellipsis;
   }
 .paperUnfolded {
   display: block;
-  background: url("~@/assets/img/paperUnfolded1.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
   position: absolute;
   top: 50%;
   left: 50%;
