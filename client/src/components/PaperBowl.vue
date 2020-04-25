@@ -1,14 +1,26 @@
 <template>
   <div>
-    <div class="colanderShadow"></div>  <!--:class="paperContainerShadow" Nog werkend maken: toggle between classes "hat", "bowl" and "colander"-->
-    <div class="colander"></div>        <!--:class="paperContainer" Nog werkend maken: toggle between classes "hatShadow", "bowlShadow" and "colanderShadow"-->
+    <div :class="containerClass"></div>
+    <div :class="containerShadowClass"></div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 
 export default {
   name: 'PaperBowl',
+  computed: {
+    containerClass() {
+      return this.container
+    },
+    containerShadowClass() {
+      return this.container + 'Shadow'
+    },
+    ...mapState({
+      container: state => state.game.container,
+    }),
+  },
 }
 </script>
 

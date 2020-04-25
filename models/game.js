@@ -28,6 +28,7 @@ class Game extends EventEmitter {
       .map(([key, value]) => [key, new Team(value)]))
     this.master = data.master || null
     this.entriesPerPlayer = data.entriesPerPlayer || 0
+    this.container = data.container || null
     this.entries = data.entries || []
     this.turnOrder = data.turnOrder || []
 
@@ -174,6 +175,12 @@ class Game extends EventEmitter {
     this.entriesPerPlayer = entriesPerPlayer
 
     this.emit('entriesPerPlayerUpdated')
+  }
+
+  setContainer(container) {
+    this.container = container
+
+    this.emit('containerSet')
   }
 
   addEntry(userId, entry) {

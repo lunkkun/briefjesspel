@@ -39,6 +39,7 @@ export default new Vuex.Store({
 
       state.game.master = game.master || null
       state.game.entriesPerPlayer = game.entriesPerPlayer || 0
+      state.game.container = game.container || null
       state.game.teamsConfirmed = game.isStarted || false
 
       state.game.isStarted = game.isStarted || false

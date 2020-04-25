@@ -38,8 +38,8 @@
       <label class="generalFont mediumFont labelPosition" for="entry">
         Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
       </label>
-      <input id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;"
-                v-model="entry" v-focus></input>
+      <input id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
+                v-model="entry" v-focus>
       <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
     </div>
@@ -173,6 +173,7 @@ export default {
       if (this.entry.length > 0) {
         this.addEntry(this.entry)
         this.entry = ''
+        this.$refs.entry.focus()
         this.firstEntryAdded = true
       } else {
         this.errors.entry = true
