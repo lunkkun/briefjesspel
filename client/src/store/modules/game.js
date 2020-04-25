@@ -85,8 +85,8 @@ export default {
     playersForTeam: (state) => (teamId) => {
       return Object.values(state.players).filter(player => player.teamId === teamId)
     },
-    playersNotInTeam: (state) => (teamId) => {
-      return Object.values(state.players).filter(player => player.teamId !== teamId)
+    playersNotInTeam: (state) => {
+      return Object.values(state.players).filter(player => player.teamId === null)
     },
     allPlayersReady: (state) => {
       return Object.values(state.players).every(player => player.isReady)
