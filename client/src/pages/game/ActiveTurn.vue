@@ -10,7 +10,7 @@
     <div v-else-if="showPaperUnfolded">
       <button class="transparentButton" @click="requestNextEntry()">
         <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
-          <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
+          <span class="generalFont mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
         </div>
       </button>
     </div>
