@@ -54,6 +54,7 @@ export default new Vuex.Store({
       state.game.nextTeam = game.nextTeam || null
       state.game.nextPlayer = game.nextPlayer || null
       state.game.turnStarted = game.turnStarted || false
+      state.game.timerStarted = game.turnStarted || false
       state.game.turnFinished = game.turnFinished || false
       state.game.activeEntry = game.activeEntry || null
       state.game.turnTimeLeft = game.turnTimeLeft || 0
