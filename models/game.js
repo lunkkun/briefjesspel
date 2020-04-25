@@ -144,19 +144,29 @@ class Game extends EventEmitter {
   }
 
   removePlayer(userId) {
-    if (this.players.has(userId) && (this.isFinished || this.activePlayer !== userId)) {
+    if (this.players.has(userId)) {
       this.players.delete(userId)
+
+      if (this.activePlayer === userId) {
+        this.nextTurn()
+      }
+
+      const wasNextPlayer = this.nextPlayer === userId
 
       this.turnOrder.forEach((team) => {
         team.players = team.players.filter(id => id !== userId)
       })
 
+      this.emit('playerRemoved', userId)
+
+      if (wasNextPlayer) {
+        this.emit('nextPlayerUpdated')
+      }
+
       if (userId === this.master && this.players.size && !this.isFinished) {
         this.master = this.players.values().next().value.id
         this.emit('masterUpdated')
       }
-
-      this.emit('playerRemoved', userId)
     }
   }
 
