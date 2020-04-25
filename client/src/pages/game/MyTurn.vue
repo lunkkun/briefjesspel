@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="!isStarted" class="generalFont smallFont centerFontH">
-      Het is jouw beurt!
-      <button class="centerBlock generalFont bigFont transparentButton" @click="startTurn()">Start je beurt</button>
+    <div v-if="!isStarted">
+      <div class="centerBlock generalFont bigFont transparentButton">Het is jouw beurt!</div>
+      <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt...</div>
+      <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
 
     <div v-else-if="!isFinished">
-      <!--<ActiveTurn></ActiveTurn>-->
     </div>
 
     <div v-else class="generalFont smallFont">
@@ -22,9 +22,13 @@
 
 <script>
 import {mapState, mapGetters, mapActions} from 'vuex'
+import NextButton from '../../components/NextButton'
 
 export default {
   name: 'MyTurn',
+  components: {
+    NextButton,
+  },
   computed: {
     ...mapState({
       isStarted: state => state.game.turnStarted,
@@ -46,5 +50,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.subText {
+  position: absolute;
+  top: 60%;
+  width: 100%;
+  text-align: center;
+}
 </style>
