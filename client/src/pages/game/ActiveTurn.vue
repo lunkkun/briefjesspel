@@ -10,7 +10,7 @@
     <transition name="paper">
       <div v-if="showPaperUnfolded">
         <button class="transparentButton" @click="requestNextEntry()">
-          <div class="paperUnfolded" :style="{background-image: paperUnfoldedImg}">
+          <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
             <span class="mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
           </div>
         </button>
