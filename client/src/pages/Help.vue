@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="generalFont mediumFont centerBlock">
-      Met deze tool kun je, in combinatie met een video groepsgesprek, het briefjesspel online spelen!
+      Met deze app kun je, in combinatie met een video groepsgesprek, het briefjesspel online spelen!
     </div>
   </div>
 </template>
