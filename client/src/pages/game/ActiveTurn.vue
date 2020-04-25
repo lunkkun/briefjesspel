@@ -4,7 +4,7 @@
     <PapersFolded></PapersFolded>
     <div v-if="!timerStarted">
       <button class="transparentButton" @click="startTimer()">
-        <div class="paperUnfolded"></div>
+        <div class="timerStartButton"></div>
       </button>
     </div>
     <div v-else-if="showPaperUnfolded">
@@ -121,7 +121,18 @@ export default {
   70% {transform: translate(-50%, -50%) scale(0, 0.5);}
   100% {transform: translate(-50%, -50%) scale(1, 1);}
 }
-
+.timerStartButton {
+  display: block;
+  background: transparent;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vmin;
+  height: 80vmin;
+  max-height: 490px;
+  max-width: 490px;
+}
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
   .paperUnfolded {
