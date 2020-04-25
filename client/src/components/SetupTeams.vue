@@ -55,7 +55,7 @@
         </div>
       </div>
       <div>
-        <NextButton @click="stopEditing()"></NextButton>
+        <PreviousButton @click="stopEditing()"></PreviousButton>
       </div>
     </div>
   </div>
@@ -64,11 +64,13 @@
 <script>
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 import NextButton from '../components/NextButton'
+import PreviousButton from '../components/PreviousButton'
 
 export default {
   name: 'SetupTeams',
   components: {
     NextButton,
+    PreviousButton,
   },
   data() {
     return {
