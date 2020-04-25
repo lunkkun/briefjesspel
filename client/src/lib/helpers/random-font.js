@@ -5,7 +5,6 @@ const fonts = [
   'CuteHandWriting',
   'daniel',
   'Faraco Hand',
-  'Good-night',
   'homeworkpreschooler',
   'kindergarten',
   'Lemon Tuesday',
