@@ -6,16 +6,15 @@
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
 
-    <div v-else-if="!isFinished">
-    </div>
-
-    <div v-else class="generalFont smallFont">
-      Je beurt is voorbij!<br>
-      <span class="generalFont tinyFont">
-        Behaalde score: {{ scoreThisTurn }}<br>
-        Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
-      </span>
-      <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
+    <div v-else-if="isFinished">
+      <div class="generalFont smallFont">
+        Je beurt is voorbij!<br>
+        <span class="generalFont tinyFont">
+          Behaalde score: {{ scoreThisTurn }}<br>
+          Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
+        </span>
+        <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
+      </div>
     </div>
   </div>
 </template>
