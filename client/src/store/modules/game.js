@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {msg, randomFont, link, rankTeams} from '../../lib/helpers'
+import {msg, link, randomContainer, randomFont, rankTeams} from '../../lib/helpers'
 
 const minTeams = 1 // process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
@@ -15,6 +15,7 @@ export default {
     teams: {},
     master: null,
     entriesPerPlayer: 0,
+    container: null,
     teamsConfirmed: false,
 
     // state of game
@@ -155,6 +156,9 @@ export default {
     },
     setEntriesPerPlayer(state, entriesPerPlayer) {
       state.entriesPerPlayer = entriesPerPlayer
+    },
+    setContainer(state, container) {
+      state.container = container
     },
     setPlayerReady(state, id) {
       const player = state.players[id]
@@ -309,6 +313,11 @@ export default {
     async setEntriesPerPlayer({commit, dispatch}, entriesPerPlayer) {
       await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
       commit('setEntriesPerPlayer', entriesPerPlayer)
+      await dispatch('setContainer', randomContainer()) // TODO: add option for game master?
+    },
+    async setContainer({commit, dispatch}, container) {
+      await dispatch(msg('setContainer', container))
+      commit('setContainer', container)
     },
     async addEntry({commit, dispatch}, entry) {
       await dispatch(msg('addEntry', entry))
