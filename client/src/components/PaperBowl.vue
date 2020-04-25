@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div :class="containerClass"></div>
     <div :class="containerShadowClass"></div>
+    <div :class="containerClass"></div>
   </div>
 </template>
 
