@@ -2,7 +2,12 @@
   <div>
     <PaperBowl></PaperBowl>
     <PapersFolded></PapersFolded>
-    <div v-if="showPaperUnfolded">
+    <div v-if="!timerStarted">
+      <button class="transparentButton" @click="startTimer()">
+        <div class="paperUnfolded"></div>
+      </button>
+    </div>
+    <div v-else-if="showPaperUnfolded">
       <button class="transparentButton" @click="requestNextEntry()">
         <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
           <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
@@ -23,8 +28,8 @@ export default {
   name: 'ActiveTurn',
   data() {
     return {
-      showPaperUnfolded: true,
-      paperUnfoldedNum: 1,
+      showPaperUnfolded: false,
+      paperUnfoldedNum: null,
       clicked: false,
     }
   },
@@ -46,6 +51,7 @@ export default {
       return `url(${require(`@/assets/img/paperUnfolded${this.paperUnfoldedNum}.png`)})`
     },
     ...mapState({
+      timerStarted: state => state.game.timerStarted,
       entry: state => state.game.activeEntry,
     })
   },
@@ -74,6 +80,7 @@ export default {
       this.paperUnfoldedNum = num
     },
     ...mapActions([
+      'startTimer',
       'nextEntry',
     ])
   },

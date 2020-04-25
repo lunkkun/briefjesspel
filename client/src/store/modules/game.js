@@ -36,6 +36,7 @@ export default {
     nextTeam: null,
     nextPlayer: null,
     turnStarted: false,
+    timerStarted: false,
     turnFinished: false,
     activeEntry: null, // only for active player
     turnTimeLeft: 0, // in seconds
@@ -204,6 +205,9 @@ export default {
       state.turnTimeLeft = state.turnTime
       state.roundStarted = true
     },
+    initializeTurn(state) {
+      state.turnStarted = true
+    },
     startTurn(state) {
       state.timer = setInterval(() => {
         state.turnTimeLeft--
@@ -212,7 +216,7 @@ export default {
           clearInterval(state.timer)
         }
       }, 1000)
-      state.turnStarted = true
+      state.timerStarted = true
     },
     nextEntry(state, {text, font}) {
       state.activeEntry = {text, font}
@@ -236,6 +240,7 @@ export default {
       state.nextPlayer = nextPlayer
 
       state.turnStarted = false
+      state.timerStarted = false
       state.turnFinished = false
       state.turnTimeLeft = state.turnTime
       state.scoreThisTurn = 0
@@ -249,6 +254,7 @@ export default {
       state.roundFinished = false
 
       state.turnStarted = false
+      state.timerStarted = false
       state.scoreThisTurn = 0
 
       state.previousTurnTime = state.turnTime
@@ -333,7 +339,10 @@ export default {
     async startRound({dispatch}) {
       await dispatch(msg('startRound'))
     },
-    async startTurn({dispatch}) {
+    async startTurn({commit}) {
+      commit('initializeTurn')
+    },
+    async startTimer({dispatch}) {
       await dispatch(msg('startTurn'))
     },
     async nextEntry({dispatch}) {
