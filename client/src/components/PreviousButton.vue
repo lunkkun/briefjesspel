@@ -22,7 +22,7 @@ export default {
   width: 6.5vmin;
   height: 6.5vmin;
   background-color: #344558;
-  box-shadow: -0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
+  box-shadow: 0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
   z-index: 21;
 }
 .previousCornerTopRight {
@@ -52,14 +52,14 @@ export default {
   .previousCorner {
     width: 40px;
     height: 40px;
-    box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
+    box-shadow: 2px -2px 1px rgba(52,69,88,0.6);
     bottom: -15px;
     left: -15px;
   }
-  .previousCornerTopLeft {
+  .previousCornerTopRight {
     bottom: -15px;
     left: -15px;
-    border-left: 40px solid #F8DC8D;
+    border-right: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
   }
   .previousCornerBig {
