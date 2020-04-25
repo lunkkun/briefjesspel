@@ -4,7 +4,7 @@
     <PapersFolded></PapersFolded>
     <div v-if="showPaperUnfolded">
       <button class="transparentButton" @click="requestNextEntry()">
-        <div class="paperUnfolded" :style="paperUnfoldedImg">
+        <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
           <span class="generalFont mediumFont centerWord">{{ entry.text }}<!-- TODO: font ({{ entry.font }}) --></span>
         </div>
       </button>
@@ -43,12 +43,7 @@ export default {
   },
   computed: {
     paperUnfoldedImg() {
-      return {
-        background: `url(${require(`@/assets/img/paperUnfolded${this.paperUnfoldedNum}.png`)})`,
-        backgroundSize: '100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }
+      return `url(${require(`@/assets/img/paperUnfolded${this.paperUnfoldedNum}.png`)})`
     },
     ...mapState({
       entry: state => state.game.activeEntry,
@@ -100,6 +95,9 @@ export default {
   }
 .paperUnfolded {
   display: block;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   position: absolute;
   top: 50%;
   left: 50%;
