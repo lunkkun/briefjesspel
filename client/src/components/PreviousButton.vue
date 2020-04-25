@@ -1,7 +1,7 @@
 <template>
   <button class="transparentButton" @click="$emit('click')">
     <div class="previousCorner"></div>
-    <div class="previousCornerTopLeft"></div>
+    <div class="previousCornerTopRight"></div>
     <div class="previousCornerBig"></div>
   </button>
 </template>
@@ -25,14 +25,14 @@ export default {
   box-shadow: -0.4vmin -0.4vmin 0.2vmin rgba(52,69,88,0.6);
   z-index: 21;
 }
-.previousCornerTopLeft {
+.previousCornerTopRight {
   display: block;
   position: absolute;
   bottom: -2.5vmin;
   left: -2.5vmin;
   width: 0;
   height: 0;
-  border-left: 6.6vmin solid #F8DC8D;
+  border-right: 6.6vmin solid #F8DC8D;
   border-bottom: 6.6vmin solid transparent;
   z-index: 22;
   cursor: pointer;
