@@ -233,7 +233,7 @@ class Game extends EventEmitter {
 
   start() {
     if (this.canStart) {
-      this._fillEntries()
+      this._collectEntries()
       this._randomizeTurnOrder()
 
       this.isStarted = true
@@ -361,11 +361,14 @@ class Game extends EventEmitter {
     }
   }
 
-  _fillEntries() {
-    // put all of the player's entries into the game
-    // this prevents losing entries if a player leaves the game
+  /**
+   * Put all of the player's entries into the game.
+   * This prevents losing entries if a player leaves the game.
+   * Also, set the font based on the user.
+   */
+  _collectEntries() {
     this.players.forEach((user) => {
-      this.entries.push(...user.entries)
+      this.entries.push(...user.entries.map(text => ({text, font: user.font})))
     })
   }
 
