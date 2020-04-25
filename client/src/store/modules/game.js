@@ -30,6 +30,7 @@ export default {
     // state of round
     roundStarted: false,
     roundFinished: false,
+    entriesRemaining: 0,
 
     // state of turn
     activeTeam: null,
@@ -200,11 +201,12 @@ export default {
     startGame(state) {
       state.isStarted = true
     },
-    startRound(state, {activeTeam, activePlayer, nextTeam, nextPlayer}) {
+    startRound(state, {activeTeam, activePlayer, nextTeam, nextPlayer, entriesRemaining}) {
       state.activeTeam = activeTeam
       state.activePlayer = activePlayer
       state.nextTeam = nextTeam
       state.nextPlayer = nextPlayer
+      state.entriesRemaining = entriesRemaining
 
       state.turnTimeLeft = state.turnTime
       state.roundStarted = true
@@ -222,8 +224,9 @@ export default {
       }, 1000)
       state.timerStarted = true
     },
-    nextEntry(state, {text, font}) {
+    nextEntry(state, {text, font, remaining}) {
       state.activeEntry = {text, font}
+      state.entriesRemaining = remaining
     },
     updateTeamScore(state, {id, score, scoreThisRound, scoreThisTurn}) {
       state.scoreThisTurn = scoreThisTurn
@@ -246,6 +249,7 @@ export default {
       state.turnStarted = false
       state.timerStarted = false
       state.turnFinished = false
+      state.activeEntry = null
       state.turnTimeLeft = state.turnTime
       state.scoreThisTurn = 0
     },

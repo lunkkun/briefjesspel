@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <div class="papersFolded"></div> <!-- :style="{background: `url('~@/assets/img/papersFolded${hierDanEenOfAndereVariabele}.png')`}"-->
+  <div v-if="entriesRemaining">
+    <div class="papersFolded" :style="{backgroundImage}"></div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: 'PapersFolded',
   computed: {
-    quantityClass() {
-      return 'papersFolded' + '1' // TODO: depending on quantity remaining
+    backgroundImage() {
+      return `url(${require(`@/assets/img/papersFolded${Math.min(this.entriesRemaining, 8)}.png`)})`
     },
+    ...mapState({
+      entriesRemaining: state => state.game.entriesRemaining - (state.game.activeEntry ? 1 : 0),
+    }),
   },
 }
 </script>
@@ -19,7 +24,6 @@ export default {
 
 .papersFolded {
   display: block;
-  background: url('~@/assets/img/papersFolded8.png');
   background-size: 100%;
   background-repeat: no-repeat;
   position: absolute;

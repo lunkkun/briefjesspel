@@ -49,6 +49,7 @@ export default new Vuex.Store({
       state.game.scorePerEntry = game.scorePerEntry || 1
       state.game.roundStarted = game.roundStarted || false
       state.game.roundFinished = game.roundFinished || false
+      state.game.entriesRemaining = game.entriesRemaining || 0
 
       state.game.activeTeam = game.activeTeam || null
       state.game.activePlayer = game.activePlayer || null
