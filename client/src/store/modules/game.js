@@ -145,6 +145,10 @@ export default {
         Vue.delete(this.players, id)
       }
     },
+    updateNextPlayer(state, {nextTeam, nextPlayer}) {
+      state.nextTeam = nextTeam
+      state.nextPlayer = nextPlayer
+    },
     updateMaster(state, master) {
       state.master = master
     },
