@@ -7,13 +7,15 @@
         <div class="timerStartButton"></div>
       </button>
     </div>
-    <div v-else-if="showPaperUnfolded">
-      <button class="transparentButton" @click="requestNextEntry()">
-        <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
-          <span class="generalFont mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
-        </div>
-      </button>
-    </div>
+    <transition name="paper">
+      <div v-if="showPaperUnfolded">
+        <button class="transparentButton" @click="requestNextEntry()">
+          <div class="paperUnfolded" :style="{background-image: paperUnfoldedImg}">
+            <span class="mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
+          </div>
+        </button>
+      </div>
+    </transition>
     <Timer></Timer>
   </div>
 </template>
@@ -111,15 +113,6 @@ export default {
   transform: translate(-50%, -50%);
   width: 98vmin;
   height: 98vmin;
-  animation-name: unfold;
-  animation-duration: 0.6s;
-  animation-timing-function: ease-in;
-  animation-fill-mode: forwards;
-}
-@keyframes unfold {
-  0% {transform: translate(-50%, -50%) scale(0, 0.5);}
-  70% {transform: translate(-50%, -50%) scale(0, 0.5);}
-  100% {transform: translate(-50%, -50%) scale(1, 1);}
 }
 .timerStartButton {
   display: block;
@@ -133,6 +126,31 @@ export default {
   max-height: 490px;
   max-width: 490px;
 }
+
+.paper-enter-active {
+  animation-name: unfold;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes unfold {
+  0% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  70% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  100% {transform: translate(-50%, -50%) scale(1, 1);}
+}
+
+.paper-leave-active {
+  animation-name: fold;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes fold {
+  0% {transform: translate(-50%, -50%) scale(1, 1);}
+  70% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  100% {transform: translate(-50%, -50%) scale(0, 0.5);}
+}
+
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
   .paperUnfolded {
