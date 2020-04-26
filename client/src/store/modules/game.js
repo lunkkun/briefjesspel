@@ -85,29 +85,29 @@ export default {
     players: (state) => {
       return Object.values(state.players).filter(player => player.name)
     },
-    playersForTeam: (state) => (teamId) => {
-      return Object.values(state.players).filter(player => player.name && player.teamId === teamId)
+    playersForTeam: (state, getters) => (teamId) => {
+      return getters.players.filter(player => player.teamId === teamId)
     },
-    playersNotInTeam: (state) => {
-      return Object.values(state.players).filter(player => player.name && player.teamId === null)
+    playersNotInTeam: (state, getters) => {
+      return getters.players.filter(player => player.teamId === null)
     },
-    allPlayersReady: (state) => {
-      return Object.values(state.players).every(player => player.isReady)
+    allPlayersReady: (state, getters) => {
+      return getters.players.every(player => player.isReady)
     },
     enoughTeams: (state) => {
       return Object.keys(state.teams).length >= minTeams
     },
-    allPlayersAssigned: (state) => {
-      return Object.values(state.players).every(player => player.teamId)
+    allPlayersAssigned: (state, getters) => {
+      return getters.players.every(player => player.teamId)
     },
     allTeamsHaveEnoughPlayers: (state, getters) => {
       return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= minPlayersPerTeam)
     },
-    canConfirmTeams: (state, getters) => {
+    teamsComplete: (state, getters) => {
       return getters.enoughTeams && getters.allPlayersAssigned && getters.allTeamsHaveEnoughPlayers
     },
     canStart: (state, getters) => {
-      return getters.allPlayersReady && getters.canConfirmTeams
+      return getters.allPlayersReady && getters.teamsComplete
     },
     myTurn: (state) => {
       return state.activePlayer === state.player.id

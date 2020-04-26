@@ -58,11 +58,26 @@ class Game extends EventEmitter {
 
   // getters
 
+  get allPlayersAssignedAndReady() {
+    return Array.from(this.players.values())
+      .filter(user => user.name)
+      .every(user => user.isReady && user.teamId)
+  }
+
+  get enoughTeams() {
+    return this.teams.size >= minTeams
+  }
+
+  get allTeamsHaveEnoughPlayers() {
+    return Array.from(this.teams.values())
+      .every(team => this._playersForTeam(team.id).length >= minPlayersPerTeam)
+  }
+
   get canStart() {
     return !this.isStarted &&
-      Array.from(this.players.values()).every(user => user.isReady && user.teamId) &&
-      this.teams.size >= minTeams &&
-      Array.from(this.teams.values()).every(team => this._playersForTeam(team.id).length >= minPlayersPerTeam)
+      this.allPlayersAssignedAndReady &&
+      this.enoughTeams &&
+      this.allTeamsHaveEnoughPlayers
   }
 
   get canStartRound() {
@@ -240,6 +255,13 @@ class Game extends EventEmitter {
 
   start() {
     if (this.canStart) {
+      // kick out ghost players when starting the game
+      this.players.forEach(user => {
+        if (!user.name) {
+          this.removePlayer(user)
+        }
+      })
+
       this._collectEntries()
       this._randomizeTurnOrder()
 
