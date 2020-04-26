@@ -11,14 +11,13 @@ export default {
   name: 'PapersFolded',
   computed: {
     papersInBowl() {
-      return Math.min(this.entriesRemaining - (this.activeEntry ? 1 : 0), 8)
+      return Math.min(this.entriesRemaining, 8)
     },
     backgroundImage() {
       return `url(${require(`@/assets/img/papersFolded${this.papersInBowl}.png`)})`
     },
     ...mapState({
       entriesRemaining: state => state.game.entriesRemaining,
-      activeEntry: state => state.game.activeEntry,
     }),
   },
 }
