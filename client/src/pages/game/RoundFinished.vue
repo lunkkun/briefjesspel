@@ -6,7 +6,7 @@
     </div>
     <ul>
       <li v-for="team in teams" :key="team.id" class="generalFont smallFont">
-        {{ team.name }}: {{ team.scoreThisRound }} (totaal: {{ team.score }})
+        {{ team.name }} deze ronde: {{ team.scoreThisRound }} (totaal: {{ team.score }})
       </li>
     </ul>
     <br>
