@@ -111,10 +111,6 @@ export default {
       this.$nextTick(this.scaleTeamNames)
     },
   },
-  // updated() {
-  //   Object.values(this.$refs.teamNames || {})
-  //     .forEach(span => scaleSpan(span, 'smallFont', 'tinyFont', 'microFont'))
-  // },
   methods: {
     confirmTeamName() {
       if (this.teamName.length > 0) {
