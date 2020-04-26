@@ -23,7 +23,7 @@
           </div>
         </div>
       </div>
-      <div v-if="canConfirmTeams">
+      <div v-if="teamsComplete">
         <NextButton @click="confirmTeams()"></NextButton>
       </div>
       <div v-else class="generalFont playersUnassignedNote">
@@ -100,7 +100,7 @@ export default {
     ...mapGetters([
       'playersForTeam',
       'playersNotInTeam',
-      'canConfirmTeams',
+      'teamsComplete',
     ]),
   },
   watch: {

@@ -46,7 +46,7 @@
     </div>
 
 <!-- Team setup -->
-    <SetupTeams v-else-if="!(canConfirmTeams && teamsConfirmed) && isMaster"></SetupTeams>
+    <SetupTeams v-else-if="!(teamsComplete && teamsConfirmed) && isMaster"></SetupTeams>
 
 <!-- Turn time -->
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
@@ -135,7 +135,7 @@ export default {
       'playerNameSet',
       'entriesPerPlayerSet',
       'enoughEntries',
-      'canConfirmTeams',
+      'teamsComplete',
       'turnTimeSet',
       'canStart',
      ])
