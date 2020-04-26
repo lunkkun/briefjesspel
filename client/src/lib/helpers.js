@@ -1,3 +1,4 @@
+export {default as copyToClipboard} from './helpers/copy-to-clipboard'
 export {default as link} from './helpers/link'
 export {default as msg} from './helpers/msg'
 export {default as randomContainer} from './helpers/random-container'
