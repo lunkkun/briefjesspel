@@ -201,6 +201,9 @@ export default {
     setTurnTime(state, turnTime) {
       state.turnTime = turnTime
     },
+    unsetTurnTime(state) {
+      state.turnTime = 0
+    },
     startGame(state) {
       state.isStarted = true
     },

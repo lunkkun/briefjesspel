@@ -65,7 +65,7 @@
 
     <div v-else-if="isMaster">
       <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start het spel</button>
-      <PreviousButton @click="setTurnTime(0)"></PreviousButton>
+      <PreviousButton @click="unsetTurnTime()"></PreviousButton>
       <NextButton @click="startGame()"></NextButton>
     </div>
 
@@ -213,6 +213,7 @@ export default {
     },
     ...mapMutations([
       'unconfirmTeams',
+      'unsetTurnTime',
     ]),
     ...mapActions([
       'setPlayerName',
