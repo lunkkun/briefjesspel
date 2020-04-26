@@ -11,7 +11,7 @@
     </ul>
     <br>
     <div v-if="isMaster">
-      <button class="generalFont smallFont transparentButton buttonLeft" @click="nextRound">Speel nog een ronde</button>
+      <button class="generalFont smallFont transparentButton buttonLeft" @click="nextRound">Nog een ronde</button>
       <button class="generalFont smallFont transparentButton buttonRight" @click="finishGame">Spel afronden</button>
     </div>
   </div>

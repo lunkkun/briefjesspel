@@ -36,7 +36,8 @@
 <!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="generalFont mediumFont labelPosition" for="entry">
-        Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):
+        <!--Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):-->
+        Briefje {{ nrEntries + 1 }} (van de {{ ofTotalEntries }}):
       </label>
       <input id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
                 v-model="entry" v-focus>
@@ -49,7 +50,7 @@
 
 <!-- Turn time -->
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
-      <label class="generalFont mediumFont labelPosition" for="turnTime">Aantal seconden per beurt:</label>
+      <label class="generalFont mediumFont labelPosition" for="turnTime">Seconden per beurt:</label>
       <input id="turnTime" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
              v-focus v-select>
@@ -62,7 +63,8 @@
     </div>
 
     <div v-else-if="isMaster">
-      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start</button>
+      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start het spel</button>
+      <NextButton @click="startGame()"></NextButton>
     </div>
 
     <div v-else class="generalFont mediumFont centerBlock">
@@ -301,8 +303,8 @@ export default {
 .nextButtonPulse{
   display: block;
   position: absolute;
-  bottom: -2.5vmin;
-  right: -2.5vmin;
+  bottom: -5vmin;
+  right: -5vmin;
   width: 6.5vmin;
   height: 6.5vmin;
   background-color: #344558;
@@ -322,8 +324,8 @@ export default {
     width: 40px;
     height: 40px;
     box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
-    bottom: -15px;
-    right: -15px;
+    bottom: -30px;
+    right: -30px;
   }
 }
 

@@ -22,10 +22,10 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70vmin;
-  height: 70vmin;
-  max-height: 430px;
-  max-width: 430px;
+  width: 65vmin;
+  height: 65vmin;
+  max-height: 400px;
+  max-width: 400px;
 }
 .homeCube {
   display: block;

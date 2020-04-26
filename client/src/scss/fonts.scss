@@ -60,7 +60,7 @@
 }
 @font-face {
   font-family: 'Lemon Tuesday';
-  src:  url('~@/assets/fonts/Lemon Tuesday.otf');
+  src:  url('~@/assets/fonts/Lemon Tuesday.otf') format("opentype");
   font-weight: normal;
   font-style: normal;
 }
@@ -83,12 +83,6 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'Quand_tu_dors_';
-  src:  url('~@/assets/fonts/Quand_tu_dors_.otf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
   font-family: 'Quick note';
   src:  url('~@/assets/fonts/Quick note.ttf');
   font-weight: normal;
@@ -102,7 +96,7 @@
 }
 @font-face {
   font-family: 'TheDogAteMyHomework';
-  src:  url('~@/assets/fonts/TheDogAteMyHomework.otf');
+  src:  url('~@/assets/fonts/TheDogAteMyHomework.otf') format("opentype");
   font-weight: normal;
   font-style: normal;
 }

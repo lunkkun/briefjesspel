@@ -13,8 +13,12 @@
             <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
           <div @keydown.enter="confirmTeamName()">
-            <input id="teamName" class="generalFont smallFont transparentButton" style="color: #688980;" type="text" maxlength="10" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
-            <!--<button class="generalFont smallFont transparentButton" @click="confirmTeamName()">&#9587;</button>-->
+            
+              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;" type="text" maxlength="12" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
+            
+            
+              <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()"><span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span> </button>
+            
           </div>
         </div>
       </div>
@@ -24,7 +28,7 @@
     </div>
 
     <div v-else>
-      <div class="generalFont mediumFont teamLabel">Team {{ teams[editing].name }}:</div>
+      <div class="generalFont mediumFont teamLabel">{{ teams[editing].name }}:</div>
       <div class="tableWrap">
         <div class="teamPlayerList">
           <div v-for="player in playersForTeam(editing)" :key="player.id">
@@ -55,7 +59,7 @@
         </div>
       </div>
       <div>
-        <PreviousButton @click="stopEditing()"></PreviousButton>
+        <NextButton @click="stopEditing()"></NextButton>
       </div>
     </div>
   </div>
@@ -137,6 +141,7 @@ export default {
   transform: translateX(-50%);
   width: 100%;
   text-align: left;
+  z-index: 25;
 }
 .teamNameInput {
   display: block;

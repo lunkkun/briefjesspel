@@ -17,8 +17,8 @@ export default {
 .nextCorner{
   display: block;
   position: absolute;
-  bottom: -2.5vmin;
-  right: -2.5vmin;
+  bottom: -5vmin;
+  right: -5vmin;
   width: 6.5vmin;
   height: 6.5vmin;
   background-color: #344558;
@@ -28,8 +28,8 @@ export default {
 .nextCornerTopLeft {
   display: block;
   position: absolute;
-  bottom: -2.5vmin;
-  right: -2.5vmin;
+  bottom: -5vmin;
+  right: -5vmin;
   width: 0;
   height: 0;
   border-left: 6.6vmin solid #F8DC8D;
@@ -40,8 +40,8 @@ export default {
 .nextCornerBig{
   display: block;
   position: absolute;
-  bottom: -5.5vmin;
-  right: -5.5vmin;
+  bottom: -7.5vmin;
+  right: -7.5vmin;
   width: 13vmin;
   height: 13vmin;
   background: transparent;
@@ -53,20 +53,20 @@ export default {
     width: 40px;
     height: 40px;
     box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
-    bottom: -15px;
-    right: -15px;
+    bottom: -30px;
+    right: -30px;
   }
   .nextCornerTopLeft {
-    bottom: -15px;
-    right: -15px;
+    bottom: -30px;
+    right: -30px;
     border-left: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
   }
   .nextCornerBig {
     width: 80px;
     height: 80px;
-    bottom: -35px;
-    right: -35px;
+    bottom: -45px;
+    right: -45px;
   }
 }
 </style>

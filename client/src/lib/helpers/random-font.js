@@ -11,7 +11,6 @@ const fonts = [
   'Luna',
   'Morning Coffee',
   'NotebookScribble',
-  'Quand_tu_dors_',
   'Quick note',
   'Southpaw',
   'TheDogAteMyHomework',
