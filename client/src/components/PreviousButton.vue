@@ -17,8 +17,8 @@ export default {
 .previousCorner{
   display: block;
   position: absolute;
-  bottom: -2.5vmin;
-  left: -2.5vmin;
+  bottom: -5vmin;
+  left: -5vmin;
   width: 6.5vmin;
   height: 6.5vmin;
   background-color: #344558;
@@ -28,8 +28,8 @@ export default {
 .previousCornerTopRight {
   display: block;
   position: absolute;
-  bottom: -2.5vmin;
-  left: -2.5vmin;
+  bottom: -5vmin;
+  left: -5vmin;
   width: 0;
   height: 0;
   border-right: 6.6vmin solid #F8DC8D;
@@ -40,8 +40,8 @@ export default {
 .previousCornerBig{
   display: block;
   position: absolute;
-  bottom: -5.5vmin;
-  left: -5.5vmin;
+  bottom: -7.5vmin;
+  left: -7.5vmin;
   width: 13vmin;
   height: 13vmin;
   background: transparent;
@@ -53,20 +53,20 @@ export default {
     width: 40px;
     height: 40px;
     box-shadow: 2px -2px 1px rgba(52,69,88,0.6);
-    bottom: -15px;
-    left: -15px;
+    bottom: -30px;
+    left: -30px;
   }
   .previousCornerTopRight {
-    bottom: -15px;
-    left: -15px;
+    bottom: -30px;
+    left: -30px;
     border-right: 40px solid #F8DC8D;
     border-bottom: 40px solid transparent;
   }
   .previousCornerBig {
     width: 80px;
     height: 80px;
-    bottom: -35px;
-    left: -35px;
+    bottom: -45px;
+    left: -45px;
   }
 }
 </style>
