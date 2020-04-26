@@ -26,6 +26,9 @@
       <div v-if="canConfirmTeams">
         <NextButton @click="confirmTeams()"></NextButton>
       </div>
+      <div v-else class="generalFont playersUnassignedNote">
+        {{ playersNotInTeam.length }} speler<span v-if="playersNotInTeam.length !== 1">s</span> nog niet ingedeeld...
+      </div>
     </div>
 
     <div v-else>
@@ -99,12 +102,6 @@ export default {
       'playersNotInTeam',
       'canConfirmTeams',
     ]),
-    players() {
-      return [
-        ...this.playersForTeam(this.editing),
-        ...this.playersNotInTeam,
-      ]
-    },
   },
   watch: {
     teamName() {
@@ -117,10 +114,6 @@ export default {
       this.$nextTick(this.scaleTeamNames)
     },
   },
-  // updated() {
-  //   Object.values(this.$refs.teamNames || {})
-  //     .forEach(span => scaleSpan(span, 'smallFont', 'tinyFont', 'microFont'))
-  // },
   methods: {
     confirmTeamName() {
       if (this.teamName.length > 0) {
@@ -247,6 +240,18 @@ export default {
   color: red;
 }
 .teamNote {
+  font-style: italic;
+}
+.playersUnassignedNote {
+  display: block;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
   font-style: italic;
 }
 .timesToPlus {

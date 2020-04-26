@@ -86,10 +86,10 @@ export default {
       return Object.values(state.players).filter(player => player.name)
     },
     playersForTeam: (state) => (teamId) => {
-      return Object.values(state.players).filter(player => player.teamId === teamId)
+      return Object.values(state.players).filter(player => player.name && player.teamId === teamId)
     },
     playersNotInTeam: (state) => {
-      return Object.values(state.players).filter(player => player.teamId === null)
+      return Object.values(state.players).filter(player => player.name && player.teamId === null)
     },
     allPlayersReady: (state) => {
       return Object.values(state.players).every(player => player.isReady)
@@ -195,8 +195,14 @@ export default {
     confirmTeams(state) {
       state.teamsConfirmed = true
     },
+    unconfirmTeams(state) {
+      state.teamsConfirmed = false
+    },
     setTurnTime(state, turnTime) {
       state.turnTime = turnTime
+    },
+    unsetTurnTime(state) {
+      state.turnTime = 0
     },
     startGame(state) {
       state.isStarted = true
