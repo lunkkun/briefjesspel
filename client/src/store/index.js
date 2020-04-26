@@ -68,8 +68,8 @@ export default new Vuex.Store({
       state.game.path = game.path || null
       state.game.isCreated = !!game.path
 
-      if (window.location.href !== link(game.path)) {
-        window.history.pushState(null, '', '/' + (game.path || ''))
+      if (location.href !== link(game.path)) {
+        history.pushState(null, '', '/' + (game.path || ''))
       }
 
       state.requestToLeave = false
@@ -79,13 +79,13 @@ export default new Vuex.Store({
       state.requestToLeave = true
     },
     leaveGame() {
-      window.location.href = '/'
+      location.href = '/'
     },
     stayInGame(state) {
       state.requestToLeave = false
     },
     redirectToGame(state, path) {
-      window.location.href = '/' + path
+      location.href = '/' + path
     },
 
     // Only for local use
