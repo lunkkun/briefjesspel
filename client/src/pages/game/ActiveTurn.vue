@@ -2,11 +2,7 @@
   <div>
     <PaperBowl></PaperBowl>
     <PapersFolded></PapersFolded>
-    <div v-if="!timerStarted">
-      <button class="transparentButton" @click="startTimer()">
-        <div class="timerStartButton"></div>
-      </button>
-    </div>
+    <div v-if="!timerStarted" class="timerStartButton" @click="startTimer()"></div>
     <transition name="paper">
       <div v-if="showPaperUnfolded">
         <button class="transparentButton" @click="requestNextEntry()">
@@ -128,6 +124,16 @@ export default {
 }
 
 .paper-enter-active {
+  display: block;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 98vmin;
+  height: 98vmin;
   animation-name: unfold;
   animation-duration: 0.6s;
   animation-timing-function: ease-in;
