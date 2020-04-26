@@ -14,7 +14,7 @@
           </div>
           <div @keydown.enter="confirmTeamName()">
             
-              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;" type="text" maxlength="13" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
+              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;" type="text" maxlength="12" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
             
             
               <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()"><span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span> </button>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div>
-        <PreviousButton @click="stopEditing()"></PreviousButton>
+        <NextButton @click="stopEditing()"></NextButton>
       </div>
     </div>
   </div>
@@ -141,6 +141,7 @@ export default {
   transform: translateX(-50%);
   width: 100%;
   text-align: left;
+  z-index: 25;
 }
 .teamNameInput {
   display: block;
