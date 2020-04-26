@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!isStarted">
-      <div class="centerBlock generalFont bigFont transparentButton" style="top: 45%;">Het is jouw beurt!</div>
+      <div class="centerBlock generalFont mediumFont transparentButton" style="top: 45%;">Het is jouw beurt!</div>
       <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt...</div>
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
