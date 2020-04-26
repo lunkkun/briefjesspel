@@ -29,6 +29,6 @@ export function scaleInput(el, ...sizeClasses) {
   scaleElement(el, el.value, ...sizeClasses)
 }
 
-export function scaleSpan(el, ...sizeClasses) {
+export function scaleText(el, ...sizeClasses) {
   scaleElement(el, el.innerText, ...sizeClasses)
 }

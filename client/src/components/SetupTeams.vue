@@ -7,10 +7,10 @@
         <div class="teamList">
           <div v-for="team in teams" :key="team.id">
             <button class="generalFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
-              <span ref="teamNames" class="smallFont">{{ team.name }}</span>
-              <span class="microFont" style="color: #688980; float: right">
+              <div ref="teamNames" class="smallFont">{{ team.name }}</div>
+              <div class="microFont" style="color: #688980; float: right">
                 {{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>
-              </span>
+              </div>
             </button>
             <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
@@ -29,25 +29,35 @@
     </div>
 
     <div v-else>
-      <div class="generalFont mediumFont teamLabel">{{ teams[editing].name }}:</div>
+      <div ref="teamName" :key="editing" class="generalFont mediumFont teamLabel">{{ teams[editing].name }}:</div>
       <div class="tableWrap">
         <div class="teamPlayerList">
-          <div v-for="player in playersForTeam(editing)" :key="player.id">
-            <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
-            <div class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;"
-                      @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
+          <div v-if="playersForTeam(editing).length">
+            <div v-for="player in playersForTeam(editing)" :key="player.id">
+              <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+              <div class="teamPlayerButton">
+                <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;"
+                        @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
+              </div>
             </div>
+          </div>
+          <div v-else class="generalFont teamNote">
+            Nog geen spelers toegevoegd
           </div>
         </div>
         <br>
         <div class="teamPlayerList">
-          <div v-for="player in playersNotInTeam" :key="player.id">
-            <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
-            <div class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;"
-                      @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+          <div v-if="playersNotInTeam.length">
+            <div v-for="player in playersNotInTeam" :key="player.id">
+              <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+              <div class="teamPlayerButton">
+                <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;"
+                        @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+              </div>
             </div>
+          </div>
+          <div v-else class="generalFont teamNote">
+            Alle spelers zijn ingedeeld
           </div>
         </div>
       </div>
@@ -62,7 +72,7 @@
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 import NextButton from '../components/NextButton'
 import PreviousButton from '../components/PreviousButton'
-import {scaleInput, scaleSpan} from "../lib/helpers/scale-element"
+import {scaleInput, scaleText} from "../lib/helpers/scale-element"
 
 export default {
   name: 'SetupTeams',
@@ -100,12 +110,12 @@ export default {
     teamName() {
       scaleInput(this.$refs.teamNameInput, 'smallFont', 'tinyFont', 'microFont')
     },
-    // teams() {
-    //   this.$nextTick(() => {
-    //     Object.values(this.$refs.teamNames || {})
-    //       .forEach(span => scaleSpan(span, 'smallFont', 'tinyFont', 'microFont'))
-    //   })
-    // },
+    teams() {
+      this.$nextTick(this.scaleTeamNames)
+    },
+    editing() {
+      this.$nextTick(this.scaleTeamNames)
+    },
   },
   // updated() {
   //   Object.values(this.$refs.teamNames || {})
@@ -126,6 +136,14 @@ export default {
     },
     stopEditing() {
       this.editing = null
+    },
+    scaleTeamNames() {
+      if (this.editing) {
+        scaleText(this.$refs.teamName, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
+      } else {
+        Object.values(this.$refs.teamNames || {})
+          .forEach(el => scaleText(el, 'smallFont', 'tinyFont', 'microFont'))
+      }
     },
     ...mapMutations([
       'confirmTeams',
@@ -227,6 +245,9 @@ export default {
   width: 100%;
   text-align: center;
   color: red;
+}
+.teamNote {
+  font-style: italic;
 }
 .timesToPlus {
   animation-name: rotateCW;
