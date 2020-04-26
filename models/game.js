@@ -449,6 +449,7 @@ class Game extends EventEmitter {
       teams: this.teamData,
       master: this.master,
       entriesPerPlayer: this.entriesPerPlayer,
+      container: this.container,
 
       isStarted: this.isStarted,
       isFinished: this.isFinished,
@@ -460,6 +461,7 @@ class Game extends EventEmitter {
 
       activeTeam: this.activeTeam,
       activePlayer: this.activePlayer,
+      entriesRemaining: this.entriesRemaining.length,
       turnStarted: this.turnStarted,
       turnFinished: this.turnFinished,
       turnTimeLeft: this.turnTimeLeft,
