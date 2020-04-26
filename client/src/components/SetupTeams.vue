@@ -99,12 +99,6 @@ export default {
       'playersNotInTeam',
       'canConfirmTeams',
     ]),
-    players() {
-      return [
-        ...this.playersForTeam(this.editing),
-        ...this.playersNotInTeam,
-      ]
-    },
   },
   watch: {
     teamName() {
