@@ -6,7 +6,7 @@
     <transition name="paper" mode="out-in">
       <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}"
            @click="requestNextEntry()" :key="entry.text">
-        <span class="mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
+        <span class="centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
       </div>
     </transition>
     <Timer></Timer>
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .centerWord {
+.centerWord {
   display: block;
   position: absolute;
   top: 50%;
@@ -91,11 +91,13 @@ export default {
   transform: translate(-50%, -50%);
   width: 80%;
   text-align: center;
+  font-size: 9vmin;
+  color: black;
   user-select: none;
   box-sizing: border-box;
   overflow-wrap: break-word;
   text-overflow: ellipsis;
-  }
+}
 .paperUnfolded {
   display: block;
   background-size: 100%;
@@ -149,6 +151,9 @@ export default {
   .paperUnfolded {
     width: 600px;
     height: 420px;
+  }
+  .centerWord {
+    font-size: 55px;
   }
 }
 </style>
