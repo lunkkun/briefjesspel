@@ -8,6 +8,7 @@
           <div v-for="team in teams" :key="team.id">
             <button class="generalFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
               <div ref="teamNames" class="smallFont">{{ team.name }}</div>
+              <div v-if="!teamsComplete" class="microFont" style="opacity: 0.8; float: left">Voeg spelers toe...</div>
               <div class="microFont" style="color: #688980; float: right">
                 {{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>
               </div>
@@ -25,9 +26,12 @@
       </div>
       <div v-if="teamsComplete">
         <NextButton @click="confirmTeams()"></NextButton>
+        <div class="generalFont tinyFont playersUnassignedNote">
+          Alle spelers zijn ingedeeld
+        </div>
       </div>
-      <div v-else class="generalFont playersUnassignedNote">
-        {{ playersNotInTeam.length }} speler<span v-if="playersNotInTeam.length !== 1">s</span> nog niet ingedeeld...
+      <div v-else class="generalFont tinyFont playersUnassignedNote">
+        Er <span v-if="playersNotInTeam.length !== 1">zijn</span><span v-else>is</span> {{ playersNotInTeam.length }} speler<span v-if="playersNotInTeam.length !== 1">s</span> niet ingedeeld...
       </div>
     </div>
 
@@ -44,7 +48,7 @@
               </div>
             </div>
           </div>
-          <div v-else class="generalFont teamNote">
+          <div v-else class="generalFont microFont teamNote">
             Nog geen spelers toegevoegd
           </div>
         </div>
@@ -59,7 +63,7 @@
               </div>
             </div>
           </div>
-          <div v-else class="generalFont teamNote">
+          <div v-else class="generalFont microFont teamNote">
             Alle spelers zijn ingedeeld
           </div>
         </div>
@@ -238,6 +242,13 @@ export default {
   width: 100%;
   text-align: center;
   color: red;
+  opacity: 0.8;
+  animation: fadeError 1s ease-in forwards;
+  animation-delay: 6s;
+}
+@keyframes fadeError {
+  0% {opacity: 0.8;}
+  100% {opacity: 0;}
 }
 .teamNote {
   font-style: italic;
@@ -247,7 +258,7 @@ export default {
   background-color: transparent;
   border: none;
   position: absolute;
-  bottom: 1%;
+  bottom: 8%;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
