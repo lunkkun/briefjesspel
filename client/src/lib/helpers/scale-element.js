@@ -25,6 +25,10 @@ export function scaleElement(el, text, initialSizeClass, ...smallerSizeClasses) 
   _scale(el, initialSizeClass, ...smallerSizeClasses)
 }
 
-export function scaleInput(input, ...sizeClasses) {
-  scaleElement(input, input.value, ...sizeClasses)
+export function scaleInput(el, ...sizeClasses) {
+  scaleElement(el, el.value, ...sizeClasses)
+}
+
+export function scaleSpan(el, ...sizeClasses) {
+  scaleElement(el, el.innerText, ...sizeClasses)
 }

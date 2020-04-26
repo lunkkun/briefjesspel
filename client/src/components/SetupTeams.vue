@@ -6,13 +6,16 @@
       <div class="tableWrap">
         <div class="teamList">
           <div v-for="team in teams" :key="team.id">
-            <button class="generalFont smallFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
-              {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }})</span>
+            <button class="generalFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
+              <span ref="teamNames" class="smallFont">{{ team.name }}</span>
+              <span class="microFont" style="color: #688980; float: right">
+                {{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>
+              </span>
             </button>
             <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
           <div @keydown.enter="confirmTeamName()">
-              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;"
+              <input id="teamName" ref="teamNameInput" class="generalFont smallFont transparentButton teams" style="color: #688980;"
                      type="text" maxlength="30" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
               <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()">
                 <span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span>
@@ -59,6 +62,7 @@
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 import NextButton from '../components/NextButton'
 import PreviousButton from '../components/PreviousButton'
+import {scaleInput, scaleSpan} from "../lib/helpers/scale-element"
 
 export default {
   name: 'SetupTeams',
@@ -92,6 +96,21 @@ export default {
       ]
     },
   },
+  watch: {
+    teamName() {
+      scaleInput(this.$refs.teamNameInput, 'smallFont', 'tinyFont', 'microFont')
+    },
+    // teams() {
+    //   this.$nextTick(() => {
+    //     Object.values(this.$refs.teamNames || {})
+    //       .forEach(span => scaleSpan(span, 'smallFont', 'tinyFont', 'microFont'))
+    //   })
+    // },
+  },
+  // updated() {
+  //   Object.values(this.$refs.teamNames || {})
+  //     .forEach(span => scaleSpan(span, 'smallFont', 'tinyFont', 'microFont'))
+  // },
   methods: {
     confirmTeamName() {
       if (this.teamName.length > 0) {
