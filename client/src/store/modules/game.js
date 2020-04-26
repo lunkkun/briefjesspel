@@ -195,6 +195,9 @@ export default {
     confirmTeams(state) {
       state.teamsConfirmed = true
     },
+    unconfirmTeams(state) {
+      state.teamsConfirmed = false
+    },
     setTurnTime(state, turnTime) {
       state.turnTime = turnTime
     },
