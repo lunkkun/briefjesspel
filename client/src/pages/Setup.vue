@@ -80,7 +80,7 @@ import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 import SetupTeams from '../components/SetupTeams'
 import NextButton from '../components/NextButton'
 import PreviousButton from '../components/PreviousButton'
-import {scaleInput} from '../lib/helpers'
+import {scaleInput, copyToClipboard} from '../lib/helpers'
 
 export default {
   name: 'Setup',
@@ -203,14 +203,12 @@ export default {
       }
     },
     copyLink() {
-      navigator.clipboard.writeText(this.shareableLink)
-        .then(() => {
-          this.linkCopied = true
-          setTimeout(() => {
-            this.linkCopied = false
-          }, 500)
-        })
-        .catch((err) => console.error(err))
+      copyToClipboard(this.shareableLink)
+
+      this.linkCopied = true
+      setTimeout(() => {
+        this.linkCopied = false
+      }, 750)
     },
     ...mapMutations([
       'unconfirmTeams',
