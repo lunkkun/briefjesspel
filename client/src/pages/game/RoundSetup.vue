@@ -6,6 +6,7 @@
     <div v-else>
       <div>
         <button class="centerBlock generalFont bigFont transparentButton" @click="startRound">Start ronde</button>
+        <NextButton @click="startRound"></NextButton>
       </div>
     </div>
   </div>
@@ -17,11 +18,13 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import Setup from '../Setup'
+import NextButton from '../../components/NextButton'
 
 export default {
   name: 'RoundSetup',
   components: {
     Setup,
+    NextButton,
   },
   computed: mapGetters([
     'turnTimeSet',
