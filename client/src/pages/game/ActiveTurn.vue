@@ -91,6 +91,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 80%;
   text-align: center;
+  user-select: none;
   box-sizing: border-box;
   overflow-wrap: break-word;
   text-overflow: ellipsis;
@@ -133,15 +134,14 @@ export default {
 }
 
 .paper-leave-active {
-  animation-name: fold;
-  animation-duration: 0.6s;
-  animation-timing-function: ease-out;
+  animation-name: drop;
+  animation-duration: 0.15s;
+  animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
-@keyframes fold {
-  0% {transform: translate(-50%, -50%) scale(1, 1);}
-  30% {transform: translate(-50%, -50%) scale(0, 0.5);}
-  100% {transform: translate(-50%, -50%) scale(0, 0.5);}
+@keyframes drop {
+  0% {transform: translate(-50%, -50%) scale(1);}
+  100% {transform: translate(-50%, 200%) scale(0);}
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
