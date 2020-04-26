@@ -3,13 +3,10 @@
     <PaperBowl></PaperBowl>
     <PapersFolded></PapersFolded>
     <div v-if="!timerStarted" class="timerStartButton" @click="startTimer()"></div>
-    <transition name="paper">
-      <div v-if="showPaperUnfolded">
-        <button class="transparentButton" @click="requestNextEntry()">
-          <div class="paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
-            <span class="mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
-          </div>
-        </button>
+    <transition name="paper" mode="out-in">
+      <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}"
+           @click="requestNextEntry()" :key="entry.text">
+        <span class="mediumFont centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
       </div>
     </transition>
     <Timer></Timer>
@@ -124,16 +121,6 @@ export default {
 }
 
 .paper-enter-active {
-  display: block;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 98vmin;
-  height: 98vmin;
   animation-name: unfold;
   animation-duration: 0.6s;
   animation-timing-function: ease-in;
@@ -148,12 +135,12 @@ export default {
 .paper-leave-active {
   animation-name: fold;
   animation-duration: 0.6s;
-  animation-timing-function: ease-in;
+  animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
 @keyframes fold {
   0% {transform: translate(-50%, -50%) scale(1, 1);}
-  70% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  30% {transform: translate(-50%, -50%) scale(0, 0.5);}
   100% {transform: translate(-50%, -50%) scale(0, 0.5);}
 }
 
