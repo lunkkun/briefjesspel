@@ -7,18 +7,16 @@
         <div class="teamList">
           <div v-for="team in teams" :key="team.id">
             <button class="generalFont smallFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
-              {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }}<!-- speler<span v-if="playersForTeam(team.id).length !== 1">s</span>-->)</span>
+              {{ team.name }} <span style="color: #688980;">({{ playersForTeam(team.id).length }})</span>
             </button>
-            <!--<button class="listButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="editTeam(team.id)"></button>-->
             <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
           <div @keydown.enter="confirmTeamName()">
-            
-              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;" type="text" maxlength="12" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
-            
-            
-              <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()"><span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span> </button>
-            
+              <input id="teamName" class="generalFont smallFont transparentButton teams" style="color: #688980;"
+                     type="text" maxlength="30" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
+              <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()">
+                <span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span>
+              </button>
           </div>
         </div>
       </div>
@@ -32,28 +30,20 @@
       <div class="tableWrap">
         <div class="teamPlayerList">
           <div v-for="player in playersForTeam(editing)" :key="player.id">
-            <div class="generalFont smallFont teamPlayer">
-              {{ player.name }}
-            </div>
-            <div v-if="player.teamId === editing" class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
-            </div>
-            <div v-else class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;" @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+            <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+            <div class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;"
+                      @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
             </div>
           </div>
         </div>
         <br>
         <div class="teamPlayerList">
           <div v-for="player in playersNotInTeam" :key="player.id">
-            <div class="generalFont smallFont teamPlayer">
-              {{ player.name }}
-            </div>
-            <div v-if="player.teamId === editing" class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;" @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
-            </div>
-            <div v-else class="teamPlayerButton">
-              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;" @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
+            <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+            <div class="teamPlayerButton">
+              <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;"
+                      @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
             </div>
           </div>
         </div>
