@@ -121,7 +121,7 @@ export default {
   text-align: center;
 }
 .microFont {
-  font-size: 2.5vmin;
+  font-size: 2.75vmin;
   font-weight: lighter;
 }
 .tinyFont {
@@ -156,10 +156,13 @@ export default {
   -moz-background-clip: text;
   background-clip: text;
 }
-@media screen and (min-width: 613px) and (min-height: 613px){
+@media screen and (min-width: 613px) and (min-height: 613px) {
+  
+  .microFont {
+    font-size: 17px;
+  }
   .tinyFont {
     font-size: 23px;
-    font-weight: lighter;
   }
   .smallFont {
     font-size: 30px;
@@ -167,7 +170,6 @@ export default {
   }
   .mediumFont {
     font-size: 45px;
-    font-weight: normal;
   }
   .bigFont {
     font-size: 60px;
