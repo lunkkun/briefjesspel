@@ -3,7 +3,7 @@ export default function (textToCopy) {
 
   function isIOSSafari() {
     const {platform, userAgent} = window.navigator
-    const iOS = platform && /iPad|iPhone|iPod/i.test(platform)
+    const iOS = platform && /iPad|iPhone|iPod/.test(platform)
     const webkit = /WebKit/i.test(userAgent)
     return iOS && webkit && !/CriOS|FxiOS|OPiOS|mercury/i.test(userAgent)
   }
