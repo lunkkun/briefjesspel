@@ -2,9 +2,10 @@ export default function (textToCopy) {
   let textArea
 
   function isIOSSafari() {
-    const iOS = /iPad|iPhone|iPod/i.test(window.navigator.platform)
-    const webkit = /WebKit/i.test(window.navigator.userAgent)
-    return iOS && webkit && !/CriOS|FxiOS|OPiOS|mercury/i.test(window.navigator.userAgent)
+    const {platform, userAgent} = window.navigator
+    const iOS = platform && /iPad|iPhone|iPod/i.test(platform)
+    const webkit = /WebKit/i.test(userAgent)
+    return iOS && webkit && !/CriOS|FxiOS|OPiOS|mercury/i.test(userAgent)
   }
 
   function createTextArea(text) {
