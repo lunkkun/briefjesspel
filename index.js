@@ -61,6 +61,12 @@ async function init() {
   server.listen(port, () => {
     logger.info(`Server listening on ${port}`)
   })
+
+  process.on('SIGTERM', () => {
+    server.close(() => {
+      logger.info('Process terminated')
+    })
+  })
 }
 
 init()
