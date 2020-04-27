@@ -1,23 +1,35 @@
 <template>
-  <div>
-    <div class="wrapPlayerCube">
-      <div class="playerCubeDropShadow"></div>
-      <div class="playerCube">
-        <slot></slot>
-      </div>
+  <div class="wrapPlayerCube">
+    <div class="playerCubeDropShadow"></div>
+    <div class="playerCube generalFont bigFont">
+      {{ shortName }}
     </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: 'PlayerCube',
+  props: ['playerId'],
+  computed: {
+    shortName() {
+      return this.player.name.substr(0, 2).toUpperCase()
+    },
+    player() {
+      return this.players[this.playerId]
+    },
+    ...mapState({
+      players: state => state.game.players,
+    }),
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .playerCube {
-  display: block;  
+  display: block;
   background-color: #F6D370;
   position: absolute;
   top: 0;
@@ -57,5 +69,18 @@ export default {
 }
 .wrapPlayerCube:hover {
   transform: translate( 50%, 50%);
+}
+
+.playerCube-enter-active {
+  transform: translate(50%, 50%);
+  animation: unhidePlayerCube 0.6s cubic-bezier(.44,.06,.19,1.32)
+}
+@keyframes unhidePlayerCube {
+  from {
+    transform: translate(-150%, -150%);
+  }
+  to {
+    transform: translate(50%, 50%);
+  }
 }
 </style>

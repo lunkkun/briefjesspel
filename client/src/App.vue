@@ -3,6 +3,8 @@
     <LeaveButton v-if="gameCreated && !activeTurn"></LeaveButton>
     <HelpButton v-if="!activeTurn"></HelpButton>
 
+    <PlayerList v-if="gameCreated && !gameStarted"></PlayerList>
+
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
         <Help v-if="showHelp"></Help>
@@ -29,6 +31,7 @@ import {mapState, mapGetters} from 'vuex'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
+import PlayerList from './components/PlayerList'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -43,6 +46,7 @@ export default {
     HelpButton,
     HomeCube,
     LeaveButton,
+    PlayerList,
     Game,
     Help,
     Home,
@@ -157,7 +161,7 @@ export default {
   background-clip: text;
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
-  
+
   .microFont {
     font-size: 17px;
   }
