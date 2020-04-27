@@ -34,6 +34,10 @@ async function init() {
   // create app
   const app = express()
 
+  if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', true)
+  }
+
   app.use(sessionParser)
   app.use(express.static('client/dist', {index: '_'}))
   app.use('/', routes)
