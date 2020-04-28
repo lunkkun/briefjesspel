@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapPlayerCube"> <!--wrapPlayerCubeLeftActive">-->
+  <div class="wrapPlayerCube"> <!-- :class="wrapPlayerCubeLeftActive" *let it pop out-->
     <div class="playerCubeDropShadow"></div>
-    <div class="playerCube generalFont smediumFont"> <!-- playerCubeLeftActive">-->
+    <div class="playerCube generalFont smediumFont"> <!-- :class="playerCubeLeftActive" *different background color-->
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -17,7 +17,7 @@ export default {
   props: ['playerId'],
   computed: {
     shortName() {
-      return this.player.name.substr(0, 2).toUpperCase()
+      return this.player.name.substr(0, 1).toUpperCase() + this.player.name.substr(1, 1)
     },
     player() {
       return this.players[this.playerId]
