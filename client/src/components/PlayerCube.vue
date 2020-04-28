@@ -1,8 +1,10 @@
 <template>
   <div class="wrapPlayerCube">
     <div class="playerCubeDropShadow"></div>
-    <div class="playerCube generalFont bigFont">
-      {{ shortName }}
+    <div class="playerCube generalFont smallFont">
+      <div class="centerText">
+        {{ shortName }}
+      </div>
     </div>
   </div>
 </template>
@@ -28,29 +30,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.centerText {
+  display: block;
+  background: transparent;
+  position: absolute;
+  top: 55%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+}
 .playerCube {
   display: block;
   background-color: #F6D370;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 15vmin;
-  height: 15vmin;
-  max-width: 80px;
-  max-height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 9.5vmin;
+  height: 9.5vmin;
+  box-shadow: 0 0.5vmin 0.5vmin rgba(0,0,0,0.2);
+  font-weight: bold;
+  overflow: hidden;
   z-index: 20;
 }
 .playerCubeDropShadow {
   display: block;
   background-color: #344558;
-  background-image: linear-gradient(180deg, #344558, #688980);
+  background: -webkit-gradient(linear, left bottom, right top, from(#344558), to(#688980));
+  background: -webkit-linear-gradient(260deg, #344558, #688980);
+  background: -moz-linear-gradient(260deg, #344558, #688980);
+  background: -o-linear-gradient(260deg, #344558, #688980);
+  background: -ms-linear-gradient(260deg, #344558, #688980);
+  background: linear-gradient(260deg, #344558, #688980);
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 21.2vmin;
-  max-width: 113.1px;
-  height: 50vmax;
-  max-height: 1200px;
+  width: 13.5vmin;
+  height: 40vmin;
   transform: translateX(-50%) rotate(135deg);
   transform-origin: center top;
   z-index: 19;
@@ -58,21 +74,19 @@ export default {
 .wrapPlayerCube {
   display: block;
   background-color: transparent;
-  position: absolute;
-  top: 50%;
-  left: 4%;
-  width: 15vmin;
-  height: 15vmin;
-  max-width: 80px;
-  max-height: 80px;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 12vmin;
+  height: 12vmin;
+  transform: translate(0, 0);
   transition: transform 0.5s;
 }
 .wrapPlayerCube:hover {
-  transform: translate( 50%, 50%);
+  transform: translate( 30%, 30%);
 }
 
 .playerCube-enter-active {
-  transform: translate(50%, 50%);
   animation: unhidePlayerCube 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
 @keyframes unhidePlayerCube {
@@ -80,7 +94,22 @@ export default {
     transform: translate(-150%, -150%);
   }
   to {
-    transform: translate(50%, 50%);
+    transform: translate(0, 0);
+  }
+}
+
+@media screen and (min-width: 613px) and (min-height: 613px) {
+  .playerCube {
+    width: 58px;
+    height: 58px;
+  }
+  .playerCubeDropShadow {
+    width: 82px;
+    height: 300px;
+  }
+  .wrapPlayerCube {
+    width: 73.2px;
+    height: 73.2px;
   }
 }
 </style>
