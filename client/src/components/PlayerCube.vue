@@ -38,6 +38,7 @@ export default {
   top: 55%;
   left: 52%;
   transform: translate(-50%, -50%);
+  user-select: none;
 }
 .playerCube {
   display: block;
@@ -48,7 +49,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 9.5vmin;
   height: 9.5vmin;
-  box-shadow: 0 0.5vmin 0.5vmin rgba(0,0,0,0.2);
+  box-shadow: 0.1vmin 0.1vmin 0.5vmin rgba(0,0,0,0.2);
   font-weight: bold;
   overflow: hidden;
   z-index: 20;
@@ -56,12 +57,12 @@ export default {
 .playerCubeDropShadow {
   display: block;
   background-color: #344558;
-  background: -webkit-gradient(linear, left bottom, right top, from(#344558), to(#688980));
-  background: -webkit-linear-gradient(260deg, #344558, #688980);
-  background: -moz-linear-gradient(260deg, #344558, #688980);
-  background: -o-linear-gradient(260deg, #344558, #688980);
-  background: -ms-linear-gradient(260deg, #344558, #688980);
-  background: linear-gradient(260deg, #344558, #688980);
+  background: -webkit-gradient(linear, center bottom, center top, from(#344558), to(#688980));
+  background: -webkit-linear-gradient(-155deg, #344558, #688980);
+  background: -moz-linear-gradient(-155deg, #344558, #688980);
+  background: -o-linear-gradient(-155deg, #344558, #688980);
+  background: -ms-linear-gradient(-155deg, #344558, #688980);
+  background: linear-gradient(-155deg, #344558, #688980);
   position: absolute;
   top: 50%;
   left: 50%;
