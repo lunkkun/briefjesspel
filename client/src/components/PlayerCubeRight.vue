@@ -86,6 +86,12 @@ export default {
 .wrapPlayerCubeRight:hover {
   transform: translate( -30%, -30%);
 }
+.playerCubeRightActive {
+  background-color: #E9A14F;
+}
+.wrapPlayerCubeRightActive {
+  transform: translate( -30%, -30%);
+}
 
 .playerCubeRight-enter-active {
   animation: unhidePlayerCubeRight 0.6s cubic-bezier(.44,.06,.19,1.32)

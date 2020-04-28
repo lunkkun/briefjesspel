@@ -86,6 +86,12 @@ export default {
 .wrapPlayerCubeBottom:hover {
   transform: translate( -30%, -30%);
 }
+.playerCubeBottomActive {
+  background-color: #E9A14F;
+}
+.wrapPlayerCubeBottomActive {
+  transform: translate( -30%, -30%);
+}
 
 .playerCubeBottom-enter-active {
   animation: unhidePlayerCubeBottom 0.6s cubic-bezier(.44,.06,.19,1.32)
