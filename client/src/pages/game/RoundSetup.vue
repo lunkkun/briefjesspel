@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <div v-else class="generalFont">
+  <div v-else class="generalFont mediumFont centerBlock">
       Wachten tot de ronde start...
   </div>
 </template>

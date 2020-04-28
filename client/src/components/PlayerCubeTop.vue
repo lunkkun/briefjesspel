@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapPlayerCube">
-    <div class="playerCubeDropShadow"></div>
-    <div class="playerCube generalFont smallFont">
+  <div class="wrapPlayerCubeTop">
+    <div class="playerCubeTopDropShadow"></div>
+    <div class="playerCubeTop generalFont smallFont">
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -13,7 +13,7 @@
 import {mapState} from 'vuex'
 
 export default {
-  name: 'PlayerCube',
+  name: 'PlayerCubeTop',
   props: ['playerId'],
   computed: {
     shortName() {
@@ -40,7 +40,7 @@ export default {
   transform: translate(-50%, -50%);
   user-select: none;
 }
-.playerCube {
+.playerCubeTop {
   display: block;
   background-color: #F6D370;
   position: absolute;
@@ -54,7 +54,7 @@ export default {
   overflow: hidden;
   z-index: 20;
 }
-.playerCubeDropShadow {
+.playerCubeTopDropShadow {
   display: block;
   background-color: #344558;
   background: -webkit-gradient(linear, center bottom, center top, from(#344558), to(#688980));
@@ -72,8 +72,8 @@ export default {
   transform-origin: center top;
   z-index: 19;
 }
-.wrapPlayerCube {
-  display: block;
+.wrapPlayerCubeTop {
+  display: inline-block;
   background-color: transparent;
   position: relative;
   top: 0;
@@ -83,14 +83,14 @@ export default {
   transform: translate(0, 0);
   transition: transform 0.5s;
 }
-.wrapPlayerCube:hover {
+.wrapPlayerCubeTop:hover {
   transform: translate( 30%, 30%);
 }
 
-.playerCube-enter-active {
-  animation: unhidePlayerCube 0.6s cubic-bezier(.44,.06,.19,1.32)
+.playerCubeTop-enter-active {
+  animation: unhidePlayerCubeTop 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
-@keyframes unhidePlayerCube {
+@keyframes unhidePlayerCubeTop {
   from {
     transform: translate(-150%, -150%);
   }
@@ -100,15 +100,15 @@ export default {
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
-  .playerCube {
+  .playerCubeTop {
     width: 58px;
     height: 58px;
   }
-  .playerCubeDropShadow {
+  .playerCubeTopDropShadow {
     width: 82px;
     height: 300px;
   }
-  .wrapPlayerCube {
+  .wrapPlayerCubeTop {
     width: 73.2px;
     height: 73.2px;
   }
