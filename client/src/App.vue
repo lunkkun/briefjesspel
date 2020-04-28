@@ -6,6 +6,7 @@
     <PlayerList v-if="gameCreated && !gameStarted"></PlayerList>
     <PlayerListRight v-if="gameCreated && !gameStarted"></PlayerListRight>
     <PlayerListTop v-if="gameCreated && !gameStarted"></PlayerListTop>
+    <PlayerListBottom v-if="gameCreated && !gameStarted"></PlayerListBottom>
     
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
@@ -36,6 +37,7 @@ import LeaveButton from './components/LeaveButton'
 import PlayerList from './components/PlayerList'
 import PlayerListRight from './components/PlayerListRight'
 import PlayerListTop from './components/PlayerListTop'
+import PlayerListBottom from './components/PlayerListBottom'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -53,6 +55,7 @@ export default {
     PlayerList,
     PlayerListRight,
     PlayerListTop,
+    PlayerListBottom,
     Game,
     Help,
     Home,
