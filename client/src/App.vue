@@ -4,7 +4,9 @@
     <HelpButton v-if="!activeTurn"></HelpButton>
 
     <PlayerList v-if="gameCreated && !gameStarted"></PlayerList>
-
+    <PlayerListRight v-if="gameCreated && !gameStarted"></PlayerListRight>
+    <PlayerListTop v-if="gameCreated && !gameStarted"></PlayerListTop>
+    
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
         <Help v-if="showHelp"></Help>
@@ -32,6 +34,8 @@ import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
 import PlayerList from './components/PlayerList'
+import PlayerListRight from './components/PlayerListRight'
+import PlayerListTop from './components/PlayerListTop'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -47,6 +51,8 @@ export default {
     HomeCube,
     LeaveButton,
     PlayerList,
+    PlayerListRight,
+    PlayerListTop,
     Game,
     Help,
     Home,
