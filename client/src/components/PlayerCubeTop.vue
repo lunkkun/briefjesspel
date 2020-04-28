@@ -73,12 +73,11 @@ export default {
   z-index: 19;
 }
 .wrapPlayerCubeTop {
-  display: block;
+  display: inline-block;
   background-color: transparent;
   position: relative;
   top: 0;
   left: 0;
-  float: left;
   width: 12vmin;
   height: 12vmin;
   transform: translate(0, 0);

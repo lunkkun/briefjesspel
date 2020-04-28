@@ -46,6 +46,7 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   overflow: visible;
+  white-space: nowrap;
   z-index: 29;
 }
 </style>
