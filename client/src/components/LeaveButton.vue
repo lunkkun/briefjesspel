@@ -24,5 +24,6 @@ export default {
   top: 1vmin;
   left: 1vmin;
   cursor: pointer;
+  z-index: 30;
 }
 </style>
