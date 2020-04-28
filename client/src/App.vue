@@ -4,9 +4,6 @@
     <HelpButton v-if="!activeTurn"></HelpButton>
 
     <PlayerList v-if="gameCreated && !gameStarted"></PlayerList>
-    <PlayerListRight v-if="gameCreated && !gameStarted"></PlayerListRight>
-    <PlayerListTop v-if="gameCreated && !gameStarted"></PlayerListTop>
-    <PlayerListBottom v-if="gameCreated && !gameStarted"></PlayerListBottom>
     
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
@@ -35,9 +32,6 @@ import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
 import PlayerList from './components/PlayerList'
-import PlayerListRight from './components/PlayerListRight'
-import PlayerListTop from './components/PlayerListTop'
-import PlayerListBottom from './components/PlayerListBottom'
 import Game from './pages/Game'
 import Help from './pages/Help'
 import Home from './pages/Home'
@@ -53,9 +47,6 @@ export default {
     HomeCube,
     LeaveButton,
     PlayerList,
-    PlayerListRight,
-    PlayerListTop,
-    PlayerListBottom,
     Game,
     Help,
     Home,
@@ -145,9 +136,17 @@ export default {
   font-size: 4.9vmin;
   font-weight: lighter;
 }
+.smediumFont {
+  font-size: 6.1vmin;
+  font-weight: normal;
+}
 .mediumFont {
   font-size: 7.3vmin;
   font-weight: normal;
+}
+.largeFont {
+  font-size: 8.5vmin;
+  font-weight: bold;
 }
 .bigFont {
   font-size: 9.8vmin;
@@ -181,8 +180,14 @@ export default {
     font-size: 30px;
     font-weight: normal;
   }
+  .smediumFont {
+    font-size: 37px;
+  }
   .mediumFont {
     font-size: 45px;
+  }
+  .largeFont {
+    font-size: 52px;
   }
   .bigFont {
     font-size: 60px;

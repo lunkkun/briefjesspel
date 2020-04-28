@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapPlayerCube">
+  <div class="wrapPlayerCube"> <!--wrapPlayerCubeLeftActive">-->
     <div class="playerCubeDropShadow"></div>
-    <div class="playerCube generalFont smallFont">
+    <div class="playerCube generalFont smediumFont"> <!-- playerCubeLeftActive">-->
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -13,7 +13,7 @@
 import {mapState} from 'vuex'
 
 export default {
-  name: 'PlayerCube',
+  name: 'PlayerCubeLeft',
   props: ['playerId'],
   computed: {
     shortName() {
@@ -86,8 +86,14 @@ export default {
 .wrapPlayerCube:hover {
   transform: translate( 30%, 30%);
 }
+.playerCubeLeftActive {
+  background-color: #E9A14F;
+}
+.wrapPlayerCubeLeftActive {
+  transform: translate( 30%, 30%);
+}
 
-.playerCube-enter-active {
+.playerCubeLeft-enter-active {
   animation: unhidePlayerCube 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
 @keyframes unhidePlayerCube {
