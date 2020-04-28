@@ -29,6 +29,7 @@ export default {
     ...mapState({
       isStarted: state => state.game.turnStarted,
       isFinished: state => state.game.turnFinished,
+      scoreThisTurn: state => state.game.scoreThisTurn,
     }),
     ...mapGetters([
       'activePlayerName',
