@@ -40,7 +40,7 @@ export default {
   
 .sidebarPlayerListTop {
   display: block;
-  background-color: red;
+  background-color: transparent;
   position: absolute;
   top: 0.5vmin;
   left: 50%;
