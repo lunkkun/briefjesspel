@@ -2,7 +2,7 @@
   <div>
     <div class="sidebarPlayerList sidebarLeft"><!-- :class="playerListClasses"> -->
       <transition name="playerCubeLeft">
-        <PlayerCubeLeft v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable"> --></PlayerCubeLeft>
+        <PlayerCubeLeft v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable" *lower z-index for every new player --></PlayerCubeLeft>
       </transition>
     </div>
     <div class="sidebarPlayerList sidebarRight"><!-- :class="playerListClasses"> -->
@@ -12,7 +12,7 @@
     </div>
     <div class="sidebarPlayerList sidebarTop"><!-- :class="playerListClasses"> -->
       <transition name="playerCubeTop">
-        <PlayerCubeTop v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable"> --></PlayerCubeTop>
+        <PlayerCubeTop v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable" *lower z-index for every new player --></PlayerCubeTop>
       </transition>
     </div>
     <div class="sidebarPlayerList sidebarBottom"><!-- :class="playerListClasses"> -->
