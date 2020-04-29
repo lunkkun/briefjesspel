@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {msg, link, randomContainer, randomFont, rankTeams} from '../../lib/helpers'
+import {msg, link, randomContainer, randomFont, rankTeams, getShortNames} from '../../lib/helpers'
 
 const minTeams = 1 // process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
@@ -12,6 +12,7 @@ export default {
 
     // settings for game
     players: {},
+    playersWithNames: [], // separate array with players in the order in which they entered their names
     teams: {},
     master: null,
     entriesPerPlayer: 0,
@@ -82,23 +83,24 @@ export default {
     team: (state) => {
       return state.teams[state.player.teamId]
     },
-    players: (state) => {
-      return Object.values(state.players).filter(player => player.name)
+    shortNames: (state) => {
+      // Key by id for use in PlayerCubes
+      return Object.fromEntries(getShortNames(state.playersWithNames).map(player => [player.id, player]))
     },
-    playersForTeam: (state, getters) => (teamId) => {
-      return getters.players.filter(player => player.teamId === teamId)
+    playersForTeam: (state) => (teamId) => {
+      return state.playersWithNames.filter(player => player.teamId === teamId)
     },
-    playersNotInTeam: (state, getters) => {
-      return getters.players.filter(player => player.teamId === null)
+    playersNotInTeam: (state) => {
+      return state.playersWithNames.filter(player => player.teamId === null)
     },
-    allPlayersReady: (state, getters) => {
-      return getters.players.every(player => player.isReady)
+    allPlayersReady: (state) => {
+      return state.playersWithNames.every(player => player.isReady)
     },
     enoughTeams: (state) => {
       return Object.keys(state.teams).length >= minTeams
     },
-    allPlayersAssigned: (state, getters) => {
-      return getters.players.every(player => player.teamId)
+    allPlayersAssigned: (state) => {
+      return state.playersWithNames.every(player => player.teamId)
     },
     allTeamsHaveEnoughPlayers: (state, getters) => {
       return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= minPlayersPerTeam)
@@ -140,6 +142,9 @@ export default {
     setPlayerName(state, {id, name}) {
       const player = state.players[id]
       if (player) {
+        if (!player.name) {
+          state.playersWithNames.push(player)
+        }
         player.name = name
       }
     },
@@ -286,12 +291,26 @@ export default {
     // Only for local use
     setName(state, name) {
       state.player.name = name
+      state.playersWithNames.push(state.player)
     },
     setFont(state, font) {
       state.font = font
     },
     addEntry(state, entry) {
       state.entries.push(entry)
+    },
+
+    // For testing
+    generatePlayer(state) {
+      const names = ['Liam','Sem','Lucas','Noah','Milan','Daan','Levi','Finn','Jesse','Max','Thomas','Bram',
+        'Thijs','Sam','Tim','Lars','Ruben','Julian','Adam','Eva','Mark','Anna','Jonas']
+      let name, i = 0
+      do {
+        name = names[i++]
+      } while (state.players.hasOwnProperty(name) && i < names.length)
+      const player = {id: name, name, teamId: null, isReady: true}
+      Vue.set(state.players, player.id, player)
+      state.playersWithNames.push(player)
     },
   },
   actions: {

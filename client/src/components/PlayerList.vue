@@ -1,30 +1,31 @@
 <template>
   <div>
-    <div class="sidebarPlayerList sidebarLeft"><!-- :class="playerListClasses"> -->
-      <transition name="playerCubeLeft">
-        <PlayerCubeLeft v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable" *lower z-index for every new player --></PlayerCubeLeft>
-      </transition>
+    <div class="sidebarPlayerList sidebarLeft">
+      <transition-group name="playerCubeLeft">
+        <PlayerCubeLeft v-for="(player, index) in playersLeft" :player-id="player.id" :key="player.id" :style="{zIndex: 6 - index}"></PlayerCubeLeft>
+      </transition-group>
     </div>
-    <div class="sidebarPlayerList sidebarRight"><!-- :class="playerListClasses"> -->
-      <transition name="playerCubeRight">
-        <PlayerCubeRight v-for="player in players" :playerId="player.id" :key="player.id"></PlayerCubeRight>
-      </transition>
+    <div class="sidebarPlayerList sidebarRight">
+      <transition-group name="playerCubeRight">
+        <PlayerCubeRight v-for="(player, index) in playersRight" :player-id="player.id" :key="player.id" :style="{zIndex: index}"></PlayerCubeRight>
+      </transition-group>
     </div>
-    <div class="sidebarPlayerList sidebarTop"><!-- :class="playerListClasses"> -->
-      <transition name="playerCubeTop">
-        <PlayerCubeTop v-for="player in players" :playerId="player.id" :key="player.id"><!-- :style="zIndexVariable" *lower z-index for every new player --></PlayerCubeTop>
-      </transition>
+    <div class="sidebarPlayerList sidebarTop">
+      <transition-group name="playerCubeTop">
+        <PlayerCubeTop v-for="(player, index) in playersTop" :player-id="player.id" :key="player.id" :style="{zIndex: 6 - index}"></PlayerCubeTop>
+      </transition-group>
     </div>
-    <div class="sidebarPlayerList sidebarBottom"><!-- :class="playerListClasses"> -->
-      <transition name="playerCubeBottom">
-        <PlayerCubeBottom v-for="player in players" :playerId="player.id" :key="player.id"></PlayerCubeBottom>
-      </transition>
+    <div class="sidebarPlayerList sidebarBottom">
+      <transition-group name="playerCubeBottom">
+        <PlayerCubeBottom v-for="(player, index) in playersBottom" :player-id="player.id" :key="player.id" :style="{zIndex: index}"></PlayerCubeBottom>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapState} from 'vuex'
+import WatchResize from '../mixins/WatchResize'
 import PlayerCubeLeft from './PlayerCubeLeft'
 import PlayerCubeRight from './PlayerCubeRight'
 import PlayerCubeTop from './PlayerCubeTop'
@@ -32,20 +33,35 @@ import PlayerCubeBottom from './PlayerCubeBottom'
 
 export default {
   name: 'PlayerList',
+  mixins: [WatchResize],
   components: {
     PlayerCubeLeft,
     PlayerCubeRight,
     PlayerCubeTop,
-    PlayerCubeBottom,    
+    PlayerCubeBottom,
   },
-  computed: mapGetters([
-    'players',
-  ]),
+  computed: {
+    playersLeft() {
+      return this.landscape ? this.players.slice(0, 6) : this.players.slice(12, 18)
+    },
+    playersRight() {
+      return this.landscape ? this.players.slice(6, 12) : this.players.slice(18, 24)
+    },
+    playersTop() {
+      return this.landscape ? this.players.slice(12, 18) : this.players.slice(0, 6)
+    },
+    playersBottom() {
+      return this.landscape ? this.players.slice(18, 24) : this.players.slice(6, 12)
+    },
+    ...mapState({
+      players: state => state.game.playersWithNames
+    })
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-  
+
 .sidebarPlayerList {
   display: block;
   background-color: transparent;

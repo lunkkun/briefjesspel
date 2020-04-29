@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapPlayerCubeRight"> <!-- :class="wrapPlayerCubeRightActive" *let it pop out-->
+  <div class="wrapPlayerCubeRight" :class="{wrapPlayerCubeRightActive: isActive}">
     <div class="playerCubeRightDropShadow"></div>
-    <div class="playerCubeRight generalFont smediumFont"> <!-- :class="playerCubeRightActive" *different background color-->
+    <div class="playerCubeRight generalFont mediumFont" :class="{playerCubeRightActive: isActive}">
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -10,22 +10,11 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import PlayerCube from '../mixins/PlayerCube'
 
 export default {
   name: 'PlayerCubeRight',
-  props: ['playerId'],
-  computed: {
-    shortName() {
-      return this.player.name.substr(0, 1).toUpperCase() + this.player.name.substr(1, 1).toLowerCase()
-    },
-    player() {
-      return this.players[this.playerId]
-    },
-    ...mapState({
-      players: state => state.game.players,
-    }),
-  },
+  mixins: [PlayerCube],
 }
 </script>
 

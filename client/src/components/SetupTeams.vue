@@ -30,8 +30,14 @@
           Alle spelers zijn ingedeeld
         </div>
       </div>
-      <div v-else class="generalFont tinyFont playersUnassignedNote">
+      <div v-else-if="!allPlayersAssigned" class="generalFont tinyFont playersUnassignedNote">
         Er <span v-if="playersNotInTeam.length !== 1">zijn</span><span v-else>is</span> {{ playersNotInTeam.length }} speler<span v-if="playersNotInTeam.length !== 1">s</span> niet ingedeeld...
+      </div>
+      <div v-else-if="!allTeamsHaveEnoughPlayers" class="generalFont tinyFont playersUnassignedNote">
+        Er zijn nog teams met minder dan 2 spelers...
+      </div>
+      <div v-else-if="!enoughTeams" class="generalFont tinyFont playersUnassignedNote">
+        Er zijn nog te weinig teams...
       </div>
     </div>
 
@@ -105,6 +111,9 @@ export default {
       'playersForTeam',
       'playersNotInTeam',
       'teamsComplete',
+      'enoughTeams',
+      'allPlayersAssigned',
+      'allTeamsHaveEnoughPlayers',
     ]),
   },
   watch: {

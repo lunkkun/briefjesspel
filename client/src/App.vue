@@ -1,10 +1,11 @@
 <template>
   <div id="app" v-cloak>
+    <GeneratePlayerButton v-if="isDev && gameCreated && !gameStarted"></GeneratePlayerButton>
     <LeaveButton v-if="gameCreated && !activeTurn"></LeaveButton>
     <HelpButton v-if="!activeTurn"></HelpButton>
 
-    <PlayerList v-if="gameCreated && !gameStarted"></PlayerList>
-    
+    <PlayerList v-if="gameCreated && !activeTurn"></PlayerList>
+
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
         <Help v-if="showHelp"></Help>
@@ -28,6 +29,7 @@
 
 <script>
 import {mapState, mapGetters} from 'vuex'
+import GeneratePlayerButton from './components/GeneratePlayerButton'
 import HelpButton from './components/HelpButton'
 import HomeCube from './components/HomeCube'
 import LeaveButton from './components/LeaveButton'
@@ -43,6 +45,7 @@ export default {
   name: 'App',
   components: {
     ActiveTurn,
+    GeneratePlayerButton,
     HelpButton,
     HomeCube,
     LeaveButton,
@@ -54,6 +57,9 @@ export default {
     Setup,
   },
   computed: {
+    isDev() {
+      return process.env.NODE_ENV === 'development'
+    },
     activeTurn() {
       return this.myTurn && this.turnStarted && !this.turnFinished && !this.roundFinished && !this.gameFinished
     },
