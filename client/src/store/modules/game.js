@@ -289,10 +289,6 @@ export default {
     },
 
     // Only for local use
-    setName(state, name) {
-      state.player.name = name
-      state.playersWithNames.push(state.player)
-    },
     setFont(state, font) {
       state.font = font
     },
@@ -317,9 +313,10 @@ export default {
     async newGame({dispatch}) {
       await dispatch(msg('newGame'))
     },
-    async setPlayerName({commit, dispatch}, name) {
+    async setPlayerName({state, commit, dispatch}, name) {
       await dispatch(msg('setPlayerName', name))
-      commit('setName', name)
+      commit('setPlayerName', {id: state.player.id, name})
+
       await dispatch('setFont', randomFont()) // TODO: add option for user?
     },
     async removePlayer({commit, dispatch}, id) {
@@ -343,6 +340,7 @@ export default {
     async setEntriesPerPlayer({commit, dispatch}, entriesPerPlayer) {
       await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
       commit('setEntriesPerPlayer', entriesPerPlayer)
+
       await dispatch('setContainer', randomContainer()) // TODO: add option for game master?
     },
     async setContainer({commit, dispatch}, container) {
