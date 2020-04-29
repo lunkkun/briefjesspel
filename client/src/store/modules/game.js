@@ -300,13 +300,17 @@ export default {
     generatePlayer(state) {
       const names = ['Liam','Sem','Lucas','Noah','Milan','Daan','Levi','Finn','Jesse','Max','Thomas','Bram',
         'Thijs','Sam','Tim','Lars','Ruben','Julian','Adam','Eva','Mark','Anna','Jonas']
+
       let name, i = 0
       do {
         name = names[i++]
       } while (state.players.hasOwnProperty(name) && i < names.length)
-      const player = {id: name, name, teamId: null, isReady: true}
-      Vue.set(state.players, player.id, player)
-      state.playersWithNames.push(player)
+
+      if (!state.players.hasOwnProperty(name)) {
+        const player = {id: name, name, teamId: null, isReady: true}
+        Vue.set(state.players, player.id, player)
+        state.playersWithNames.push(player)
+      }
     },
   },
   actions: {
