@@ -1,7 +1,7 @@
 <template>
   <div class="wrapPlayerCubeTop" :class="{wrapPlayerCubeTopActive: isActive}">
     <div class="playerCubeTopDropShadow"></div>
-    <div class="playerCubeTop generalFont mediumFont" :class="{playerCubeTopActive: isActive}">
+    <div class="playerCubeTop generalFont smediumFont" :class="{playerCubeTopActive: isActive}">
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -70,28 +70,27 @@ export default {
   width: 12vmin;
   height: 12vmin;
   transform: translate(0, 0);
-  transition: transform 0.5s;
-}
-.wrapPlayerCubeTop:hover {
-  transform: translate( 30%, 30%);
+  transition: transform 0.3s;
 }
 .playerCubeTopActive {
   background-color: #E9A14F;
 }
-.wrapPlayerCubeTopActive {
-  transform: translate( 30%, 30%);
-}
 
 .playerCubeTop-enter-active {
+  transform: translate(0, 0);
   animation: unhidePlayerCubeTop 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
 @keyframes unhidePlayerCubeTop {
-  from {
-    transform: translate(-150%, -150%);
-  }
-  to {
-    transform: translate(0, 0);
-  }
+  0%    {transform: translate(-150%, -150%);}
+  100%  {transform: translate(0, 0);}
+}
+.playerCubeTop-leave-active {
+  transform: translate(-150%, -150%);
+  animation: hidePlayerCubeTop 0.6s cubic-bezier(.85,-0.2,.56,.91);
+}
+@keyframes hidePlayerCubeTop {
+  0%    {transform: translate(0, 0);}
+  100%  {transform: translate(-150%, -150%);}
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {

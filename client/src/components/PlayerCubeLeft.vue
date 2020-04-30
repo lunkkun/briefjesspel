@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapPlayerCube" :class="{wrapPlayerCubeLeftActive: isActive}">
-    <div class="playerCubeDropShadow"></div>
-    <div class="playerCube generalFont mediumFont" :class="{playerCubeLeftActive: isActive}">
+  <div class="wrapPlayerCubeLeft" :class="{wrapPlayerCubeLeftActive: isActive}">
+    <div class="playerCubeLeftDropShadow"></div>
+    <div class="playerCubeLeft generalFont smediumFont" :class="{playerCubeLeftActive: isActive}">
       <div class="centerText">
         {{ shortName }}
       </div>
@@ -29,7 +29,7 @@ export default {
   transform: translate(-50%, -50%);
   user-select: none;
 }
-.playerCube {
+.playerCubeLeft {
   display: block;
   background-color: #F6D370;
   position: absolute;
@@ -43,7 +43,7 @@ export default {
   overflow: hidden;
   z-index: 20;
 }
-.playerCubeDropShadow {
+.playerCubeLeftDropShadow {
   display: block;
   background-color: #344558;
   background: -webkit-gradient(linear, center bottom, center top, from(#344558), to(#688980));
@@ -61,7 +61,7 @@ export default {
   transform-origin: center top;
   z-index: 19;
 }
-.wrapPlayerCube {
+.wrapPlayerCubeLeft {
   display: block;
   background-color: transparent;
   position: relative;
@@ -70,40 +70,39 @@ export default {
   width: 12vmin;
   height: 12vmin;
   transform: translate(0, 0);
-  transition: transform 0.5s;
-}
-.wrapPlayerCube:hover {
-  transform: translate( 30%, 30%);
+  transition: transform 0.3s;
 }
 .playerCubeLeftActive {
   background-color: #E9A14F;
 }
-.wrapPlayerCubeLeftActive {
-  transform: translate( 30%, 30%);
-}
 
 .playerCubeLeft-enter-active {
-  animation: unhidePlayerCube 0.6s cubic-bezier(.44,.06,.19,1.32)
+  transform: translate(0, 0);
+  animation: unhidePlayerCubeLeft 0.6s cubic-bezier(.44,.06,.19,1.32)
 }
-@keyframes unhidePlayerCube {
-  from {
-    transform: translate(-150%, -150%);
-  }
-  to {
-    transform: translate(0, 0);
-  }
+@keyframes unhidePlayerCubeLeft {
+  0%    {transform: translate(-150%, -150%);}
+  100%  {transform: translate(0, 0);}
+}
+.playerCubeLeft-leave-active {
+  transform: translate(-150%, -150%);
+  animation: hidePlayerCubeLeft 0.6s cubic-bezier(.85,-0.2,.56,.91);
+}
+@keyframes hidePlayerCubeLeft {
+  0%    {transform: translate(0, 0);}
+  100%  {transform: translate(-150%, -150%);}
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
-  .playerCube {
+  .playerCubeLeft {
     width: 58px;
     height: 58px;
   }
-  .playerCubeDropShadow {
+  .playerCubeLeftDropShadow {
     width: 82px;
     height: 300px;
   }
-  .wrapPlayerCube {
+  .wrapPlayerCubeLeft {
     width: 73.2px;
     height: 73.2px;
   }

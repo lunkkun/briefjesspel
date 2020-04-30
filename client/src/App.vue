@@ -143,7 +143,7 @@ export default {
   font-weight: lighter;
 }
 .smediumFont {
-  font-size: 6.1vmin;
+  font-size: 6.6vmin;
   font-weight: normal;
 }
 .mediumFont {
@@ -187,7 +187,7 @@ export default {
     font-weight: normal;
   }
   .smediumFont {
-    font-size: 37px;
+    font-size: 41px;
   }
   .mediumFont {
     font-size: 45px;

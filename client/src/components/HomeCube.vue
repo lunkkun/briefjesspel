@@ -72,19 +72,6 @@ export default {
     transform: translate(-50%, -50%);
 }
 
-.homeCube-leave-active {
-  transform: translate(150%, 150%);
-  animation: hideHomeCube 0.6s cubic-bezier(.85,-0.2,.56,.91);
-}
-@keyframes hideHomeCube {
-  from {
-    transform: translate(-50%, -50%);
-  }
-  to {
-    transform: translate(150%, 150%);
-  }
-}
-
 .homeCube-enter-active {
   transform: translate(-50%, -50%);
   animation: unhideHomeCube 0.6s cubic-bezier(.44,.06,.19,1.32)
@@ -95,6 +82,19 @@ export default {
   }
   to {
     transform: translate(-50%, -50%);
+  }
+}
+
+.homeCube-leave-active {
+  transform: translate(150%, 150%);
+  animation: hideHomeCube 0.6s cubic-bezier(.85,-0.2,.56,.91);
+}
+@keyframes hideHomeCube {
+  from {
+    transform: translate(-50%, -50%);
+  }
+  to {
+    transform: translate(150%, 150%);
   }
 }
 </style>
