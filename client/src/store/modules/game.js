@@ -150,7 +150,8 @@ export default {
     },
     removePlayer(state, id) {
       if (state.players.hasOwnProperty(id)) {
-        Vue.delete(this.players, id)
+        Vue.delete(state.players, id)
+        state.playersWithNames.splice(state.playersWithNames.findIndex(player => player.id === id), 1)
       }
     },
     updateNextPlayer(state, {nextTeam, nextPlayer}) {
