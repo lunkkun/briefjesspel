@@ -77,7 +77,7 @@
 
 <script>
 import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
-import SetupTeams from '../components/SetupTeams'
+import SetupTeams from './SetupTeams'
 import NextButton from '../components/NextButton'
 import PreviousButton from '../components/PreviousButton'
 import {scaleInput, copyToClipboard} from '../lib/helpers'
