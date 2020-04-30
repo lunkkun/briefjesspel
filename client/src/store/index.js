@@ -29,7 +29,6 @@ export default new Vuex.Store({
           isReady: false,
         }
       }
-      state.game.playersWithNames = Object.values(state.game.players).filter(player => player.name)
 
       state.game.teams = {}
       if (game.teams) {

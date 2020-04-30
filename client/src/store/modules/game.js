@@ -12,7 +12,6 @@ export default {
 
     // settings for game
     players: {},
-    playersWithNames: [], // separate array with players in the order in which they entered their names
     teams: {},
     master: null,
     entriesPerPlayer: 0,
@@ -83,24 +82,34 @@ export default {
     team: (state) => {
       return state.teams[state.player.teamId]
     },
-    shortNames: (state) => {
+    players: (state) => {
+      const withNames = Object.values(state.players).filter(player => player.name)
+      let nextIndex = withNames.filter(player => player.hasOwnProperty('index')).length
+      withNames.forEach(player => {
+        if (!player.hasOwnProperty('index')) {
+          Vue.set(player, 'index', nextIndex++)
+        }
+      })
+      return withNames.sort((a, b) => a.index - b.index)
+    },
+    shortNames: (state, getters) => {
       // Key by id for use in PlayerCubes
-      return Object.fromEntries(getShortNames(state.playersWithNames).map(player => [player.id, player]))
+      return Object.fromEntries(getShortNames(getters.players).map(player => [player.id, player]))
     },
-    playersForTeam: (state) => (teamId) => {
-      return state.playersWithNames.filter(player => player.teamId === teamId)
+    playersForTeam: (state, getters) => (teamId) => {
+      return getters.players.filter(player => player.teamId === teamId)
     },
-    playersNotInTeam: (state) => {
-      return state.playersWithNames.filter(player => player.teamId === null)
+    playersNotInTeam: (state, getters) => {
+      return getters.players.filter(player => player.teamId === null)
     },
-    allPlayersReady: (state) => {
-      return state.playersWithNames.every(player => player.isReady)
+    allPlayersReady: (state, getters) => {
+      return getters.players.every(player => player.isReady)
     },
     enoughTeams: (state) => {
       return Object.keys(state.teams).length >= minTeams
     },
-    allPlayersAssigned: (state) => {
-      return state.playersWithNames.every(player => player.teamId)
+    allPlayersAssigned: (state, getters) => {
+      return getters.players.every(player => player.teamId)
     },
     allTeamsHaveEnoughPlayers: (state, getters) => {
       return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= minPlayersPerTeam)
@@ -142,16 +151,12 @@ export default {
     setPlayerName(state, {id, name}) {
       const player = state.players[id]
       if (player) {
-        if (!player.name) {
-          state.playersWithNames.push(player)
-        }
         player.name = name
       }
     },
     removePlayer(state, id) {
       if (state.players.hasOwnProperty(id)) {
         Vue.delete(state.players, id)
-        state.playersWithNames.splice(state.playersWithNames.findIndex(player => player.id === id), 1)
       }
     },
     updateNextPlayer(state, {nextTeam, nextPlayer}) {
@@ -310,7 +315,6 @@ export default {
       if (!state.players.hasOwnProperty(name)) {
         const player = {id: name, name, teamId: null, isReady: true}
         Vue.set(state.players, player.id, player)
-        state.playersWithNames.push(player)
       }
     },
   },
@@ -322,7 +326,7 @@ export default {
       await dispatch(msg('setPlayerName', name))
       commit('setPlayerName', {id: state.player.id, name})
 
-      await dispatch('setFont', randomFont()) // TODO: add option for user?
+      await dispatch('setFont', randomFont()) // TODO: editable for user?
     },
     async removePlayer({commit, dispatch}, id) {
       await dispatch(msg('removePlayer', id))
@@ -346,7 +350,7 @@ export default {
       await dispatch(msg('setEntriesPerPlayer', entriesPerPlayer))
       commit('setEntriesPerPlayer', entriesPerPlayer)
 
-      await dispatch('setContainer', randomContainer()) // TODO: add option for game master?
+      await dispatch('setContainer', randomContainer()) // TODO: editable for game master?
     },
     async setContainer({commit, dispatch}, container) {
       await dispatch(msg('setContainer', container))

@@ -2,29 +2,29 @@
   <div>
     <div class="sidebarPlayerList sidebarLeft">
       <transition-group name="playerCubeLeft">
-        <PlayerCubeLeft v-for="(player, index) in playersLeft" :player-id="player.id" :key="'left' + player.id" :style="{zIndex: 6 - index}"></PlayerCubeLeft>
+        <PlayerCubeLeft v-for="player in playersLeft" :player-id="player.id" :key="'left-' + player.id" :style="{zIndex: 100 - player.index}"></PlayerCubeLeft>
       </transition-group>
     </div>
     <div class="sidebarPlayerList sidebarRight">
       <transition-group name="playerCubeRight">
-        <PlayerCubeRight v-for="(player, index) in playersRight" :player-id="player.id" :key="'right' + player.id" :style="{zIndex: index}"></PlayerCubeRight>
+        <PlayerCubeRight v-for="player in playersRight" :player-id="player.id" :key="'right-' + player.id" :style="{zIndex: player.index}"></PlayerCubeRight>
       </transition-group>
     </div>
     <div class="sidebarPlayerList sidebarTop">
       <transition-group name="playerCubeTop">
-        <PlayerCubeTop v-for="(player, index) in playersTop" :player-id="player.id" :key="'top' + player.id" :style="{zIndex: 6 - index}"></PlayerCubeTop>
+        <PlayerCubeTop v-for="player in playersTop" :player-id="player.id" :key="'top-' + player.id" :style="{zIndex: 100 - player.index}"></PlayerCubeTop>
       </transition-group>
     </div>
     <div class="sidebarPlayerList sidebarBottom">
       <transition-group name="playerCubeBottom">
-        <PlayerCubeBottom v-for="(player, index) in playersBottom" :player-id="player.id" :key="'bottom' + player.id" :style="{zIndex: index}"></PlayerCubeBottom>
+        <PlayerCubeBottom v-for="player in playersBottom" :player-id="player.id" :key="'bottom-' + player.id" :style="{zIndex: player.index}"></PlayerCubeBottom>
       </transition-group>
     </div>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapGetters} from 'vuex'
 import WatchResize from '../mixins/WatchResize'
 import PlayerCubeLeft from './PlayerCubeLeft'
 import PlayerCubeRight from './PlayerCubeRight'
@@ -53,9 +53,9 @@ export default {
     playersBottom() {
       return this.landscape ? this.players.slice(18, 24) : this.players.slice(6, 12)
     },
-    ...mapState({
-      players: state => state.game.playersWithNames
-    })
+    ...mapGetters([
+      'players',
+    ]),
   },
 }
 </script>
