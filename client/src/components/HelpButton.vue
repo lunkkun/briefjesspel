@@ -1,25 +1,29 @@
 <template>
-  <div @click="toggleHelp">
-    <div class="infoButtonPulse"></div> <!-- deze hele div alleen laten zien als er nog niet op een nextbutton is geklikt -->
+  <div @click="buttonClicked() || toggleHelp()">
+    <div class="infoButtonPulse" v-if="!firstButtonClicked"></div> <!-- deze hele div alleen laten zien als er nog niet op een nextbutton is geklikt -->
     <div class="infoCorner"></div>
-    <div class="infoCornerBottomLeft"></div>    
+    <div class="infoCornerBottomLeft"></div>
     <div class="infoCornerBig"></div>
   </div>
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 
 export default {
   name: 'HelpButton',
+  computed: mapState({
+    firstButtonClicked: state => state.firstButtonClicked,
+  }),
   methods: mapMutations([
+    'buttonClicked',
     'toggleHelp',
   ]),
 }
 </script>
 
 <style lang="scss" scoped>
-  
+
 .infoCorner {
   display: block;
   position: fixed;

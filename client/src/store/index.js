@@ -11,6 +11,7 @@ export default new Vuex.Store({
     isLoaded: false,
     showHelp: false,
     requestToLeave: false,
+    firstButtonClicked: false,
   },
   mutations: {
     // Messages from server
@@ -99,6 +100,11 @@ export default new Vuex.Store({
     selectPlayer(state, id) {
       if (state.game.player.id === id) {
         state.requestToLeave = true
+      }
+    },
+    buttonClicked(state) {
+      if (!state.firstButtonClicked) {
+        state.firstButtonClicked = true
       }
     },
   },

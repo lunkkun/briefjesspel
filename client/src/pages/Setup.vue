@@ -10,7 +10,7 @@
     <div v-if="!linkInfoRead && isMaster" @keydown.enter="confirmLinkInfoRead()">
       <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <div class="nextButtonPulse"></div>
-      <NextButton @click="confirmLinkInfoRead()" v-focus></NextButton>
+      <NextButton @click="buttonClicked() || confirmLinkInfoRead()" v-focus></NextButton>
     </div>
 
 <!-- Naam -->
@@ -213,6 +213,7 @@ export default {
     ...mapMutations([
       'unconfirmTeams',
       'unsetTurnTime',
+      'buttonClicked',
     ]),
     ...mapActions([
       'setPlayerName',
