@@ -295,6 +295,9 @@ export default {
     },
 
     // Only for local use
+    setName(state, name) {
+      state.player.name = name
+    },
     setFont(state, font) {
       state.font = font
     },
@@ -324,7 +327,7 @@ export default {
     },
     async setPlayerName({state, commit, dispatch}, name) {
       await dispatch(msg('setPlayerName', name))
-      commit('setPlayerName', {id: state.player.id, name})
+      commit('setName', name)
 
       await dispatch('setFont', randomFont()) // TODO: editable for user?
     },
