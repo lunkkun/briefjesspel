@@ -42,22 +42,22 @@ export default {
   },
   computed: {
     playersLeft() {
-      return this.landscape ? this.playersShown.slice(0, 6) : this.playersShown.slice(12, 18)
+      return this.landscape ? this.players.slice(0, 6) : this.players.slice(12, 18)
     },
     playersRight() {
-      return this.landscape ? this.playersShown.slice(6, 12) : this.playersShown.slice(18, 24)
+      return this.landscape ? this.players.slice(6, 12) : this.players.slice(18, 24)
     },
     playersTop() {
-      return this.landscape ? this.playersShown.slice(12, 18) : this.playersShown.slice(0, 6)
+      return this.landscape ? this.players.slice(12, 18) : this.players.slice(0, 6)
     },
     playersBottom() {
-      return this.landscape ? this.playersShown.slice(18, 24) : this.playersShown.slice(6, 12)
+      return this.landscape ? this.players.slice(18, 24) : this.players.slice(6, 12)
     },
-    playersShown() {
-      return this.myTurnActive ? [] : this.players
+    players() {
+      return this.myTurnActive ? [] : this.playersSorted
     },
     ...mapGetters([
-      'players',
+      'playersSorted',
       'myTurnActive',
     ]),
   },

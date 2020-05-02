@@ -83,34 +83,40 @@ export default {
     team: (state) => {
       return state.teams[state.player.teamId]
     },
-    players: (state) => {
-      const withNames = Object.values(state.players).filter(player => player.name)
-      let nextIndex = withNames.filter(player => player.hasOwnProperty('index')).length
-      withNames.forEach(player => {
+    playersWithNames: (state) => {
+      return Object.values(state.players).filter(player => player.name)
+    },
+    playersSorted: (state, getters) => {
+      let nextIndex = getters.playersWithNames.reduce((max, player) => {
+        return player.hasOwnProperty('index') ? Math.max(max, player.index) : max
+      }, -1) + 1
+
+      getters.playersWithNames.forEach(player => {
         if (!player.hasOwnProperty('index')) {
           Vue.set(player, 'index', nextIndex++)
         }
       })
-      return withNames.sort((a, b) => a.index - b.index)
+
+      return getters.playersWithNames.sort((a, b) => a.index - b.index)
     },
     shortNames: (state, getters) => {
       // Key by id for use in PlayerCubes
-      return Object.fromEntries(getShortNames(getters.players).map(player => [player.id, player]))
+      return Object.fromEntries(getShortNames(getters.playersWithNames).map(player => [player.id, player]))
     },
     playersForTeam: (state, getters) => (teamId) => {
-      return getters.players.filter(player => player.teamId === teamId)
+      return getters.playersSorted.filter(player => player.teamId === teamId)
     },
     playersNotInTeam: (state, getters) => {
-      return getters.players.filter(player => player.teamId === null)
+      return getters.playersSorted.filter(player => player.teamId === null)
     },
     allPlayersReady: (state, getters) => {
-      return getters.players.every(player => player.isReady)
+      return getters.playersWithNames.every(player => player.isReady)
     },
     enoughTeams: (state) => {
       return Object.keys(state.teams).length >= minTeams
     },
     allPlayersAssigned: (state, getters) => {
-      return getters.players.every(player => player.teamId)
+      return getters.playersWithNames.every(player => player.teamId)
     },
     allTeamsHaveEnoughPlayers: (state, getters) => {
       return Object.values(state.teams).every(team => getters.playersForTeam(team.id).length >= minPlayersPerTeam)
@@ -124,8 +130,11 @@ export default {
     myTurn: (state) => {
       return state.activePlayer === state.player.id
     },
+    turnActive: (state) => {
+      return state.turnStarted && !state.turnFinished && !state.roundFinished && !state.finished
+    },
     myTurnActive: (state, getters) => {
-      return getters.myTurn && state.turnStarted && !state.turnFinished && !state.roundFinished && !state.finished
+      return getters.myTurn && getters.turnActive
     },
     activePlayerName: (state) => {
       const player = state.players[state.activePlayer]
