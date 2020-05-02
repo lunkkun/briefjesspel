@@ -10,6 +10,11 @@
       De beurt is voorbij!<br>
       <span class="generalFont tinyFont">
         Behaalde score: {{ scoreThisTurn }}<br>
+      </span>
+      <span v-if="imNext" class="generalFont tinyFont">
+        Jij bent hierna aan de beurt!
+      </span>
+      <span v-else class="generalFont tinyFont">
         Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
       </span>
     </div>
@@ -36,6 +41,7 @@ export default {
       'nextPlayerName',
       'activeTeamName',
       'nextTeamName',
+      'imNext',
     ]),
   },
 }

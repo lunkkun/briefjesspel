@@ -136,6 +136,9 @@ export default {
     myTurnActive: (state, getters) => {
       return getters.myTurn && getters.turnActive
     },
+    imNext: (state) => {
+      return state.nextPlayer === state.player.id
+    },
     activePlayerName: (state) => {
       const player = state.players[state.activePlayer]
       return player ? player.name : null
