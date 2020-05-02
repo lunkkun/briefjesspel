@@ -307,7 +307,8 @@ export default {
   }
 }
 
-.nextButtonPulse{
+.nextButtonPulse
+{
   display: block;
   position: absolute;
   bottom: -5vmin;
@@ -322,12 +323,15 @@ export default {
   animation: pulse 2s ease-in infinite;
   animation-delay: 6s;
 }
-  @keyframes pulse {
+@keyframes pulse
+{
   0% {transform: scale(0.8); opacity: 1;}
   100% {transform: scale(1.3); opacity: 0;}
 }
-@media screen and (min-width: 613px) and (min-height: 613px) {
-  .nextButtonPulse {
+@media screen and (min-width: 613px) and (min-height: 613px)
+{
+  .nextButtonPulse
+  {
     width: 40px;
     height: 40px;
     box-shadow: -2px -2px 1px rgba(52,69,88,0.6);
