@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-cloak>
-    <div class="score"></div>
+    <FlashScored></FlashScored>
     <GeneratePlayerButton v-if="isDev && gameCreated && !gameStarted"></GeneratePlayerButton>
     <LeaveButton v-if="gameCreated && !myTurnActive"></LeaveButton>
     <HelpButton v-if="!myTurnActive"></HelpButton>
@@ -42,11 +42,13 @@ import Home from './pages/Home'
 import RequestToLeave from './pages/RequestToLeave'
 import Setup from './pages/Setup'
 import ActiveTurn from './pages/game/ActiveTurn'
-import RemovePlayer from "./pages/RemovePlayer"
+import RemovePlayer from './pages/RemovePlayer'
+import FlashScored from './components/FlashScored'
 
 export default {
   name: 'App',
   components: {
+    FlashScored,
     RemovePlayer,
     ActiveTurn,
     GeneratePlayerButton,
@@ -117,20 +119,6 @@ export default {
   left: 43%;
   transform: translate(-50%, -50%);
   width: 100%;
-}
-.score {
-  display: block;
-  background-color: transparent;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  animation: flash 1s ease-out;
-}
-@keyframes flash {
-  0% {background-color: #F8DC8D; opacity: 1;}
-  100% {background-color: #F8DC8D; opacity: 0;}
 }
 .generalFont{
   font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
