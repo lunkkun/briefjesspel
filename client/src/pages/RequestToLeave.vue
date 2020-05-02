@@ -11,13 +11,9 @@
 
 <script>
 import {mapActions} from 'vuex'
-import HomeCube from '../components/HomeCube'
 
 export default {
   name: 'RequestToLeave',
-  components: {
-    HomeCube,
-  },
   methods: mapActions([
     'leaveGame',
     'stayInGame',

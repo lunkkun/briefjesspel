@@ -7,11 +7,8 @@
 </template>
 
 <script>
-import HomeCube from '../components/HomeCube'
-
 export default {
   name: 'Help',
-  components: {HomeCube},
 }
 </script>
 
