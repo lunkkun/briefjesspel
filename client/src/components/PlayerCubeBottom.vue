@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapPlayerCubeBottom" :class="{wrapPlayerCubeBottomActive: isActive}">
+  <div class="wrapPlayerCubeBottom" :class="{wrapPlayerCubeBottomActive: isActive}" @click="isMaster && selectPlayer(playerId)">
     <div class="playerCubeBottomDropShadow"></div>
     <div class="playerCubeBottom generalFont smediumFont" :class="{playerCubeBottomActive: isActive}">
       <div class="centerText">

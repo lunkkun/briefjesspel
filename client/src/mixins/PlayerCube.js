@@ -1,4 +1,4 @@
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters, mapMutations} from 'vuex'
 
 export default {
   props: ['playerId'],
@@ -7,13 +7,19 @@ export default {
       return this.shortNames[this.playerId].shortName
     },
     isActive: function() {
-      return this.playerId === this.activePlayer
+      return this.roundStarted && !this.roundFinished && this.playerId === this.activePlayer
     },
     ...mapState({
-      activePlayer: state => state.game.activePlayer
+      activePlayer: state => state.game.activePlayer,
+      roundStarted: state => state.game.roundStarted,
+      roundFinished: state => state.game.roundFinished,
     }),
     ...mapGetters([
+      'isMaster',
       'shortNames',
     ]),
   },
+  methods: mapMutations([
+    'selectPlayer',
+  ]),
 }

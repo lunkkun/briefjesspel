@@ -21,6 +21,7 @@ export default {
     // state of game
     isStarted: false,
     isFinished: false,
+    selectedPlayer: null,
 
     // settings for round
     turnTime: 0, // in seconds
@@ -123,6 +124,9 @@ export default {
     myTurn: (state) => {
       return state.activePlayer === state.player.id
     },
+    myTurnActive: (state, getters) => {
+      return getters.myTurn && state.turnStarted && !state.turnFinished && !state.roundFinished && !state.finished
+    },
     activePlayerName: (state) => {
       const player = state.players[state.activePlayer]
       return player ? player.name : null
@@ -142,6 +146,10 @@ export default {
     rankings: (state) => {
       return Object.values(state.teams).sort(rankTeams)
     },
+    selectedPlayerName: (state) => {
+      return state.selectedPlayer && state.players.hasOwnProperty(state.selectedPlayer) ?
+        state.players[state.selectedPlayer].name : null
+    },
   },
   mutations: {
     // Messages from server
@@ -155,6 +163,9 @@ export default {
       }
     },
     removePlayer(state, id) {
+      if (state.selectedPlayer === id) {
+        state.selectedPlayer = null
+      }
       if (state.players.hasOwnProperty(id)) {
         Vue.delete(state.players, id)
       }
@@ -295,11 +306,22 @@ export default {
     },
 
     // Only for local use
+    setName(state, name) {
+      state.player.name = name
+    },
     setFont(state, font) {
       state.font = font
     },
     addEntry(state, entry) {
       state.entries.push(entry)
+    },
+    selectPlayer(state, id) {
+      if (state.player.id !== id) {
+        state.selectedPlayer = id
+      }
+    },
+    deselectPlayer(state) {
+      state.selectedPlayer = null
     },
 
     // For testing
@@ -324,13 +346,18 @@ export default {
     },
     async setPlayerName({state, commit, dispatch}, name) {
       await dispatch(msg('setPlayerName', name))
-      commit('setPlayerName', {id: state.player.id, name})
+      commit('setName', name)
 
       await dispatch('setFont', randomFont()) // TODO: editable for user?
     },
     async removePlayer({commit, dispatch}, id) {
       await dispatch(msg('removePlayer', id))
       commit('removePlayer', id)
+    },
+    async removeSelectedPlayer({state, commit, dispatch}) {
+      if (state.selectedPlayer) {
+        await dispatch('removePlayer', state.selectedPlayer)
+      }
     },
     async leaveGame({dispatch}) {
       await dispatch(msg('leaveGame'))

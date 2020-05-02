@@ -20,7 +20,6 @@ export default {
     NextButton,
     PreviousButton,
     },
-}
 </script>
 
 <style lang="scss" scoped>
