@@ -1,5 +1,6 @@
 <template>
   <div id="app" v-cloak>
+    <div class="score"></div>
     <GeneratePlayerButton v-if="isDev && gameCreated && !gameStarted"></GeneratePlayerButton>
     <LeaveButton v-if="gameCreated && !activeTurn"></LeaveButton>
     <HelpButton v-if="!activeTurn"></HelpButton>
@@ -124,6 +125,20 @@ export default {
   left: 43%;
   transform: translate(-50%, -50%);
   width: 100%;
+}
+.score {
+  display: block;
+  background-color: transparent;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  animation: flash 1s ease-out;
+}
+@keyframes flash {
+  0% {background-color: #F8DC8D; opacity: 1;}
+  100% {background-color: #F8DC8D; opacity: 0;}
 }
 .generalFont{
   font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;

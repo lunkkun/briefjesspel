@@ -70,7 +70,7 @@ export default {
   width: 12vmin;
   height: 12vmin;
   transform: translate(0, 0);
-  transition: transform 0.3s;
+  transition: transform 0.3s ease-in-out;
 }
 .wrapPlayerCubeRightActive {
   transform: translate(-20%, -5%);
