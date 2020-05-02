@@ -12,6 +12,7 @@
 
         <div v-else-if="isLoaded">
           <RequestToLeave v-if="requestToLeave"></RequestToLeave>
+          <RemovePlayer v-else-if="isMaster && selectedPlayer"></RemovePlayer>
           <Home v-else-if="!gameCreated"></Home>
           <Setup v-else-if="!gameStarted"></Setup>
           <Game v-else></Game>
@@ -40,10 +41,12 @@ import Home from './pages/Home'
 import RequestToLeave from './pages/RequestToLeave'
 import Setup from './pages/Setup'
 import ActiveTurn from './pages/game/ActiveTurn'
+import RemovePlayer from "./pages/RemovePlayer"
 
 export default {
   name: 'App',
   components: {
+    RemovePlayer,
     ActiveTurn,
     GeneratePlayerButton,
     HelpButton,
@@ -70,6 +73,7 @@ export default {
       isLoaded: state => state.isLoaded,
       showHelp: state => state.showHelp,
       requestToLeave: state => state.requestToLeave,
+      selectedPlayer: state => state.game.selectedPlayer,
       gameCreated: state => state.game.isCreated,
       gameStarted: state => state.game.isStarted,
       gameFinished: state => state.game.isFinished,
@@ -78,6 +82,7 @@ export default {
       turnFinished: state => state.game.turnFinished,
     }),
     ...mapGetters([
+      'isMaster',
       'myTurn',
     ]),
   },

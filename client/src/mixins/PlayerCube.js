@@ -1,4 +1,4 @@
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters, mapMutations} from 'vuex'
 
 export default {
   props: ['playerId'],
@@ -13,7 +13,11 @@ export default {
       activePlayer: state => state.game.activePlayer
     }),
     ...mapGetters([
+      'isMaster',
       'shortNames',
     ]),
   },
+  methods: mapMutations([
+    'selectPlayer',
+  ]),
 }

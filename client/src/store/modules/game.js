@@ -21,6 +21,7 @@ export default {
     // state of game
     isStarted: false,
     isFinished: false,
+    selectedPlayer: null,
 
     // settings for round
     turnTime: 0, // in seconds
@@ -142,6 +143,10 @@ export default {
     rankings: (state) => {
       return Object.values(state.teams).sort(rankTeams)
     },
+    selectedPlayerName: (state) => {
+      return state.selectedPlayer && state.players.hasOwnProperty(state.selectedPlayer) ?
+        state.players[state.selectedPlayer].name : null
+    },
   },
   mutations: {
     // Messages from server
@@ -155,6 +160,9 @@ export default {
       }
     },
     removePlayer(state, id) {
+      if (state.selectedPlayer === id) {
+        state.selectedPlayer = null
+      }
       if (state.players.hasOwnProperty(id)) {
         Vue.delete(state.players, id)
       }
@@ -304,6 +312,14 @@ export default {
     addEntry(state, entry) {
       state.entries.push(entry)
     },
+    selectPlayer(state, id) {
+      if (state.player.id !== id) {
+        state.selectedPlayer = id
+      }
+    },
+    deselectPlayer(state) {
+      state.selectedPlayer = null
+    },
 
     // For testing
     generatePlayer(state) {
@@ -334,6 +350,11 @@ export default {
     async removePlayer({commit, dispatch}, id) {
       await dispatch(msg('removePlayer', id))
       commit('removePlayer', id)
+    },
+    async removeSelectedPlayer({state, commit, dispatch}) {
+      if (state.selectedPlayer) {
+        await dispatch('removePlayer', state.selectedPlayer)
+      }
     },
     async leaveGame({dispatch}) {
       await dispatch(msg('leaveGame'))

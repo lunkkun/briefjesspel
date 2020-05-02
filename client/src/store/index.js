@@ -41,6 +41,7 @@ export default new Vuex.Store({
       state.game.entriesPerPlayer = game.entriesPerPlayer || 0
       state.game.container = game.container || null
       state.game.teamsConfirmed = game.isStarted || false
+      state.game.selectedPlayer = null
 
       state.game.isStarted = game.isStarted || false
       state.game.isFinished = game.isFinished || false
@@ -94,6 +95,11 @@ export default new Vuex.Store({
     },
     toggleHelp(state) {
       state.showHelp = !state.showHelp
+    },
+    selectPlayer(state, id) {
+      if (state.game.player.id === id) {
+        state.requestToLeave = true
+      }
     },
   },
   modules: {
