@@ -2,10 +2,10 @@
   <div id="app" v-cloak>
     <div class="score"></div>
     <GeneratePlayerButton v-if="isDev && gameCreated && !gameStarted"></GeneratePlayerButton>
-    <LeaveButton v-if="gameCreated && !activeTurn"></LeaveButton>
-    <HelpButton v-if="!activeTurn"></HelpButton>
+    <LeaveButton v-if="gameCreated && !myTurnActive"></LeaveButton>
+    <HelpButton v-if="!myTurnActive"></HelpButton>
 
-    <PlayerList v-if="gameCreated && !activeTurn"></PlayerList>
+    <PlayerList v-if="gameCreated"></PlayerList>
 
     <transition name="homeCube">
       <HomeCube v-if="showHomeCube">
@@ -13,7 +13,7 @@
 
         <div v-else-if="isLoaded">
           <RequestToLeave v-if="requestToLeave"></RequestToLeave>
-          <RemovePlayer v-else-if="isMaster && selectedPlayer"></RemovePlayer>
+          <RemovePlayer v-else-if="selectedPlayer"></RemovePlayer>
           <Home v-else-if="!gameCreated"></Home>
           <Setup v-else-if="!gameStarted"></Setup>
           <Game v-else></Game>
@@ -64,11 +64,8 @@ export default {
     isDev() {
       return process.env.NODE_ENV === 'development'
     },
-    activeTurn() {
-      return this.myTurn && this.turnStarted && !this.turnFinished && !this.roundFinished && !this.gameFinished
-    },
     showHomeCube() {
-      return !this.activeTurn
+      return !this.myTurnActive
     },
     ...mapState({
       isLoaded: state => state.isLoaded,
@@ -77,14 +74,9 @@ export default {
       selectedPlayer: state => state.game.selectedPlayer,
       gameCreated: state => state.game.isCreated,
       gameStarted: state => state.game.isStarted,
-      gameFinished: state => state.game.isFinished,
-      roundFinished: state => state.game.roundFinished,
-      turnStarted: state => state.game.turnStarted,
-      turnFinished: state => state.game.turnFinished,
     }),
     ...mapGetters([
-      'isMaster',
-      'myTurn',
+      'myTurnActive',
     ]),
   },
 }
