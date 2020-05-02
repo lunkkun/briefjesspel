@@ -55,7 +55,7 @@
              min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
              v-focus v-select>
       <div v-if="errors.turnTime" class="generalFont tinyFont error">Vul een getal in tussen de 5 en de 300</div>
-      <PreviousButton @click="unconfirmTeams()"></PreviousButton>
+      <PreviousButton v-if="!gameStarted" @click="unconfirmTeams()"></PreviousButton>
       <NextButton @click="confirmTurnTime()"></NextButton>
     </div>
 
