@@ -1,30 +1,16 @@
+/* Default font */
 @font-face {
   font-family: 'Capone Light';
   src:  url('~@/assets/fonts/Capone-Light.ttf');
   font-weight: normal;
   font-style: normal;
 }
-@font-face {
-  font-family: 'alittlepot';
-  src:  url('~@/assets/fonts/alittlepot.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'ChildWriting-Regular';
-  src:  url('~@/assets/fonts/ChildWriting-Regular.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
+
+
+/* fonts including special characters */
 @font-face {
   font-family: 'Cute_Font';
   src:  url('~@/assets/fonts/Cute_Font.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'CuteHandWriting';
-  src:  url('~@/assets/fonts/CuteHandWriting.ttf');
   font-weight: normal;
   font-style: normal;
 }
@@ -47,6 +33,35 @@
   font-style: normal;
 }
 @font-face {
+  font-family: 'Lemon Tuesday';
+  src:  url('~@/assets/fonts/Lemon Tuesday.otf') format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NotebookScribble';
+  src:  url('~@/assets/fonts/NotebookScribble.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Southpaw';
+  src:  url('~@/assets/fonts/Southpaw.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+/* fonts without special characters */
+
+/* auto fallback characters */
+@font-face {
+  font-family: 'ChildWriting-Regular';
+  src:  url('~@/assets/fonts/ChildWriting-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: 'homeworkpreschooler';
   src:  url('~@/assets/fonts/homeworkpreschooler.ttf');
   font-weight: normal;
@@ -55,12 +70,6 @@
 @font-face {
   font-family: 'kindergarten';
   src:  url('~@/assets/fonts/kindergarten.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Lemon Tuesday';
-  src:  url('~@/assets/fonts/Lemon Tuesday.otf') format("opentype");
   font-weight: normal;
   font-style: normal;
 }
@@ -76,21 +85,24 @@
   font-weight: normal;
   font-style: normal;
 }
+
+
+/* empty special characters */
 @font-face {
-  font-family: 'NotebookScribble';
-  src:  url('~@/assets/fonts/NotebookScribble.ttf');
+  font-family: 'alittlepot';
+  src:  url('~@/assets/fonts/alittlepot.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'CuteHandWriting';
+  src:  url('~@/assets/fonts/CuteHandWriting.ttf');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Quick note';
   src:  url('~@/assets/fonts/Quick note.ttf');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Southpaw';
-  src:  url('~@/assets/fonts/Southpaw.ttf');
   font-weight: normal;
   font-style: normal;
 }
