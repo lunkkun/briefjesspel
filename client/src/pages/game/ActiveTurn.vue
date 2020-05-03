@@ -6,7 +6,7 @@
     <transition name="paper" mode="out-in">
       <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}"
            @click="requestNextEntry()" :key="entry.text">
-        <span class="centerWord" :style="{fontFamily: entry.font}">{{ entry.text }}</span>
+        <span class="centerWord" :style="{fontFamily: entry.font + ', daniel'}">{{ entry.text }}</span>
       </div>
     </transition>
     <Timer></Timer>
@@ -48,7 +48,7 @@ export default {
     ...mapState({
       timerStarted: state => state.game.timerStarted,
       entry: state => state.game.activeEntry,
-    })
+    }),
   },
   methods: {
     requestNextEntry() {
