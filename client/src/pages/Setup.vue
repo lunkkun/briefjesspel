@@ -64,7 +64,7 @@
     </div>
 
     <div v-else-if="isMaster">
-      <button class="generalFont biggerFont centerBlock transparentButton" @click="startGame()">Start het spel</button>
+      <button class="generalFont largeFont centerBlock transparentButton" @click="startGame()">Start het spel</button>
       <PreviousButton @click="unsetTurnTime()"></PreviousButton>
       <NextButton @click="startGame()"></NextButton>
     </div>
