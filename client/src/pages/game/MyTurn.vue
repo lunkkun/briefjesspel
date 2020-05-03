@@ -13,7 +13,7 @@
           Behaalde score: {{ scoreThisTurn }}<br>
           Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
         </span>
-        <button class="centerBlock generalFont bigFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
+        <button class="centerBlock generalFont largeFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
       </div>
     </div>
   </div>

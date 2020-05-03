@@ -5,7 +5,7 @@
     </div>
     <div v-else>
       <div>
-        <button class="centerBlock generalFont bigFont transparentButton" @click="startRound">Start ronde</button>
+        <button class="centerBlock generalFont largeFont transparentButton" @click="startRound">Start ronde</button>
         <NextButton @click="startRound"></NextButton>
       </div>
     </div>
