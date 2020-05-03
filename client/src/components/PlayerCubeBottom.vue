@@ -73,7 +73,7 @@ export default {
   transition: transform 0.3s ease-in-out;
 }
 .wrapPlayerCubeBottomActive {
-  transform: translate(-20%, -5%);
+  transform: translate(-5%, -20%);
 }
 .playerCubeBottomActive {
   background-color: #E9A14F;
