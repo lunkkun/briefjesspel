@@ -1,8 +1,6 @@
 const fonts = [
-  'alittlepot',
   'ChildWriting-Regular',
   'Cute_Font',
-  'CuteHandWriting',
   'daniel',
   'Faraco Hand',
   'homeworkpreschooler',
@@ -11,9 +9,12 @@ const fonts = [
   'Luna',
   'Morning Coffee',
   'NotebookScribble',
-  'Quick note',
   'Southpaw',
-  'TheDogAteMyHomework',
+
+  // 'alittlepot',
+  // 'CuteHandWriting',
+  // 'Quick note',
+  // 'TheDogAteMyHomework',
 ]
 
 export default function () {
