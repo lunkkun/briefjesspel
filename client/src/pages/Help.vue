@@ -27,7 +27,7 @@
       <div v-if="page === 5" class="smediumFont">
         Natuurlijk kunnen jullie als groep zelf volledig de regels bepalen!
         Als je andere rondes wil spelen of deze app zelfs voor een heel ander spel wil gebruiken (zoals hints) voel je vrij!<br>
-        Veel plezier!
+        Klik rechtsboven om verder te gaan. Veel plezier!<br>
       </div>
     </div>
     <PreviousButton v-if="page > 1" @click="page--"></PreviousButton>

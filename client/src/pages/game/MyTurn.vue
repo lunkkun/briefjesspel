@@ -2,7 +2,8 @@
   <div>
     <div v-if="!isStarted">
       <div class="centerBlock generalFont mediumFont transparentButton" style="top: 45%;">Het is jouw beurt!</div>
-      <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt...</div>
+      <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt.</div>
+      <div class="generalFont tinyFont subText2">Klik 2x op een briefje om de volgende te pakken!</div>
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
 
@@ -52,6 +53,12 @@ export default {
 .subText {
   position: absolute;
   top: 55%;
+  width: 100%;
+  text-align: center;
+}
+.subText2 {
+  position: absolute;
+  top: 66%;
   width: 100%;
   text-align: center;
 }
