@@ -12,7 +12,7 @@
         Als het spel is gestart kan er niemand meer worden toegevoegd.
       </div>
       <div v-if="page === 3" class="smallFont">
-        Voor als je het briefjesspel nog niet kent, hier kort de regels:<br>
+        Als je het briefjesspel nog niet kent, hier kort de regels:<br>
         Iedereen vult een aantal "briefjes" in met namen van bekende personen.
         Vervolgens vorm je teams en kan het spel starten.<br>
         Als je aan de beurt bent trek je een briefje en probeer je aan je teamgenoten te omschrijven welke persoon op je briefje staat.
