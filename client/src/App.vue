@@ -95,8 +95,17 @@ export default {
   background-color: #688980;
   overflow: hidden;
 }
-.transparentButton {
+.spinner {
   display: block;
+  position: absolute;
+  top: 43%;
+  left: 43%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.transparentButton {
+  display: inline-block;
   background: transparent;
   border: none;
   margin: 0;
@@ -112,16 +121,28 @@ export default {
   box-sizing: border-box;
   text-overflow: ellipsis;
 }
-.spinner {
-  display: block;
-  position: absolute;
-  top: 43%;
-  left: 43%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+.noSelect {
+  user-select: none;
 }
-.generalFont{
-  font-family: Capone Light, Avenir, Helvetica, Arial, sans-serif;
+
+.headerFont {
+  font-family: Ironick, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: scaleY(1.2);
+  text-transform: uppercase;
+  color: #344558;
+  caret-color: #344558;
+}
+.subheaderFont {
+  font-family: Josefin Slab, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #344558;
+  caret-color: #344558;
+}
+.textFont {
+  font-family: Josefin Sans, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #344558;
@@ -131,16 +152,20 @@ export default {
   text-align: center;
 }
 .microFont {
-  font-size: 2.75vmin;
-  font-weight: lighter;
+  font-size: 3vmin;
+  font-weight: normal;
 }
 .tinyFont {
-  font-size: 3.75vmin;
-  font-weight: lighter;
+  font-size: 3.4vmin;
+  font-weight: normal;
+}
+.smallerFont {
+  font-size: 4.2vmin;
+  font-weight: normal;
 }
 .smallFont {
   font-size: 4.9vmin;
-  font-weight: lighter;
+  font-weight: normal;
 }
 .smediumFont {
   font-size: 6.6vmin;
@@ -152,11 +177,10 @@ export default {
 }
 .largeFont {
   font-size: 8.5vmin;
-  font-weight: bold;
+  font-weight: normal;
 }
 .bigFont {
   font-size: 9.8vmin;
-  font-weight: bold;
   background-color: #344558;
   color: transparent;
   text-shadow: 0.3vmin 0.3vmin 0.15vmin #FFF2;
@@ -166,7 +190,15 @@ export default {
 }
 .biggerFont {
   font-size: 12vmin;
-  font-weight: bold;
+  background-color: #344558;
+  color: transparent;
+  text-shadow: 0.4vmin 0.4vmin 0.2vmin #FFF2;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+}
+.hugeFont {
+  font-size: 13vmin;
   background-color: #344558;
   color: transparent;
   text-shadow: 0.4vmin 0.4vmin 0.2vmin #FFF2;
@@ -177,14 +209,16 @@ export default {
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
   .microFont {
-    font-size: 17px;
+    font-size: 18.5px;
   }
   .tinyFont {
-    font-size: 23px;
+    font-size: 21px;
+  }
+  .smallerFont {
+    font-size: 26px;
   }
   .smallFont {
     font-size: 30px;
-    font-weight: normal;
   }
   .smediumFont {
     font-size: 41px;
@@ -202,6 +236,10 @@ export default {
   .biggerFont {
     font-size: 74px;
     text-shadow: 4px 4px 2px #FFF2;
+  }
+  .hugeFont {
+    font-size: 80px;
+    text-shadow: 5px 5px 2px #FFF2;
   }
 }
 input:focus,

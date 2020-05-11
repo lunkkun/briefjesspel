@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="generalFont mediumFont centerBlock">
-      Wil je {{ selectedPlayerName }} uit het spel verwijderen?
+    <div class="centerBlock">
+      <div class="textFont smediumFont">
+        <span class="subheaderFont mediumFont">W</span>il je {{ selectedPlayerName }} uit het spel verwijderen?
+      </div>
     </div>
     <br>
-    <button class="generalFont mediumFont transparentButton buttonLeft" @click="removeSelectedPlayer()">Ja</button>
-    <button class="generalFont mediumFont transparentButton buttonRight" @click="deselectPlayer()">Nee</button>
+    <button class="textFont smediumFont transparentButton buttonLeft" @click="removeSelectedPlayer()">Ja</button>
+    <button class="textFont smediumFont transparentButton buttonRight" @click="deselectPlayer()">Nee</button>
   </div>
 </template>
 

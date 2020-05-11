@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div class="generalFont mediumFont centerBlock">
-      Wil je het huidige spel verlaten?
+    <div class="centerBlock">
+      <div class="textFont smediumFont">
+        <span class="subheaderFont mediumFont">W</span>il je het huidige spel verlaten?
+      </div>
     </div>
     <br>
-    <button class="generalFont mediumFont transparentButton buttonLeft" @click="leaveGame()">Ja</button>
-    <button class="generalFont mediumFont transparentButton buttonRight" @click="stayInGame()">Nee</button>
+    <button class="textFont smediumFont transparentButton buttonLeft" @click="leaveGame()">Ja</button>
+    <button class="textFont smediumFont transparentButton buttonRight" @click="stayInGame()">Nee</button>
   </div>
 </template>
 

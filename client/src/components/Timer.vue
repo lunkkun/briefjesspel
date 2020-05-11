@@ -1,5 +1,5 @@
 <template>
-  <div class="generalFont mediumFont timer">
+  <div class="textFont mediumFont timer">
     {{ turnTimeLeft }}
   </div>
 </template>

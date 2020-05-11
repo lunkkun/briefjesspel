@@ -1,7 +1,7 @@
 <template>
   <div class="wrapPlayerCubeTop" :class="{wrapPlayerCubeTopActive: isActive}" @click="isMaster && selectPlayer(playerId)">
     <div class="playerCubeTopDropShadow"></div>
-    <div class="playerCubeTop generalFont smediumFont" :class="{playerCubeTopActive: isActive}">
+    <div class="playerCubeTop headerFont smediumFont" style="text-transform: initial;" :class="{playerCubeTopActive: isActive}">
       <div class="centerText">
         {{ shortName }}
       </div>

@@ -1,22 +1,25 @@
 <template>
   <div>
-    <div v-if="!isFinished">
-      <span class="generalFont mediumFont centerBlock">
-        De beurt is aan {{ activePlayerName }} ({{ activeTeamName }})!
-      </span>
+    <div v-if="!isFinished" class="centerBlock">
+      <div class="textFont mediumFont">
+        {{ activePlayerName }} ({{ activeTeamName }}) is aan de beurt!
+      </div>
       <Timer v-if="isStarted"></Timer>
     </div>
-    <div v-else class="generalFont smallFont">
-      De beurt is voorbij!<br>
-      <span class="generalFont tinyFont">
+    <div v-else class="centerBlock">
+      <div class="textFont mediumFont">
+        De beurt is voorbij!
+      </div>
+      <div class="textFont smallerFont">
+        <br>
         Behaalde score: {{ scoreThisTurn }}<br>
-      </span>
-      <span v-if="imNext" class="generalFont tinyFont">
-        Jij bent hierna aan de beurt!
-      </span>
-      <span v-else class="generalFont tinyFont">
-        Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
-      </span>
+        <span v-if="imNext">
+          Jij bent hierna aan de beurt!
+        </span>
+        <span v-else>
+          Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
+        </span>
+      </div>
     </div>
   </div>
 </template>

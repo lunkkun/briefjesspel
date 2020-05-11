@@ -4,14 +4,16 @@
       <Setup></Setup>
     </div>
     <div v-else>
-      <div>
-        <button class="centerBlock generalFont largeFont transparentButton" @click="startRound">Start ronde</button>
-        <NextButton @click="startRound"></NextButton>
+      <div class="centerBlock" @click="startRound">
+        <div class="headerFont bigFont transparentButton noSelect">Start ronde</div>
       </div>
+      <NextButton @click="startRound"></NextButton>
     </div>
   </div>
-  <div v-else class="generalFont mediumFont centerBlock">
+  <div v-else class="centerBlock">
+    <div class="textFont mediumFont">
       Wachten tot de ronde start...
+    </div>
   </div>
 </template>
 

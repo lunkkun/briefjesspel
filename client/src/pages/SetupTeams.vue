@@ -1,24 +1,24 @@
 <template>
   <div>
     <div v-if="!editing">
-      <div class="generalFont mediumFont teamLabel">Teams:</div>
-      <div v-if="errors.teamName" class="generalFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
+      <div class="textFont mediumFont teamLabel">Teams:</div>
+      <div v-if="errors.teamName" class="textFont tinyFont errorTeamName">Je hebt geen teamnaam ingevuld</div>
       <div class="tableWrap">
         <div class="teamList">
           <div v-for="team in teams" :key="team.id">
-            <button class="generalFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
+            <button class="textFont transparentButton teams" style="cursor: pointer;" @click="editTeam(team.id)">
               <div ref="teamNames" class="smallFont">{{ team.name }}</div>
               <div v-if="!teamsComplete" class="microFont" style="opacity: 0.8; float: left">Voeg spelers toe...</div>
               <div class="microFont" style="color: #688980; float: right">
                 {{ playersForTeam(team.id).length }} speler<span v-if="playersForTeam(team.id).length !== 1">s</span>
               </div>
             </button>
-            <button class="teamButton generalFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
+            <button class="teamButton textFont smallFont transparentButton" style="cursor: pointer;" @click="removeTeam(team.id)">&#9587;</button>
           </div>
           <div @keydown.enter="confirmTeamName()">
-              <input id="teamName" ref="teamNameInput" class="generalFont smallFont transparentButton teams" style="color: #688980;"
+              <input id="teamName" ref="teamNameInput" class="textFont smallFont transparentButton teams" style="color: #688980;"
                      type="text" maxlength="30" placeholder="Voeg een team toe..." autocomplete="off" v-model="teamName" v-focus>
-              <button class="generalFont smallFont transparentButton teamButton" @click="confirmTeamName()">
+              <button class="textFont smallFont transparentButton teamButton" @click="confirmTeamName()">
                 <span style="display: block; transform: rotate(45deg); cursor: pointer;">&#9587;</span>
               </button>
           </div>
@@ -26,35 +26,35 @@
       </div>
       <div v-if="teamsComplete">
         <NextButton @click="confirmTeams()"></NextButton>
-        <div class="generalFont tinyFont playersUnassignedNote">
+        <div class="textFont tinyFont playersUnassignedNote">
           Alle spelers zijn ingedeeld
         </div>
       </div>
-      <div v-else-if="!allPlayersAssigned" class="generalFont tinyFont playersUnassignedNote">
+      <div v-else-if="!allPlayersAssigned" class="textFont tinyFont playersUnassignedNote">
         Er <span v-if="playersNotInTeam.length !== 1">zijn</span><span v-else>is</span> {{ playersNotInTeam.length }} speler<span v-if="playersNotInTeam.length !== 1">s</span> niet ingedeeld...
       </div>
-      <div v-else-if="!allTeamsHaveEnoughPlayers" class="generalFont tinyFont playersUnassignedNote">
+      <div v-else-if="!allTeamsHaveEnoughPlayers" class="textFont tinyFont playersUnassignedNote">
         Er zijn nog teams met minder dan 2 spelers...
       </div>
-      <div v-else-if="!enoughTeams" class="generalFont tinyFont playersUnassignedNote">
+      <div v-else-if="!enoughTeams" class="textFont tinyFont playersUnassignedNote">
         Er zijn nog te weinig teams...
       </div>
     </div>
 
     <div v-else>
-      <div ref="teamName" :key="editing" class="generalFont mediumFont teamLabel">{{ teams[editing].name }}:</div>
+      <div ref="teamName" :key="editing" class="textFont mediumFont teamLabel">{{ teams[editing].name }}:</div>
       <div class="tableWrap">
         <div class="teamPlayerList">
           <div v-if="playersForTeam(editing).length">
             <div v-for="player in playersForTeam(editing)" :key="player.id">
-              <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+              <div class="textFont smallFont teamPlayer">{{ player.name }}</div>
               <div class="teamPlayerButton">
-                <button class="generalFont smallFont transparentButton plusToTimes" style="cursor: pointer;"
+                <button class="textFont smallFont transparentButton plusToTimes" style="cursor: pointer;"
                         @click="removePlayerFromTeam({id: player.id, teamId: editing})">&#9587;</button>
               </div>
             </div>
           </div>
-          <div v-else class="generalFont microFont teamNote">
+          <div v-else class="textFont microFont teamNote">
             Nog geen spelers toegevoegd
           </div>
         </div>
@@ -62,14 +62,14 @@
         <div class="teamPlayerList">
           <div v-if="playersNotInTeam.length">
             <div v-for="player in playersNotInTeam" :key="player.id">
-              <div class="generalFont smallFont teamPlayer">{{ player.name }}</div>
+              <div class="textFont smallFont teamPlayer">{{ player.name }}</div>
               <div class="teamPlayerButton">
-                <button class="generalFont smallFont transparentButton timesToPlus" style="cursor: pointer;"
+                <button class="textFont smallFont transparentButton timesToPlus" style="cursor: pointer;"
                         @click="addPlayerToTeam({id: player.id, teamId: editing})">&#9587;</button>
               </div>
             </div>
           </div>
-          <div v-else class="generalFont microFont teamNote">
+          <div v-else class="textFont microFont teamNote">
             Alle spelers zijn ingedeeld
           </div>
         </div>

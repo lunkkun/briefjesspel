@@ -1,6 +1,6 @@
 <template>
   <div @click="generatePlayer">
-    <div class="generatePlayerButton generalFont smallFont" style="text-shadow: 0 0 1vmin #688980;">
+    <div class="generatePlayerButton textFont smallFont" style="text-shadow: 0 0 1vmin #688980;">
       &#8853;
     </div>
   </div>

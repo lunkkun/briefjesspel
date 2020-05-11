@@ -1,14 +1,14 @@
 <template>
   <div>
     <div v-if="!gameStarted && shareableLink && isMaster">
-      <div class="generalFont spelLink linkBox" :class="linkClasses" @click="copyLink()">
+      <div class="textFont spelLink linkBox" :class="linkClasses" @click="copyLink()">
         <FontAwesomeIcon :icon="clipboard" style="margin: 0 2%;"> </FontAwesomeIcon> {{ shareableLink }}
       </div>
     </div>
 
 <!-- Spel link -->
     <div v-if="!linkInfoRead && isMaster" @keydown.enter="confirmLinkInfoRead()">
-      <div class="generalFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
+      <div class="textFont tinyFont linkDescription">stuur bovenstaande link naar je medespelers</div>
       <div class="nextButtonPulse"></div>
       <NextButton @click="buttonClicked() || confirmLinkInfoRead()" v-focus></NextButton>
     </div>
@@ -16,32 +16,32 @@
 <!-- Naam -->
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <div class="fadeIn">
-        <label class="generalFont mediumFont labelPosition" for="playerName">Vul je naam in:</label>
-        <input ref="playerName" id="playerName" class="generalFont mediumFont centerTextVH" style="color: #688980;"
+        <label class="textFont smediumFont labelPosition" for="playerName">Vul je naam in:</label>
+        <input ref="playerName" id="playerName" class="textFont largeFont centerTextVH" style="color: #688980;"
                type="text" autocomplete="off" maxlength="30" v-model="playerName" v-focus>
       </div>
-      <div v-if="errors.playerName" class="generalFont tinyFont error">Minimaal twee letters...</div>
+      <div v-if="errors.playerName" class="textFont tinyFont error">Minimaal twee letters...</div>
       <NextButton @click="confirmPlayerName()"></NextButton>
     </div>
 
 <!-- Briefjes pp -->
     <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
-      <label class="generalFont mediumFont labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
-      <input id="entriesPerPlayer" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
+      <label class="textFont smallFont labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
+      <input id="entriesPerPlayer" class="textFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
-      <div v-if="errors.entriesPerPlayer" class="generalFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
+      <div v-if="errors.entriesPerPlayer" class="textFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
       <NextButton @click="confirmEntriesPerPlayer()"></NextButton>
     </div>
 
 <!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
-      <label class="generalFont mediumFont labelPosition" for="entry">
+      <label class="textFont smallFont labelPosition" for="entry">
         <!--Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):-->
         Briefje {{ nrEntries + 1 }} (van de {{ ofTotalEntries }}):
       </label>
-      <input id="entry" ref="entry" class="generalFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
+      <input id="entry" ref="entry" class="textFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
                 v-model="entry" v-focus>
-      <div v-if="errors.entry" class="generalFont tinyFont error">Het briefje is leeg...</div>
+      <div v-if="errors.entry" class="textFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
     </div>
 
@@ -50,27 +50,33 @@
 
 <!-- Turn time -->
     <div v-else-if="!turnTimeSet && isMaster" @keydown.enter="confirmTurnTime()">
-      <label class="generalFont mediumFont labelPosition" for="turnTime">Seconden per beurt:</label>
-      <input id="turnTime" class="generalFont mediumFont centerTextVH" style="color: #688980;" type="number"
+      <label class="textFont mediumFont labelPosition" for="turnTime">Seconden per beurt:</label>
+      <input id="turnTime" class="textFont mediumFont centerTextVH" style="color: #688980;" type="number"
              min="5" max="300" step="5" maxlength="3" autocomplete="off" :value="turnTime" @input.number="updateTurnTime"
              v-focus v-select>
-      <div v-if="errors.turnTime" class="generalFont tinyFont error">Vul een getal in tussen de 5 en de 300</div>
+      <div v-if="errors.turnTime" class="textFont tinyFont error">Vul een getal in tussen de 5 en de 300</div>
       <PreviousButton v-if="!gameStarted" @click="unconfirmTeams()"></PreviousButton>
       <NextButton @click="confirmTurnTime()"></NextButton>
     </div>
 
-    <div v-else-if="!canStart" class="generalFont mediumFont centerBlock">
-      Wachten tot het spel kan beginnen...
+    <div v-else-if="!canStart" class="centerBlock">
+      <div class="textFont smediumFont ">
+        <span class="subheaderFont mediumFont">W</span>achten tot het spel kan beginnen...
+      </div>
     </div>
 
     <div v-else-if="isMaster">
-      <button class="generalFont largeFont centerBlock transparentButton" @click="startGame()">Start het spel</button>
+      <div class="centerBlock" style="top: 48%;">
+        <button class="headerFont bigFont transparentButton" @click="startGame()">Start het spel</button>
+      </div>
       <PreviousButton @click="unsetTurnTime()"></PreviousButton>
       <NextButton @click="startGame()"></NextButton>
     </div>
 
-    <div v-else class="generalFont mediumFont centerBlock">
-      Wachten tot het spel begint...
+    <div v-else class="centerBlock">
+      <div class="textFont smediumFont ">
+        <span class="subheaderFont mediumFont">W</span>achten tot het spel begint...
+      </div>
     </div>
   </div>
 </template>
@@ -271,7 +277,7 @@ export default {
     transform: translateX(-50%);
     width: 98%;
     padding: 1%;
-    font-size: 3.75vmin;
+    font-size: 3.4vmin;
   }
 }
 @media screen and (min-width: 613px) and (min-height: 613px) {
@@ -290,7 +296,7 @@ export default {
       transform: translateX(-50%);
       width: 98%;
       padding: 1%;
-      font-size: 23px;
+      font-size: 21px;
     }
   }
 }

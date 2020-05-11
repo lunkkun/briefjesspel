@@ -1,18 +1,18 @@
 <template>
   <div>
-    <div class="generalFont mediumFont centerFontH">
+    <div class="headerFont mediumFont centerFontH">
       Eindstand:
     </div>
     <ul>
       <li v-for="team in rankings" :key="team.id">
-        <div class="generalFont smallFont">
+        <div class="textFont smallerFont">
           Team {{ team.name }}: {{ team.score }} punt<span v-if="team.score !== 1">en</span>
         </div>
       </li>
     </ul>
 
-    <button v-if="isMaster" class="generalFont smallFont transparentButton buttonLeft" @click="newGameFromCurrent()">Opnieuw</button><br>
-    <button class="generalFont smallFont transparentButton buttonRight" @click="leaveGame()">Verlaat het spel</button>
+    <button v-if="isMaster" class="textFont smallerFont transparentButton buttonLeft" @click="newGameFromCurrent()">Opnieuw</button><br>
+    <button class="textFont smallerFont transparentButton buttonRight" @click="leaveGame()">Verlaat het spel</button>
   </div>
 </template>
 

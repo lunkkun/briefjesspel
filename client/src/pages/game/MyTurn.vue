@@ -1,20 +1,25 @@
 <template>
   <div>
-    <div v-if="!isStarted">
-      <div class="centerBlock generalFont mediumFont transparentButton" style="top: 45%;">Het is jouw beurt!</div>
-      <div class="generalFont tinyFont subText">De tijd gaat lopen zodra je een briefje pakt.</div>
-      <div class="generalFont tinyFont subText2">Klik 2x op een briefje om de volgende te pakken!</div>
+    <div v-if="!isStarted" @click="startTurn()">
+      <div class="centerBlock noSelect">
+        <div class="headerFont mediumFont">Het is jouw beurt!</div>
+        <div class="textFont tinyFont"><br>De tijd gaat lopen zodra je een briefje pakt.</div>
+        <div class="textFont tinyFont">Klik 2x op een briefje om de volgende te pakken!</div>
+      </div>
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>
 
-    <div v-else-if="isFinished">
-      <div class="generalFont smallFont">
-        Je beurt is voorbij!<br>
-        <span class="generalFont tinyFont">
+    <div v-else-if="isFinished" class="centerFontH">
+      <div class="textFont mediumFont">
+        Je beurt is voorbij!
+      </div>
+      <div class="textFont smallerFont">
+          <br>
           Behaalde score: {{ scoreThisTurn }}<br>
           Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
-        </span>
-        <button class="centerBlock generalFont largeFont transparentButton" @click="nextTurn()">Geef de beurt door</button>
+      </div>
+      <div class="headerFont mediumFont noSelect" @click="nextTurn()">
+        <br>Geef de beurt door
       </div>
     </div>
   </div>
