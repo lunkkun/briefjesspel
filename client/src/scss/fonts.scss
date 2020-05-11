@@ -1,7 +1,25 @@
 /* Default font */
 @font-face {
-  font-family: 'Capone Light';
-  src:  url('~@/assets/fonts/Capone-Light.ttf');
+  font-family: 'Josefin Sans';
+  src:  url('~@/assets/fonts/JosefinSans-Light.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Josefin Slab';
+  src:  url('~@/assets/fonts/JosefinSlab-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Limelight';
+  src:  url('~@/assets/fonts/Limelight-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Ironick';
+  src:  url('~@/assets/fonts/IronickNF.ttf');
   font-weight: normal;
   font-style: normal;
 }
