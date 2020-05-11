@@ -6,6 +6,8 @@ const User = require('../models/user')
 const router = express.Router();
 
 router.get('/:gamePath?', (req, res) => {
+  const ip = req.ip || req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'].split(/, /)[0] : req.connection.remoteAddress
+
   let userId = req.session.userId
   if (!userId) {
     const user = new User()
@@ -47,7 +49,7 @@ router.get('/:gamePath?', (req, res) => {
       } else {
         game.addPlayer(new User({id: userId}))
         req.session.gameId = game.id
-        logger.info(`Added user ${userId} to game ${game.id}`)
+        logger.info(`Added user ${userId} with IP ${ip} to game ${game.id}`)
       }
     } else {
       logger.warn(`Invalid game path ${gamePath} for user ${userId}`)
