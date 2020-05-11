@@ -265,6 +265,7 @@ class Game extends EventEmitter {
       this._collectEntries()
       this._randomizeTurnOrder()
 
+      this.turnTimeLeft = this.turnTime
       this.isStarted = true
 
       this.emit('started')
@@ -277,7 +278,6 @@ class Game extends EventEmitter {
     if (this.canStartRound) {
       this._randomizeEntries()
 
-      this.turnTimeLeft = this.turnTime
       this.roundStarted = true
 
       this.emit('roundStarted')
@@ -341,7 +341,9 @@ class Game extends EventEmitter {
       team.scoreThisRound = 0
     })
 
-    this._shiftTurn()
+    // this.turnTimeLeft = this.turnTime
+    // this._shiftTurn()
+    // Finish the turn next round
 
     this.emit('nextRound')
   }
@@ -365,15 +367,17 @@ class Game extends EventEmitter {
   }
 
   startTimer() {
-    this._timer = setInterval(() => {
+    const interval = setInterval(() => {
       this.turnTimeLeft--
 
       if (this.turnTimeLeft <= 0) {
-        clearInterval(this._timer)
+        clearInterval(interval)
 
         this.finishTurn()
       }
     }, 1000)
+
+    this._timer = interval
   }
 
 

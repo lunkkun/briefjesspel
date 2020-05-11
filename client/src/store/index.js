@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import socket from './modules/socket'
 import game from './modules/game'
-import {link} from '../lib/helpers'
+import {link, setTimer} from '../lib/helpers'
 
 Vue.use(Vuex)
 
@@ -63,6 +63,12 @@ export default new Vuex.Store({
       state.game.activeEntry = game.activeEntry || null
       state.game.turnTimeLeft = game.turnTimeLeft || 0
       state.game.scoreThisTurn = game.scoreThisTurn || 0
+
+      clearInterval(state.game.timer)
+
+      if (state.game.timerStarted) {
+        setTimer(state.game)
+      }
 
       state.game.font = game.font || null
       state.game.entries = game.entries || []

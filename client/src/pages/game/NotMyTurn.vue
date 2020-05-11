@@ -1,11 +1,12 @@
 <template>
   <div>
-    <div v-if="!isFinished" class="centerBlock">
-      <div class="textFont mediumFont">
+    <div v-if="!isFinished">
+      <div class="textFont mediumFont centerBlock">
         {{ activePlayerName }} ({{ activeTeamName }}) is aan de beurt!
       </div>
-      <Timer v-if="isStarted"></Timer>
+      <Timer></Timer>
     </div>
+
     <div v-else class="centerBlock">
       <div class="textFont mediumFont">
         De beurt is voorbij!

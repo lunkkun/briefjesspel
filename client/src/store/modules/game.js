@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import {msg, link, randomContainer, randomFont, rankTeams, getShortNames} from '../../lib/helpers'
+import {addShortNames, msg, link, randomContainer, randomFont, rankTeams, setTimer} from '../../lib/helpers'
 
 const minTeams = 1 // process.env.NODE_ENV === 'production' ? 2 : 1
 const minPlayersPerTeam = process.env.NODE_ENV === 'production' ? 2 : 1
@@ -101,7 +101,7 @@ export default {
     },
     shortNames: (state, getters) => {
       // Key by id for use in PlayerCubes
-      return Object.fromEntries(getShortNames(getters.playersWithNames).map(player => [player.id, player]))
+      return Object.fromEntries(addShortNames(getters.playersWithNames).map(player => [player.id, player]))
     },
     playersForTeam: (state, getters) => (teamId) => {
       return getters.playersSorted.filter(player => player.teamId === teamId)
@@ -241,27 +241,37 @@ export default {
     startGame(state) {
       state.isStarted = true
     },
-    startRound(state, {activeTeam, activePlayer, nextTeam, nextPlayer, entriesRemaining}) {
+    startRound(state, {activeTeam, activePlayer, nextTeam, nextPlayer, entriesRemaining, turnTimeLeft}) {
+      // for redundancy
+      state.isStarted = true
+      state.scoreThisTurn = 0
+      clearInterval(state.timer)
+
+      Object.values(state.teams).forEach((team) => {
+        team.scoreThisRound = 0
+      })
+
       state.activeTeam = activeTeam
       state.activePlayer = activePlayer
       state.nextTeam = nextTeam
       state.nextPlayer = nextPlayer
       state.entriesRemaining = entriesRemaining
+      state.turnTimeLeft = turnTimeLeft
 
-      state.turnTimeLeft = state.turnTime
+      state.timerStarted = false
       state.roundStarted = true
     },
     initializeTurn(state) {
       state.turnStarted = true
     },
     startTurn(state) {
-      state.timer = setInterval(() => {
-        state.turnTimeLeft--
+      // for redundancy
+      state.turnStarted = true
+      state.scoreThisTurn = 0
 
-        if (state.turnTimeLeft <= 0) {
-          clearInterval(state.timer)
-        }
-      }, 1000)
+      clearInterval(state.timer)
+      setTimer(state)
+
       state.timerStarted = true
     },
     nextEntry(state, {text, font, remaining}) {
@@ -278,13 +288,16 @@ export default {
       }
     },
     finishTurn(state) {
+      clearInterval(state.timer)
+
       state.turnFinished = true
     },
-    nextTurn(state, {activeTeam, activePlayer, nextTeam, nextPlayer}) {
+    nextTurn(state, {activeTeam, activePlayer, nextTeam, nextPlayer, entriesRemaining}) {
       state.activeTeam = activeTeam
       state.activePlayer = activePlayer
       state.nextTeam = nextTeam
       state.nextPlayer = nextPlayer
+      state.entriesRemaining = entriesRemaining
 
       state.turnStarted = false
       state.timerStarted = false
@@ -295,15 +308,20 @@ export default {
     },
     finishRound(state) {
       clearInterval(state.timer)
+
       state.activeEntry = null
       state.roundFinished = true
     },
     nextRound(state) {
+      // for redundancy
+      state.activeEntry = null
+
       state.roundStarted = false
       state.roundFinished = false
 
       state.turnStarted = false
       state.timerStarted = false
+      state.turnFinished = false
       state.scoreThisTurn = 0
 
       state.previousTurnTime = state.turnTime
@@ -313,8 +331,14 @@ export default {
         team.scoreThisRound = 0
       })
     },
-    finishGame(state) {
+    finishGame(state, teams) {
       state.isFinished = true
+
+      teams.forEach(team => {
+        if (state.teams.hasOwnProperty(team.id)) {
+          state.teams[team.id].score = team.score
+        }
+      })
     },
 
     // Only for local use

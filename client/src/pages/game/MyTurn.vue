@@ -3,8 +3,8 @@
     <div v-if="!isStarted" @click="startTurn()">
       <div class="centerBlock noSelect">
         <div class="headerFont mediumFont">Het is jouw beurt!</div>
-        <div class="textFont tinyFont"><br>De tijd gaat lopen zodra je een briefje pakt.</div>
-        <div class="textFont tinyFont">Klik 2x op een briefje om de volgende te pakken!</div>
+        <div class="textFont tinyFont">De tijd gaat lopen zodra je een briefje pakt...</div>
+        <!--<div class="textFont tinyFont">Klik 2x op een briefje om de volgende te pakken!</div>-->
       </div>
       <NextButton @click="startTurn()" v-focus></NextButton>
     </div>

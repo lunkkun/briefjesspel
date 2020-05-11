@@ -25,7 +25,7 @@ export default {
     return {
       showPaperUnfolded: false,
       paperUnfoldedNum: null,
-      clicked: false,
+      // clicked: false,
     }
   },
   components: {
@@ -35,6 +35,11 @@ export default {
   },
   created() {
     this.setRandomPaperUnfoldedNum()
+  },
+  mounted() {
+    if (this.entry) {
+      this.showPaperUnfolded = true
+    }
   },
   watch: {
     entry() {
@@ -52,16 +57,16 @@ export default {
   },
   methods: {
     requestNextEntry() {
-      if (this.clicked) {
+      // if (this.clicked) {
         this.showPaperUnfolded = false
         this.setRandomPaperUnfoldedNum()
         this.nextEntry()
-      } else {
-        this.clicked = true
-        setTimeout(() => {
-          this.clicked = false
-        }, 500)
-      }
+      // } else {
+      //   this.clicked = true
+      //   setTimeout(() => {
+      //     this.clicked = false
+      //   }, 500)
+      // }
     },
     setRandomPaperUnfoldedNum() {
       let num
