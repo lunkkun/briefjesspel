@@ -95,6 +95,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
+  max-height: 80%;
   text-align: center;
   font-size: 9vmin;
   color: black;
