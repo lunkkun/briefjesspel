@@ -36,11 +36,10 @@
 <!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="textFont smallFont labelPosition" for="entry">
-        <!--Vul <span v-if="firstEntryAdded">nog </span>een briefje in ({{ nrEntries + 1 }}/{{ ofTotalEntries }}):-->
         Briefje {{ nrEntries + 1 }} (van de {{ ofTotalEntries }}):
       </label>
       <input id="entry" ref="entry" class="textFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
-                v-model="entry" v-focus>
+             type="text" autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="textFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
     </div>

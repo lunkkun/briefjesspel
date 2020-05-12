@@ -250,6 +250,10 @@ class Game extends EventEmitter {
   setTurnTime(turnTime) {
     this.turnTime = turnTime
 
+    if (this.turnTimeLeft > turnTime) {
+      this.turnTimeLeft = turnTime
+    }
+
     this.emit('turnTimeUpdated')
   }
 
@@ -504,7 +508,7 @@ class Game extends EventEmitter {
       const user = this.players.get(userId)
       gameData.font = user.font
       gameData.entries = user.entries
-      if (this.activePlayer === userId) {
+      if (this.activePlayer === userId && this.turnStarted) {
         gameData.activeEntry = this.activeEntry
       }
     }

@@ -15,7 +15,9 @@ export default {
       if (this.scoreThisTurn && !this.myTurn) {
         this.flashScore = false
         this.$nextTick(function () {
-          this.flashScore = true
+          setTimeout(() => {
+            this.flashScore = true
+          }, 100)
         })
       }
     }

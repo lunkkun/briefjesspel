@@ -37,7 +37,7 @@ export default {
     this.setRandomPaperUnfoldedNum()
   },
   mounted() {
-    if (this.entry) {
+    if (this.entry && this.timerStarted) {
       this.showPaperUnfolded = true
     }
   },

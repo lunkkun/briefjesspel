@@ -89,15 +89,12 @@ export default new Vuex.Store({
     leaveGame() {
       window.location = '/'
     },
-    stayInGame(state) {
-      state.requestToLeave = false
-    },
     redirectToGame(state, path) {
       window.location = '/' + path
     },
 
     // Only for local use
-    stayInCurrentGame(state) {
+    stayInGame(state) {
       state.requestToLeave = false
     },
     toggleHelp(state) {

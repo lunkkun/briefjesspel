@@ -398,12 +398,9 @@ export default {
     async leaveGame({dispatch}) {
       await dispatch(msg('leaveGame'))
     },
-    async stayInGame({commit}) {
+    async stayInGame({dispatch, commit}) {
+      await dispatch(msg('stayInGame'))
       commit('stayInGame')
-    },
-    async stayInCurrentGame({dispatch, commit}) {
-      await dispatch(msg('stayInCurrentGame'))
-      commit('stayInCurrentGame')
     },
     async setFont({commit, dispatch}, font) {
       await dispatch(msg('setFont', font))

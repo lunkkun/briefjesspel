@@ -67,7 +67,7 @@ export default {
       return process.env.NODE_ENV === 'development'
     },
     showHomeCube() {
-      return !this.myTurnActive
+      return !this.myTurnActive || this.requestToLeave
     },
     ...mapState({
       isLoaded: state => state.isLoaded,
