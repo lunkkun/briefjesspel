@@ -4,7 +4,7 @@
       <div class="textFont mediumFont centerBlock">
         {{ activePlayerName }} ({{ activeTeamName }}) is aan de beurt!
       </div>
-      <Timer></Timer>
+      <Timer class="notMyTimer"></Timer>
     </div>
 
     <div v-else class="centerBlock">
@@ -52,5 +52,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.notMyTimer {
+  font-weight: normal;
+  bottom: 0;
+  right: 2vmin;
+}
+@media screen and (min-width: 613px) and (min-height: 613px) {
+ .timer {
+  width: 10px;
+  height: 10px;
+  bottom: 35px;
+  right: 80px;
+  } 
+}
+  
 </style>
