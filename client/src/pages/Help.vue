@@ -10,7 +10,7 @@
           Het handigst is om de briefjesspel-app op je smartphone te openen.
         </div>
         <div v-if="page === 3" class="smallFont">
-          <span class="subheaderFont smediumFont">E</span>én persoon - de spelleider - start een nieuw spel en krijgt een link die hij met de anderen kan delen.
+          <span class="subheaderFont smediumFont">E</span>én persoon - de spelleider - start een nieuw spel en krijgt een link om met de overige spelers te delen.
           Met die link kan een ieder zich aanmelden in het spel. De link is 3 uur geldig.
           Als het spel is gestart kan er niemand meer worden toegevoegd.
         </div>
