@@ -38,6 +38,6 @@ export default {
   height: 10px;
   bottom: 65px;
   right: 110px;
-} 
+ } 
 }
 </style>
