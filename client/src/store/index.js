@@ -72,7 +72,7 @@ export default new Vuex.Store({
 
       state.game.font = game.font || null
       state.game.entries = game.entries || []
-      state.game.entriesConfirmed = state.game.entries.length
+      state.game.entriesConfirmed = state.game.entries.length || 0
 
       state.game.path = game.path || null
       state.game.isCreated = !!game.path
