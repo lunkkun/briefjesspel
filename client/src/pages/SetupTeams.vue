@@ -24,6 +24,7 @@
           </div>
         </div>
       </div>
+      <PreviousButton @click="previousEntry()"></PreviousButton>
       <div v-if="teamsComplete">
         <NextButton @click="confirmTeams()"></NextButton>
         <div class="textFont tinyFont playersUnassignedNote">
@@ -74,9 +75,7 @@
           </div>
         </div>
       </div>
-      <div>
-        <NextButton @click="stopEditing()"></NextButton>
-      </div>
+      <PreviousButton @click="stopEditing()"></PreviousButton>
     </div>
   </div>
 </template>
@@ -153,6 +152,7 @@ export default {
     },
     ...mapMutations([
       'confirmTeams',
+      'previousEntry',
     ]),
     ...mapActions([
       'addTeam',

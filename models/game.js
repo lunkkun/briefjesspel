@@ -198,10 +198,10 @@ class Game extends EventEmitter {
     this.emit('containerSet')
   }
 
-  addEntry(userId, entry) {
+  addEntry(userId, index, entry) {
     if (this.players.has(userId)) {
       const user = this.players.get(userId)
-      user.entries.push(entry)
+      user.entries[index] = entry
 
       this._checkPlayerReady(user)
     }

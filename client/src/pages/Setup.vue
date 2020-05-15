@@ -36,12 +36,13 @@
 <!-- Briefjes invullen -->
     <div v-else-if="!enoughEntries" @keydown.enter="confirmEntry()">
       <label class="textFont smallFont labelPosition" for="entry">
-        Briefje {{ nrEntries + 1 }} (van de {{ ofTotalEntries }}):
+        Briefje {{ entriesConfirmed + 1 }} (van de {{ ofTotalEntries }}):
       </label>
       <input id="entry" ref="entry" class="textFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
              type="text" autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="textFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
+      <PreviousButton v-if="entriesConfirmed > 0" @click="previousEntry()"></PreviousButton>
     </div>
 
 <!-- Team setup -->
@@ -58,24 +59,25 @@
       <NextButton @click="confirmTurnTime()"></NextButton>
     </div>
 
-    <div v-else-if="!canStart" class="centerBlock">
-      <div class="textFont smediumFont ">
-        <span class="subheaderFont mediumFont">W</span>achten tot het spel kan beginnen...
+    <div v-else>
+      <div v-if="!canStart" class="centerBlock">
+        <div class="textFont smediumFont ">
+          <span class="subheaderFont mediumFont">W</span>achten tot het spel kan beginnen...
+        </div>
       </div>
-    </div>
 
-    <div v-else-if="isMaster">
-      <div class="centerBlock" style="top: 48%;">
+      <div v-else-if="isMaster" class="centerBlock" style="top: 48%;">
         <div class="headerFont bigFont noSelect" @click="startGame()">Start het spel</div>
       </div>
-      <PreviousButton @click="unsetTurnTime()"></PreviousButton>
-      <NextButton @click="startGame()"></NextButton>
-    </div>
 
-    <div v-else class="centerBlock">
-      <div class="textFont smediumFont ">
-        <span class="subheaderFont mediumFont">W</span>achten tot het spel begint...
+      <div v-else class="centerBlock">
+        <div class="textFont smediumFont">
+          <span class="subheaderFont mediumFont">W</span>achten tot het spel begint...
+        </div>
       </div>
+
+      <PreviousButton v-if="isMaster" @click="unsetTurnTime()"></PreviousButton>
+      <PreviousButton v-else @click="previousEntry()"></PreviousButton>
     </div>
   </div>
 </template>
@@ -100,7 +102,6 @@ export default {
       playerName: '',
       entriesPerPlayer: 4,
       entry: '',
-      firstEntryAdded: false,
       turnTime: 60,
       linkCopied: false,
 
@@ -128,7 +129,7 @@ export default {
       }
     },
     ...mapState({
-      nrEntries: state => state.game.entries.length,
+      entriesConfirmed: state => state.game.entriesConfirmed,
       ofTotalEntries: state => state.game.entriesPerPlayer,
       teamsConfirmed: state => state.game.teamsConfirmed,
       previousTurnTime: state => state.game.previousTurnTime,
@@ -140,6 +141,7 @@ export default {
       'playerNameSet',
       'entriesPerPlayerSet',
       'enoughEntries',
+      'entryEditing',
       'teamsComplete',
       'turnTimeSet',
       'canStart',
@@ -147,10 +149,22 @@ export default {
   },
   watch: {
     playerName: function () {
-      scaleInput(this.$refs.playerName, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
+      this.$nextTick(() => {
+        scaleInput(this.$refs.playerName, 'mediumFont', 'smallFont', 'tinyFont', 'microFont')
+      })
     },
     entry: function () {
-      scaleInput(this.$refs.entry, 'mediumFont', 'smallFont', 'tinyFont')
+      this.$nextTick(() => {
+        scaleInput(this.$refs.entry, 'mediumFont', 'smallFont', 'tinyFont')
+      })
+    },
+    entryEditing: function () {
+      this.entry = this.entryEditing
+      this.$nextTick(() => {
+        if (this.$refs.entry) {
+          this.$refs.entry.focus()
+        }
+      })
     },
   },
   methods: {
@@ -183,10 +197,9 @@ export default {
     },
     confirmEntry() {
       if (this.entry.length > 0) {
+        this.errors.entry = false
         this.addEntry(this.entry)
         this.entry = ''
-        this.$refs.entry.focus()
-        this.firstEntryAdded = true
       } else {
         this.errors.entry = true
       }
@@ -219,6 +232,7 @@ export default {
       'unconfirmTeams',
       'unsetTurnTime',
       'buttonClicked',
+      'previousEntry',
     ]),
     ...mapActions([
       'setPlayerName',

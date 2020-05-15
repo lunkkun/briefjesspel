@@ -57,6 +57,7 @@ export default {
     // private settings for player
     font: null,
     entries: [],
+    entriesConfirmed: 0,
   },
   getters: {
     isMaster: (state) => {
@@ -74,8 +75,11 @@ export default {
     entriesPerPlayerSet: (state) => {
       return !!state.entriesPerPlayer
     },
+    entryEditing: (state) => {
+      return state.entries[state.entriesConfirmed] || ''
+    },
     enoughEntries: (state) => {
-      return state.entries.length >= state.entriesPerPlayer
+      return state.entriesConfirmed >= state.entriesPerPlayer
     },
     turnTimeSet: (state) => {
       return !!state.turnTime
@@ -348,8 +352,12 @@ export default {
     setFont(state, font) {
       state.font = font
     },
-    addEntry(state, entry) {
-      state.entries.push(entry)
+    addEntry(state, {index, entry}) {
+      Vue.set(state.entries, index, entry)
+      state.entriesConfirmed++
+    },
+    previousEntry(state) {
+      state.entriesConfirmed--
     },
     selectPlayer(state, id) {
       if (state.player.id !== id) {
@@ -416,9 +424,10 @@ export default {
       await dispatch(msg('setContainer', container))
       commit('setContainer', container)
     },
-    async addEntry({commit, dispatch}, entry) {
-      await dispatch(msg('addEntry', entry))
-      commit('addEntry', entry)
+    async addEntry({state, commit, dispatch}, entry) {
+      const index = state.entriesConfirmed
+      await dispatch(msg('addEntry', {index, entry}))
+      commit('addEntry', {index, entry})
     },
     async addTeam({dispatch}, name) {
       await dispatch(msg('addTeam', name))
