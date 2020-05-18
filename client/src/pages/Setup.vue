@@ -17,7 +17,7 @@
     <div v-else-if="!playerNameSet" @keydown.enter="confirmPlayerName()">
       <div class="fadeIn">
         <label class="textFont smediumFont labelPosition" for="playerName">Vul je naam in:</label>
-        <input ref="playerName" id="playerName" class="textFont largeFont centerTextVH" style="color: #688980;"
+        <input ref="playerName" id="playerName" class="textFont largeFont centerTextVH inputField"
                type="text" autocomplete="off" maxlength="30" v-model="playerName" v-focus>
       </div>
       <div v-if="errors.playerName" class="textFont tinyFont error">Minimaal twee letters...</div>
@@ -27,7 +27,7 @@
 <!-- Briefjes pp -->
     <div v-else-if="!entriesPerPlayerSet && isMaster" @keydown.enter="confirmEntriesPerPlayer()">
       <label class="textFont smallFont labelPosition" for="entriesPerPlayer">Aantal briefjes per speler:</label>
-      <input id="entriesPerPlayer" class="textFont mediumFont centerTextVH" style="color: #688980;" type="number"
+      <input id="entriesPerPlayer" class="textFont mediumFont centerTextVH inputField" style="width: 8%;" type="number"
              min="1" max="9" autocomplete="off" :value="entriesPerPlayer" @input.number="updateEntriesPerPlayer" v-focus v-select>
       <div v-if="errors.entriesPerPlayer" class="textFont tinyFont error">Vul een getal in tussen de 1 en de 9</div>
       <NextButton @click="confirmEntriesPerPlayer()"></NextButton>
@@ -38,7 +38,7 @@
       <label class="textFont smallFont labelPosition" for="entry">
         Briefje {{ entriesConfirmed + 1 }} (van de {{ ofTotalEntries }}):
       </label>
-      <input id="entry" ref="entry" class="textFont mediumFont centerTextVH" style="color: #688980;" maxlength="30"
+      <input id="entry" ref="entry" class="textFont mediumFont centerTextVH inputField" maxlength="30"
              type="text" autocomplete="off" v-model="entry" v-focus>
       <div v-if="errors.entry" class="textFont tinyFont error">Het briefje is leeg...</div>
       <NextButton @click="confirmEntry()"></NextButton>
@@ -401,5 +401,13 @@ export default {
   width: 100%;
   text-align: center;
   color: red;
+}
+.inputField {
+  width: 80%;
+  color: #688980;
+  border-bottom: solid 0.1vmin rgba(104,137,128,0.4);
+}
+.inputField:focus {
+  border-bottom: solid 0.1vmin rgba(104,137,128,0.7);
 }
 </style>
