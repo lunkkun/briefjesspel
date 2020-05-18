@@ -4,11 +4,13 @@
     <PapersFolded></PapersFolded>
     <div v-if="!timerStarted" class="timerStartButton" @click="startTimer()"></div>
     <transition name="paper" mode="out-in">
-      <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}"
-           @click="requestNextEntry()" :key="entry.text">
-        <span class="centerWord" :style="{fontFamily: entry.font + ', daniel'}">{{ entry.text }}</span>
+      <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}" @click="requestNextEntry()" :key="entry.text">
+        <span class="centerWord" :style="{fontFamily: entry.font + ', daniel'}">
+          {{ entry.text }}
+        </span>
       </div>
     </transition>
+    <div class="swipeTo"></div>
     <Timer></Timer>
   </div>
 </template>
@@ -88,6 +90,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.swipeTo {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 98vmin;
+  height: 8vh;
+}
 .centerWord {
   display: block;
   position: absolute;
@@ -114,7 +125,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 98vmin;
-  height: 98vmin;
+  height: 80vh;
 }
 .timerStartButton {
   display: block;
@@ -136,30 +147,34 @@ export default {
   animation-fill-mode: forwards;
 }
 @keyframes unfold {
-  0% {transform: translate(-50%, -50%) scale(0, 0.5);}
+  0% {transform: translate(-50%, -50%) scale(0, 0);}
   70% {transform: translate(-50%, -50%) scale(0, 0.5);}
   100% {transform: translate(-50%, -50%) scale(1, 1);}
 }
 
 .paper-leave-active {
   animation-name: drop;
-  animation-duration: 0.15s;
+  animation-duration: 0.25s;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
 }
 @keyframes drop {
-  0% {transform: translate(-50%, -50%) scale(1);}
-  100% {transform: translate(-50%, 200%) scale(0);}
+  0% {transform: translate(-50%, -50%) scaleX(1);}
+  100% {transform: translate(-50%, 200%) scaleX(0);}
 }
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
-  .paperUnfolded {
+  .swipeTo {
     width: 600px;
-    height: 420px;
+    /*height: calc(50vh - 210px);*/
   }
   .centerWord {
     font-size: 55px;
+  }
+  .paperUnfolded {
+    width: 600px;
+    /*height: 420px;*/
   }
 }
 </style>
