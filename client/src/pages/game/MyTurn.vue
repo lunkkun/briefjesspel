@@ -18,9 +18,11 @@
           Behaalde score: {{ scoreThisTurn }}<br>
           Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
       </div>
-      <div class="headerFont mediumFont noSelect" @click="nextTurn()">
+      <div class="headerFont mediumFont noSelect">
         <br>Geef de beurt door
       </div>
+      <NextButton @click="nextTurn()"></NextButton>
+      <div class="transparentOverlayButton" @click="nextTurn()"></div>
     </div>
   </div>
 </template>
@@ -66,5 +68,14 @@ export default {
   top: 66%;
   width: 100%;
   text-align: center;
+}
+.transparentOverlayButton {
+  display: block;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -20,6 +20,10 @@
         <span v-else>
           Volgende speler: {{ nextPlayerName }} ({{ nextTeamName }})
         </span>
+        <br><br><br>
+        <span class="microFont">
+          Wacht tot {{ activePlayerName }} de beurt doorgeeft.
+        </span>
       </div>
     </div>
   </div>
