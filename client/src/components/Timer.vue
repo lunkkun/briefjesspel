@@ -25,8 +25,8 @@ export default {
   display: block;
   background-color: transparent;
   position: absolute;
-  bottom: 4vmin;
-  right: 4vmin;
+  bottom: 5vmin;
+  right: 5vmin;
   font-weight: bold;
   text-align: left;
   overflow: visible;
