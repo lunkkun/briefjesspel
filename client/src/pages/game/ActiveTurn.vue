@@ -10,7 +10,10 @@
         </span>
       </div>
     </transition>
-    <div class="swipeTo"></div>
+    <div class="swipeToV swipeToTop"></div>
+    <div class="swipeToH swipeToRight"></div>
+    <div class="swipeToV swipeToBottom"></div>
+    <div class="swipeToH swipeToLeft"></div>
     <Timer></Timer>
   </div>
 </template>
@@ -90,14 +93,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.swipeTo {
+.swipeToV {
   display: block;
   position: absolute;
-  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 98vmin;
-  height: 8vh;
+  width: 94vmin;
+  height: calc(50vh - 37.5vmin);
+}
+.swipeToH {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(50vw - 49vmin);
+  height: 70vmin;
+}
+.swipeToTop {
+  top: 0;
+}
+.swipeToRight {
+  right: 0;
+}
+.swipeToBottom {
+  bottom: 0;
+}
+.swipeToLeft {
+  left: 0;
 }
 .centerWord {
   display: block;
@@ -124,8 +146,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 98vmin;
-  height: 80vh;
+  width: 94vmin;
+  height: 70vmin;
 }
 .timerStartButton {
   display: block;
@@ -165,16 +187,20 @@ export default {
 
 @media screen and (min-width: 613px) and (min-height: 613px) {
 
-  .swipeTo {
-    width: 600px;
-    /*height: calc(50vh - 210px);*/
+  .swipeToV {
+    width: 576px;
+    height: calc(50vh - 230px);
+  }
+  .swipeToH {
+    height: 430px;
+    width: calc(50vw - 300px);
   }
   .centerWord {
     font-size: 55px;
   }
   .paperUnfolded {
-    width: 600px;
-    /*height: 420px;*/
+    width: 576px;
+    height: 430px;
   }
 }
 </style>
