@@ -92,6 +92,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+  height: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
   background-color: #688980;
   overflow: hidden;
 }
