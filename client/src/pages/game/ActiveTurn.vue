@@ -1,10 +1,12 @@
 <template>
   <div>
+    <button v-if="showPaperUnfolded" class="textFont smediumFont topButton" @click="finishTurn">Foutje, beurt voorbij.</button>
+    <button v-if="showPaperUnfolded" class="textFont smediumFont bottomButton" @click="requestNextEntry()" :key="entry.text">Goed! Volgende.</button>
     <PaperBowl></PaperBowl>
     <PapersFolded></PapersFolded>
     <div v-if="!timerStarted" class="timerStartButton" @click="startTimer()"></div>
     <transition name="paper" mode="out-in">
-      <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}" @click="requestNextEntry()" :key="entry.text">
+      <div v-if="showPaperUnfolded" class="transparentButton paperUnfolded" :style="{backgroundImage: paperUnfoldedImg}">
         <span class="centerWord" :style="{fontFamily: entry.font + ', daniel'}">
           {{ entry.text }}
         </span>
@@ -87,12 +89,43 @@ export default {
     ...mapActions([
       'startTimer',
       'nextEntry',
+      'finishTurn',
     ])
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.topButton {x 10% 0px 10%;
+  display: inline-block;
+  position: absolute;
+  top: 15%;
+  z-index: 1;
+  padding: 10px;
+  margin: 10px;
+  color: black;
+  border-radius: 15px;
+  border: 2px solid #B00000;
+  background: #B00000;
+  text-align: center;
+  margin: 0px 10% 0px 10%;
+  width: 80%;
+}
+.bottomButton {
+  display: inline-block;
+  position: absolute;
+  bottom: 15%;
+  z-index: 1;
+  padding: 10px;
+  margin: 10px;
+  color: black;
+  border-radius: 15px;
+  border: 2px solid green;
+  background: green;
+  text-align: center;
+  margin: 0px 10% 0px 10%;
+  width: 80%;
+}
 .swipeToV {
   display: block;
   position: absolute;
