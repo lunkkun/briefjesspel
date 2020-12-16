@@ -463,6 +463,9 @@ export default {
     async nextEntry({dispatch}) {
       await dispatch(msg('nextEntry'))
     },
+    async finishTurn({dispatch}) {
+      await dispatch(msg('finishTurn'))
+    },
     async nextTurn({dispatch}) {
       await dispatch(msg('nextTurn'))
     },
