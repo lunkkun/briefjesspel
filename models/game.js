@@ -345,9 +345,9 @@ class Game extends EventEmitter {
       team.scoreThisRound = 0
     })
 
-    // this.turnTimeLeft = this.turnTime
-    // this._shiftTurn()
-    // Finish the turn next round
+    this.turnTimeLeft = this.turnTime
+    this._shiftTurn()
+    // Don't finish the turn next round
 
     this.emit('nextRound')
   }
