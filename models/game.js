@@ -308,6 +308,8 @@ class Game extends EventEmitter {
   }
 
   finishTurn() {
+    clearInterval(this._timer)
+    
     this.turnFinished = true
 
     this.emit('turnFinished')
