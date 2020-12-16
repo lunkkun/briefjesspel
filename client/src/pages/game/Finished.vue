@@ -12,7 +12,6 @@
     </ul>
 
     <button v-if="isMaster" class="textFont smallerFont transparentButton buttonLeft" @click="newGameFromCurrent()">Opnieuw</button><br>
-    <button class="textFont smallerFont transparentButton buttonRight" @click="leaveGame()">Verlaat het spel</button>
   </div>
 </template>
 
