@@ -77,7 +77,7 @@
       </div>
 
       <PreviousButton v-if="isMaster" @click="unsetTurnTime()"></PreviousButton>
-      <PreviousButton v-else @click="previousEntry()"></PreviousButton>
+      <PreviousButton v-else-if="entriesConfirmed > 0" @click="previousEntry()"></PreviousButton>
     </div>
   </div>
 </template>
