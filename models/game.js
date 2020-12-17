@@ -268,7 +268,8 @@ class Game extends EventEmitter {
 
       this._collectEntries()
       this._randomizeTurnOrder()
-
+      this._randomizeEntries()
+      
       this.turnTimeLeft = this.turnTime
       this.isStarted = true
 
@@ -282,6 +283,7 @@ class Game extends EventEmitter {
     if (this.canStartRound) {
       this._randomizeEntries()
 
+      this.turnTimeLeft = this.turnTime
       this.roundStarted = true
 
       this.emit('roundStarted')
